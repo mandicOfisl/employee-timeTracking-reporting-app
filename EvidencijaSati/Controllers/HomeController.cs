@@ -8,7 +8,7 @@ namespace EvidencijaSati.Controllers
 {
 	 public class HomeController : Controller
 	 {
-		  public ActionResult Index()
+		  public ActionResult Login()
 		  {
 				return View();
 		  }
