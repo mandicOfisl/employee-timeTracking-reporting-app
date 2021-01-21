@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EvidencijaSati.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,18 +14,38 @@ namespace EvidencijaSati.Controllers
 				return View();
 		  }
 
-		  public ActionResult About()
+		  public ActionResult AuthorizeUser(string username, string password)
 		  {
-				ViewBag.Message = "Your application description page.";
+				string action, controller;
+				try
+				{
+					 Djelatnik djelatnik = Repo.GetDjelatnikByName(username);
+					 if (djelatnik.Password == password)
+					 {
+						  switch (djelatnik.TipDjelatnika)
+						  {
+								case TipDjelatnikaEnum.DIREKTOR:
+									 break;
+								case TipDjelatnikaEnum.VODITELJ_TIMA:
+									 break;
+								case TipDjelatnikaEnum.ZAPOSLENIK:
+									 break;
+								case TipDjelatnikaEnum.HONORARNI_DJELATNIK:
+									 break;
+								case TipDjelatnikaEnum.STUDENT:
+									 break;
+								default:
+									 break;
+						  }
+					 }
+				}
+				catch (Exception)
+				{
+					 return View("Error");
+				}
 
-				return View();
-		  }
 
-		  public ActionResult Contact()
-		  {
-				ViewBag.Message = "Your contact page.";
-
-				return View();
+				return RedirectToAction(action, controller);
 		  }
 	 }
 }

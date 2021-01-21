@@ -13,5 +13,9 @@ namespace EvidencijaSati.Models
 		  private static readonly string cs =
 				ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
 
+		  internal static Djelatnik GetDjelatnikByName(string username)
+		  {
+				throw new NotImplementedException();
+		  }
 	 }
 }
