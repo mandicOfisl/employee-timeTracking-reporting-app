@@ -12,7 +12,7 @@ namespace EvidencijaSati.Controllers
 	 {
 		  public ActionResult Login()
 		  {
-				return View();
+				return View(new Djelatnik());
 		  }
 
 		  public ActionResult AuthorizeUser(string email, string password)
@@ -24,10 +24,14 @@ namespace EvidencijaSati.Controllers
 					 {						  
 						  return RedirectToAction("UnosSati", "Satnica", new { id = djelatnik.IDDjelatnik });
 					 }
+					 else
+					 {
+						  return View("Error", new ErrorVM { Msg = "Please check your email and password." });
+					 }
 				}
 				catch (Exception)
 				{
-					 return View("Error", new ErrorVM { Msg = "Please check your email and password." });
+					 return View("Error", new ErrorVM { Msg = "There has been an error. Please try again later." });
 				}
 		  }
 	 }
