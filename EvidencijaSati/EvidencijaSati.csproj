@@ -125,6 +125,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Djelatnik.cs" />
+    <Compile Include="Models\Projekt.cs" />
     <Compile Include="Models\Repo.cs" />
     <Compile Include="Models\TipDjelatnikaEnum.cs" />
     <Compile Include="Models\UnosSatiVM.cs" />
