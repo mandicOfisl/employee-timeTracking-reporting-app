@@ -14,13 +14,13 @@ namespace EvidencijaSati.Controllers
 				return View();
 		  }
 
-		  public ActionResult AuthorizeUser(string username, string password)
+		  public ActionResult AuthorizeUser(string email, string password)
 		  {
 				string action, controller;
 				try
 				{
-					 Djelatnik djelatnik = Repo.GetDjelatnikByName(username);
-					 if (djelatnik.Password == password)
+					 Djelatnik djelatnik = Repo.GetDjelatnikByEmail(email);
+					 if (djelatnik.Zaporka == password)
 					 {
 
 						  return View("UnosSati", model)
