@@ -1,4 +1,5 @@
 ﻿using EvidencijaSati.Models;
+using EvidencijaSati.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,18 +21,13 @@ namespace EvidencijaSati.Controllers
 				{
 					 Djelatnik djelatnik = Repo.GetDjelatnikByEmail(email);
 					 if (djelatnik.Zaporka == password)
-					 {
-						  UnosSatiVM model = new UnosSatiVM
-						  {
-								Djelatnik = djelatnik,
-								Projekti = Repo.GetProjektiDjelatnika(djelatnik.IDDjelatnik)
-						  };
-						  return View("UnosSati", model);
+					 {						  
+						  return RedirectToAction("UnosSati", "Satnica", new { id = djelatnik.IDDjelatnik });
 					 }
 				}
 				catch (Exception)
 				{
-					 return View("Error");
+					 return View("Error", new ErrorVM { Msg = "Please check your email and password." });
 				}
 		  }
 	 }
