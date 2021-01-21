@@ -7,10 +7,10 @@ namespace EvidencijaSati.Models
 {
 	 public class Projekt
 	 {
-		  public int Id { get; set; }
+		  public int IDProjekt { get; set; }
 		  public string Naziv { get; set; }
-		  public int KlijentId { get; set; }
+		  public int KlijentID { get; set; }
 		  public DateTime DatumOtvaranja { get; set; }
-		  public int VoditeljProjektaId { get; set; }
+		  public int VoditeljProjektaID { get; set; }
 	 }
 }
