@@ -45,5 +45,10 @@ namespace EvidencijaSati.Models
 					 throw new Exception("No can do!");
 				}
 		  }
+
+		  internal static List<Projekt> GetProjektiDjelatnika(int iDDjelatnik)
+		  {
+				throw new NotImplementedException();
+		  }
 	 }
 }

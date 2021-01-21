@@ -128,7 +128,7 @@
     <Compile Include="Models\Projekt.cs" />
     <Compile Include="Models\Repo.cs" />
     <Compile Include="Models\TipDjelatnikaEnum.cs" />
-    <Compile Include="Models\UnosSatiVM.cs" />
+    <Compile Include="Models\ViewModels\UnosSatiVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

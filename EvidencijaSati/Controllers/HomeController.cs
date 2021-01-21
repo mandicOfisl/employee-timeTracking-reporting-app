@@ -16,23 +16,23 @@ namespace EvidencijaSati.Controllers
 
 		  public ActionResult AuthorizeUser(string email, string password)
 		  {
-				string action, controller;
 				try
 				{
 					 Djelatnik djelatnik = Repo.GetDjelatnikByEmail(email);
 					 if (djelatnik.Zaporka == password)
 					 {
-
-						  return View("UnosSati", model)
+						  UnosSatiVM model = new UnosSatiVM
+						  {
+								Djelatnik = djelatnik,
+								Projekti = Repo.GetProjektiDjelatnika(djelatnik.IDDjelatnik)
+						  };
+						  return View("UnosSati", model);
 					 }
 				}
 				catch (Exception)
 				{
 					 return View("Error");
 				}
-
-
-				return RedirectToAction(action, controller);
 		  }
 	 }
 }
