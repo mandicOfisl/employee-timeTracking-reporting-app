@@ -23,20 +23,20 @@ namespace EvidencijaSati.Models
 					 {
 						  cmd.CommandType = CommandType.StoredProcedure;
 						  cmd.CommandText = "GetDjelatnikByEmail";
-						  cmd.Parameters.AddWithValue("@Name", email);
+						  cmd.Parameters.AddWithValue("@Email", email);
 						  using (SqlDataReader dr = cmd.ExecuteReader())
 						  {
 								if (dr.Read())
 								{
 									 return new Djelatnik
-									 {
+									 { 
 										  IDDjelatnik = (int)dr[nameof(Djelatnik.IDDjelatnik)],
 										  Ime = dr[nameof(Djelatnik.Ime)].ToString(),
 										  Prezime = dr[nameof(Djelatnik.Prezime)].ToString(),
 										  Email = dr[nameof(Djelatnik.Email)].ToString(),
 										  DatumZaposlenja = DateTime.Parse(dr[nameof(Djelatnik.DatumZaposlenja)].ToString()),
 										  Zaporka = dr[nameof(Djelatnik.Zaporka)].ToString(),
-										  TipDjelatnika = (TipDjelatnikaEnum)(int)dr[nameof(Djelatnik.TipDjelatnika)],
+										  TipDjelatnikaID = (TipDjelatnikaEnum)(int)dr[nameof(Djelatnik.TipDjelatnikaID)],
 										  TimID = (int)dr[nameof(Djelatnik.TimID)]
 									 };
 								}

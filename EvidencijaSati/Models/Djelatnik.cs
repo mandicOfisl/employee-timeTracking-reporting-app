@@ -13,7 +13,7 @@ namespace EvidencijaSati.Models
 		  public string Email { get; set; }
 		  public DateTime DatumZaposlenja { get; set; }
 		  public string Zaporka { get; set; }
-		  public TipDjelatnikaEnum TipDjelatnika { get; set; }
+		  public TipDjelatnikaEnum TipDjelatnikaID { get; set; }
 		  public int TimID { get; set; }
 
 		  public override string ToString() => Ime + " " + Prezime;
