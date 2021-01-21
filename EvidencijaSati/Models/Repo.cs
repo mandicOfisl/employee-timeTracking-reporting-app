@@ -46,6 +46,11 @@ namespace EvidencijaSati.Models
 				}
 		  }
 
+		  internal static Djelatnik SelectDjelatnik(int id)
+		  {
+				throw new NotImplementedException();
+		  }
+
 		  internal static List<Projekt> GetProjektiDjelatnika(int iDDjelatnik)
 		  {
 				throw new NotImplementedException();
