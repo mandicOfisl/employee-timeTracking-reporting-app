@@ -133,6 +133,7 @@
     <Compile Include="Models\Djelatnik.cs" />
     <Compile Include="Models\Projekt.cs" />
     <Compile Include="Models\Repo.cs" />
+    <Compile Include="Models\Satnica.cs" />
     <Compile Include="Models\TipDjelatnikaEnum.cs" />
     <Compile Include="Models\ViewModels\ErrorVM.cs" />
     <Compile Include="Models\ViewModels\UnosSatiVM.cs" />
