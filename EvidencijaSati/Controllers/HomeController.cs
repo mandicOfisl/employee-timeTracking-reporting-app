@@ -22,21 +22,8 @@ namespace EvidencijaSati.Controllers
 					 Djelatnik djelatnik = Repo.GetDjelatnikByName(username);
 					 if (djelatnik.Password == password)
 					 {
-						  switch (djelatnik.TipDjelatnika)
-						  {
-								case TipDjelatnikaEnum.DIREKTOR:
-									 break;
-								case TipDjelatnikaEnum.VODITELJ_TIMA:
-									 break;
-								case TipDjelatnikaEnum.ZAPOSLENIK:
-									 break;
-								case TipDjelatnikaEnum.HONORARNI_DJELATNIK:
-									 break;
-								case TipDjelatnikaEnum.STUDENT:
-									 break;
-								default:
-									 break;
-						  }
+
+						  return View("UnosSati", model)
 					 }
 				}
 				catch (Exception)
