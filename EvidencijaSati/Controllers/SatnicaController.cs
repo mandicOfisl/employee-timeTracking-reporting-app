@@ -17,14 +17,14 @@ namespace EvidencijaSati.Controllers
             {
                 Djelatnik = Repo.SelectDjelatnik(id),
                 Projekti = Repo.GetProjektiDjelatnika(id).ToList(),
-                Satnica = new Satnica()
+                Satnica = new SatnicaProjekta()
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult SpremiTempSatnicu(Satnica satnica)
+        public ActionResult SpremiTempSatnicu(SatnicaProjekta satnica)
 		  {
             //Repo.SaveTempSatnica(satnica);
             

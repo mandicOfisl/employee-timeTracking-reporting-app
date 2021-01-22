@@ -172,14 +172,6 @@
 					 $(this).addClass('btn-success');
 					 $(this).html('Start');
 
-					 console.log(end - start);
-					 var times = new Array();
-					 times = {
-						  start,
-						  end
-					 };
-
-
 					 var model = {
 						  IDSatnica: -1,
 						  DjelatnikID: @Model.Djelatnik.IDDjelatnik,
@@ -198,8 +190,6 @@
 						  contentType: 'application/json',
 						  success: function (res) {
 								var projId = 'txtZab' + res[3];
-								var sel = 'td.zabiljezeno[id=\'' + projId + '\']';
-								//$(sel).html(res[2]);
 								var rowNum =
 									 document.getElementById(projId).parentElement.className.split(' ')[0].split('row')[1];
 								table.cell(rowNum, 1, 0).data(res[2]).draw();
