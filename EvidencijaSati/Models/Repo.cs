@@ -49,6 +49,35 @@ namespace EvidencijaSati.Models
 				}
 		  }
 
+		  internal static Projekt SelectProjekt(int iDProjekt)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "SelectProjekt";
+						  cmd.Parameters.AddWithValue("@Id", iDProjekt);
+						  using (SqlDataReader dr = cmd.ExecuteReader())
+						  {
+								if (dr.Read())
+								{
+									 return new Projekt
+									 {
+										  IDProjekt = (int)dr[nameof(Projekt.IDProjekt)],
+										  Naziv = dr[nameof(Projekt.Naziv)].ToString(),
+										  KlijentID = (int)dr[nameof(Projekt.KlijentID)],
+										  DatumOtvaranja = DateTime.Parse(dr[nameof(Projekt.DatumOtvaranja)].ToString()),
+										  VoditeljProjektaID = (int)dr[nameof(Projekt.VoditeljProjektaID)]
+									 };
+								}
+						  }
+					 }
+					 throw new Exception("No can do!");
+				}
+		  }
+
 		  internal static Djelatnik SelectDjelatnik(int id)
 		  {
 				using (SqlConnection con = new SqlConnection(cs))
