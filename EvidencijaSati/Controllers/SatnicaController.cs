@@ -19,7 +19,7 @@ namespace EvidencijaSati.Controllers
                 Projekti = Repo.GetProjektiDjelatnika(id).ToList(),
                 Satnica = new Satnica()
 					 {
-                    ProjektSati = new Dictionary<Projekt, float>()
+                    ProjektSati = new Dictionary<Projekt, List<TimePeriod>>()
 					 }
             };
 

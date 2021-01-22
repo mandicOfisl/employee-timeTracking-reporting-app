@@ -9,7 +9,8 @@ namespace EvidencijaSati.Models
 	 {
 		  public int IDSatnica { get; set; }
 		  public DateTime Datum { get; set; }
-		  public Dictionary<Projekt, float> ProjektSati { get; set; }
+		  public Dictionary<Projekt, List<TimePeriod>> ProjektSati { get; set; }
 		  public string Komentar { get; set; }
+
 	 }
 }

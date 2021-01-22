@@ -37,22 +37,20 @@
 						  	 	 <td></td>
 						  	 	 <td>
 									 <button id="btnBolovanje"
-												class="btn btn-success"
+												class="btn btn-success btnTimer"
 												type="button">Start
 									 </button>
 								 </td>
 						  	 	 <td></td>
 						  	 	 <td></td>
-						  	 	 <td>
-									 
-								</td>
+						  	 	 <td></td>
 						  	 </tr>
 						  	 <tr>
 						  	 	 <td>Godišnji odmor</td>
 						  	 	 <td></td>
 								<td>
 									 <button id="btnGodisnji"
-												class="btn btn-success"
+												class="btn btn-success btnTimer"
 												type="button">Start
 									 </button>
 								</td>
@@ -67,7 +65,7 @@
 						  		  <td></td>
 						  		  <td>
 											<button id="@("btnProjekt" + projekt.IDProjekt)"
-													  class="btn btn-success"
+													  class="btn btn-success btnTimer"
 													  type="button">
 												 Start
 											</button>
@@ -87,7 +85,7 @@
 						  		  <td></td>
 						  		  <td>
 											<button id="btnPutovanje"
-													  class="btn btn-success"
+													  class="btn btn-success btnTimer"
 													  type="button">
 												 Start
 											</button>
@@ -119,6 +117,9 @@
 <script type="text/javascript">
 
 	 $(document).ready(function () {
+
+		  var start, end;
+
 		  $("#table").DataTable({
 				paging: false,
 				ordering: false,
@@ -143,6 +144,49 @@
 					 }
 				]
 		  });
+
+		  $('button.btnTimer').click(function (e) {
+				e.preventDefault();
+				var projectId;
+
+				if ($(this).hasClass('btn-success')) {
+					 start = new Date();
+					 if (isProject(this.id)) {
+						  projectId = this.id.split('btnProjekt')[1];
+					 } else {
+						  projectId = this.id;
+					 }					 
+
+					 $(this).removeClass('btn-success');
+					 $(this).addClass('btn-danger');
+					 $(this).html('Stop');
+
+					 $('button.btn-success').prop('disabled', true);
+
+				} else {
+					 end = new Date();
+
+					 $('button.btn-success').prop('disabled', false);
+
+					 $(this).removeClass('btn-danger');
+					 $(this).addClass('btn-success');
+					 $(this).html('Start');
+
+
+					 console.log(end - start);
+
+				}
+
+		  });
+
+		  function isProject(id) {
+				if (id == 'btnBolovanje' || id == 'btnGodisnji' || id == 'btnPutovanje') {
+					 return false;
+				} else {
+					 return true;
+				}
+		  }
+
 	 });
 
 
