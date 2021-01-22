@@ -1,5 +1,8 @@
 ﻿@model EvidencijaSati.Models.ViewModels.UnosSatiVM
 
+@Scripts.Render("~/bundles/dataTables")
+@Styles.Render("~/Content/dataTables")
+
 <h1>Pozdrav @Model.Djelatnik.Ime !</h1>
 
 <div class="container">
@@ -16,9 +19,84 @@
 		  <div class="row">
 				<div class="card card-body">
 
+					 <table id="table" style="width: 100%">
+						  <thead>
+								<tr>
+									 <th>Projekt</th>
+									 <th>Zabilježeno</th>
+									 <th>Start / Stop</th>
+									 <th>Radni sati</th>
+									 <th>Prekovremeni sati</th>
+									 <th>Detalji</th>
+								</tr>
+							</thead>
+						  <tbody>
+						  	 <tr>
+						  	 	 <td>Bolovanje</td>
+						  	 	 <td></td>
+						  	 	 <td></td>
+						  	 	 <td></td>
+						  	 	 <td></td>
+						  	 	 <td></td>
+						  	 </tr>
+						  	 <tr>
+						  	 	 <td>Godišnji odmor</td>
+						  	 	 <td></td>
+						  	 	 <td></td>
+						  	 	 <td></td>
+						  	 	 <td></td>
+						  	 	 <td></td>
+						  	 </tr>
+							 @foreach (var projekt in Model.Projekti)
+							 {
+								<tr>
+						  		  <td>@projekt.Naziv</td>
+						  		  <td></td>
+						  		  <td></td>
+						  		  <td></td>
+						  		  <td></td>
+						  		  <td></td>
+								</tr>
+							 }
+								<tr>
+						  		  <td>Putovanje</td>
+						  		  <td></td>
+						  		  <td></td>
+						  		  <td></td>
+						  		  <td></td>
+						  		  <td></td>
+								</tr>
+						  </tbody>
+						  <tfoot>
+								<tr>
+									 <td>Ukupno</td>
+									 <td></td>
+									 <td></td>
+									 <td></td>
+									 <td></td>
+									 <td></td>
+								</tr>
+						  </tfoot>
+					 </table>
+
 				</div>
 			 </div>
 		  <div class="row"></div>
 
 	  }
 </div>
+
+<script type="text/javascript">
+
+	 $(document).ready(function () {
+		  $("#table").DataTable({
+				paging: false,
+				ordering: false,
+				info: false,
+				searching: false
+		  });
+	 });
+
+
+
+</script>

@@ -16,7 +16,8 @@ namespace EvidencijaSati.Controllers
             UnosSatiVM model = new UnosSatiVM
             {
                 Djelatnik = Repo.SelectDjelatnik(id),
-                Projekti = Repo.GetProjektiDjelatnika(id).ToList()
+                Projekti = Repo.GetProjektiDjelatnika(id).ToList(),
+                Satnica = new Satnica()
             };
 
             return View(model);
