@@ -33,9 +33,9 @@
 								</tr>
 							</thead>
 						  <tbody>
-						  	 <tr>
+						  	 <tr class="row0">
 						  	 	 <td>Bolovanje</td>
-						  	 	 <td></td>
+						  	 	 <td id="txtZabBolovanje" class="zabiljezeno"></td>
 						  	 	 <td>
 									 <button id="btnBolovanje"
 												class="btn btn-success btnTimer"
@@ -46,9 +46,9 @@
 						  	 	 <td></td>
 						  	 	 <td></td>
 						  	 </tr>
-						  	 <tr>
+						  	 <tr  class="row1">
 						  	 	 <td>Godišnji odmor</td>
-						  	 	 <td></td>
+						  	 	 <td id="txtZabGodisnji" class="zabiljezeno"></td>
 								<td>
 									 <button id="btnGodisnji"
 												class="btn btn-success btnTimer"
@@ -59,13 +59,13 @@
 						  	 	 <td></td>
 						  	 	 <td></td>
 						  	 </tr>
-							 @foreach (var projekt in Model.Projekti)
+							 @for (int i = 0; i < Model.Projekti.Count; i++)
 							 {
-								<tr>
-						  		  <td>@projekt.Naziv</td>
-						  		  <td></td>
+								<tr class="@("row" + (i + 2))">
+						  		  <td>@Model.Projekti[i].Naziv</td>
+						  		  <td id="@("txtZab" + Model.Projekti[i].IDProjekt)" class="zabiljezeno"></td>
 						  		  <td>
-											<button id="@("btnProjekt" + projekt.IDProjekt)"
+											<button id="@("btnProjekt" + Model.Projekti[i].IDProjekt)"
 													  class="btn btn-success btnTimer"
 													  type="button">
 												 Start
@@ -75,15 +75,15 @@
 						  		  <td></td>
 						  		  <td>
 										<a href="#"
-										   id="@("btnInfo" + projekt.IDProjekt)">
+										   id="@("btnInfo" + Model.Projekti[i].IDProjekt)">
 												<i class="fa fa-info-circle fa-3x" style="color: grey;"></i>
 										 </a>
 									</td>
 								</tr>
 							 }
-								<tr>
+								<tr class="@("row" + Model.Projekti.Count + 2)">
 						  		  <td>Putovanje</td>
-						  		  <td></td>
+						  		  <td id="txtZabPutovanje" class="zabiljezeno"></td>
 						  		  <td>
 											<button id="btnPutovanje"
 													  class="btn btn-success btnTimer"
@@ -121,7 +121,7 @@
 
 		  var projectId, start, end;
 
-		  $("#table").DataTable({
+		  var table = $("#table").DataTable({
 				paging: false,
 				ordering: false,
 				info: false,
@@ -154,7 +154,7 @@
 					 if (isProject(this.id)) {
 						  projectId = this.id.split('btnProjekt')[1];
 					 } else {
-						  projectId = this.id;
+						  projectId = this.id.split('btn')[1];
 					 }					 
 
 					 $(this).removeClass('btn-success');
@@ -197,8 +197,12 @@
 						  data: JSON.stringify(model),
 						  contentType: 'application/json',
 						  success: function (res) {
-
-
+								var projId = 'txtZab' + res[3];
+								var sel = 'td.zabiljezeno[id=\'' + projId + '\']';
+								//$(sel).html(res[2]);
+								var rowNum =
+									 document.getElementById(projId).parentElement.className.split(' ')[0].split('row')[1];
+								table.cell(rowNum, 1, 0).data(res[2]).draw();
 								console.log(res);
 						  }
 					 });

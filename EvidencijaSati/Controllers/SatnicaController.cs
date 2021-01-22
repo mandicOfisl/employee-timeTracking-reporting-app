@@ -40,7 +40,7 @@ namespace EvidencijaSati.Controllers
 
             string[] res =
             {
-                s, e, diff.ToString()
+                s, e, diff.ToString(), satnica.ProjektID
             };
 
             return Json(res);
