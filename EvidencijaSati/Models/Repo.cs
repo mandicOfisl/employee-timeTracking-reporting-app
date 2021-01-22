@@ -39,7 +39,8 @@ namespace EvidencijaSati.Models
 										  DatumZaposlenja = DateTime.Parse(dr[nameof(Djelatnik.DatumZaposlenja)].ToString()),
 										  Zaporka = dr[nameof(Djelatnik.Zaporka)].ToString(),
 										  TipDjelatnikaID = (TipDjelatnikaEnum)(int)dr[nameof(Djelatnik.TipDjelatnikaID)],
-										  TimID = (int)dr[nameof(Djelatnik.TimID)]
+										  TimID =  int.TryParse(dr[nameof(Djelatnik.TimID)].ToString(), out _) ?
+														  (int)dr[nameof(Djelatnik.TimID)] : 0
 									 };
 								}
 						  }
@@ -71,7 +72,8 @@ namespace EvidencijaSati.Models
 										  DatumZaposlenja = DateTime.Parse(dr[nameof(Djelatnik.DatumZaposlenja)].ToString()),
 										  Zaporka = dr[nameof(Djelatnik.Zaporka)].ToString(),
 										  TipDjelatnikaID = (TipDjelatnikaEnum)(int)dr[nameof(Djelatnik.TipDjelatnikaID)],
-										  TimID = (int)dr[nameof(Djelatnik.TimID)]
+										  TimID = int.TryParse(dr[nameof(Djelatnik.TimID)].ToString(), out _) ?
+														  (int)dr[nameof(Djelatnik.TimID)] : 0
 									 };
 								}
 						  }
