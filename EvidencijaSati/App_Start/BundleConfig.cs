@@ -26,7 +26,7 @@ namespace EvidencijaSati
 							 "~/Scripts/bootstrap.js"));
 
 				bundles.Add(new StyleBundle("~/Content/css").Include(
-							 "~/Content/bootstrap.css"));
+							 "~/Content/bootstrap.css", "~/Content/font-awesome.min.css"));
 
 				bundles.Add(new StyleBundle("~/Content/Login").Include(
 							 "~/Content/login.css"));

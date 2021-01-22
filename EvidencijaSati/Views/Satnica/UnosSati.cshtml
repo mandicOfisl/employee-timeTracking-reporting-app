@@ -43,7 +43,9 @@
 								 </td>
 						  	 	 <td></td>
 						  	 	 <td></td>
-						  	 	 <td></td>
+						  	 	 <td>
+									 
+								</td>
 						  	 </tr>
 						  	 <tr>
 						  	 	 <td>Godišnji odmor</td>
@@ -72,7 +74,12 @@
 									</td>
 						  		  <td></td>
 						  		  <td></td>
-						  		  <td></td>
+						  		  <td>
+										<a href="#"
+										   id="@("btnInfo" + projekt.IDProjekt)">
+												<i class="fa fa-info-circle fa-3x" style="color: grey;"></i>
+										 </a>
+									</td>
 								</tr>
 							 }
 								<tr>
@@ -116,7 +123,25 @@
 				paging: false,
 				ordering: false,
 				info: false,
-				searching: false
+				searching: false,
+				columnDefs: [
+					 {
+						  targets: 1,
+						  className: 'dt-body-center'
+					 },
+					 {
+						  targets: 3,
+						  className: 'dt-body-center'
+					 },
+					 {
+						  targets: 4,
+						  className: 'dt-body-center'
+					 },
+					 {
+						  targets: 5,
+						  className: 'dt-body-center'
+					 }
+				]
 		  });
 	 });
 

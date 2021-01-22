@@ -18,6 +18,9 @@ namespace EvidencijaSati.Controllers
                 Djelatnik = Repo.SelectDjelatnik(id),
                 Projekti = Repo.GetProjektiDjelatnika(id).ToList(),
                 Satnica = new Satnica()
+					 {
+                    ProjektSati = new Dictionary<Projekt, float>()
+					 }
             };
 
             return View(model);
