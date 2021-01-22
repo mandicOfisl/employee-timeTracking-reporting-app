@@ -26,9 +26,24 @@ namespace EvidencijaSati.Controllers
         [HttpPost]
         public ActionResult SpremiTempSatnicu(Satnica satnica)
 		  {
-            var projId = satnica.ProjektID;
+            //Repo.SaveTempSatnica(satnica);
+            
+            double diff = satnica.End.Subtract(satnica.Start).TotalSeconds;
 
-            return Json("ok");
+            string s = satnica.Start.Hour.ToString().PadLeft(2, '0') + ":" 
+                + satnica.Start.Minute.ToString().PadLeft(2, '0');
+
+            string e = satnica.End.Hour.ToString().PadLeft(2, '0') + ":" 
+                + satnica.End.Minute.ToString().PadLeft(2, '0');
+
+            diff = Math.Ceiling(diff / 60);
+
+            string[] res =
+            {
+                s, e, diff.ToString()
+            };
+
+            return Json(res);
 		  }
     }
 }
