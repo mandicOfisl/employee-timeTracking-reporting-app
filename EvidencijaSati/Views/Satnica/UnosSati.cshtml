@@ -13,6 +13,7 @@
 				<p>Odaberi Datum</p>
 				@Html.TextBoxFor(s => s.Satnica.Datum, new
 			  {
+					@id = "dtpDate",
 					@type = "date",
 					@class = "form-control"
 			  })
@@ -118,7 +119,7 @@
 
 	 $(document).ready(function () {
 
-		  var start, end;
+		  var projectId, start, end;
 
 		  $("#table").DataTable({
 				paging: false,
@@ -147,7 +148,6 @@
 
 		  $('button.btnTimer').click(function (e) {
 				e.preventDefault();
-				var projectId;
 
 				if ($(this).hasClass('btn-success')) {
 					 start = new Date();
@@ -172,8 +172,35 @@
 					 $(this).addClass('btn-success');
 					 $(this).html('Start');
 
-
 					 console.log(end - start);
+					 var times = new Array();
+					 times = {
+						  start,
+						  end
+					 };
+
+
+					 var model = {
+						  IDSatnica: -1,
+						  DjelatnikID: @Model.Djelatnik.IDDjelatnik,
+						  Datum: $('#dtpDate').val(),
+						  ProjektID: projectId.toString(),
+						  Start: start,
+						  End: end,
+						  Komentar: null
+					 };
+
+
+					 $.ajax({
+						  url: "@Url.Action("SpremiTempSatnicu")",
+						  method: "POST",
+						  data: JSON.stringify(model),
+						  contentType: 'application/json',
+						  success: function (res) {
+								console.log(res);
+						  }
+					 });
+					 
 
 				}
 

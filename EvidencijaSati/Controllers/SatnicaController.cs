@@ -18,12 +18,17 @@ namespace EvidencijaSati.Controllers
                 Djelatnik = Repo.SelectDjelatnik(id),
                 Projekti = Repo.GetProjektiDjelatnika(id).ToList(),
                 Satnica = new Satnica()
-					 {
-                    ProjektSati = new Dictionary<Projekt, List<TimePeriod>>()
-					 }
             };
 
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult SpremiTempSatnicu(Satnica satnica)
+		  {
+            var projId = satnica.ProjektID;
+
+            return Json("ok");
+		  }
     }
 }
