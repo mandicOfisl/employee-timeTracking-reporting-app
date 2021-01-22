@@ -2,6 +2,7 @@
 
 @Scripts.Render("~/bundles/dataTables")
 @Styles.Render("~/Content/dataTables")
+@Styles.Render("~/Content/unosSati")
 
 <h1>Pozdrav @Model.Djelatnik.Ime !</h1>
 
@@ -34,7 +35,12 @@
 						  	 <tr>
 						  	 	 <td>Bolovanje</td>
 						  	 	 <td></td>
-						  	 	 <td></td>
+						  	 	 <td>
+									 <button id="btnBolovanje"
+												class="btn btn-success"
+												type="button">Start
+									 </button>
+								 </td>
 						  	 	 <td></td>
 						  	 	 <td></td>
 						  	 	 <td></td>
@@ -42,7 +48,12 @@
 						  	 <tr>
 						  	 	 <td>Godišnji odmor</td>
 						  	 	 <td></td>
-						  	 	 <td></td>
+								<td>
+									 <button id="btnGodisnji"
+												class="btn btn-success"
+												type="button">Start
+									 </button>
+								</td>
 						  	 	 <td></td>
 						  	 	 <td></td>
 						  	 	 <td></td>
@@ -52,7 +63,13 @@
 								<tr>
 						  		  <td>@projekt.Naziv</td>
 						  		  <td></td>
-						  		  <td></td>
+						  		  <td>
+											<button id="@("btnProjekt" + projekt.IDProjekt)"
+													  class="btn btn-success"
+													  type="button">
+												 Start
+											</button>
+									</td>
 						  		  <td></td>
 						  		  <td></td>
 						  		  <td></td>
@@ -61,7 +78,13 @@
 								<tr>
 						  		  <td>Putovanje</td>
 						  		  <td></td>
-						  		  <td></td>
+						  		  <td>
+											<button id="btnPutovanje"
+													  class="btn btn-success"
+													  type="button">
+												 Start
+											</button>
+									</td>
 						  		  <td></td>
 						  		  <td></td>
 						  		  <td></td>

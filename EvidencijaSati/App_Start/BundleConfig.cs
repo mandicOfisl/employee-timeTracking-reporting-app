@@ -33,6 +33,9 @@ namespace EvidencijaSati
 
 				bundles.Add(new StyleBundle("~/Content/dataTables").Include(
 							 "~/Content/jquery.dataTables.css"));
+
+				bundles.Add(new StyleBundle("~/Content/unosSati").Include(
+							 "~/Content/unosSati.css"));
 		  }
 	 }
 }
