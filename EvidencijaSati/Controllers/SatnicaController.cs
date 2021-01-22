@@ -1,5 +1,6 @@
 ﻿using EvidencijaSati.Models;
 using EvidencijaSati.Models.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,21 @@ namespace EvidencijaSati.Controllers
             UnosSatiVM model = new UnosSatiVM
             {
                 Djelatnik = Repo.SelectDjelatnik(id),
-                Projekti = Repo.GetProjektiDjelatnika(id).ToList(),
-                Satnica = new SatnicaProjekta()
+                Satnica = new Satnica {
+                    IDSatnica = DateTime.Now.AddDays((double)id).GetHashCode(),
+                    DjelatnikID = id,
+                    Satnice = new List<SatnicaProjekta>()
+                }
             };
+            foreach (var p in Repo.GetProjektiDjelatnika(id))
+				{
+                model.Satnica.Satnice.Add(new SatnicaProjekta
+                {
+                    Projekt = p
+                });
+				}
+            string key = "satnica" + id.ToString();
+            HttpContext.Session.Add(key, JsonConvert.SerializeObject(model.Satnica));
 
             return View(model);
         }
@@ -26,24 +39,19 @@ namespace EvidencijaSati.Controllers
         [HttpPost]
         public ActionResult SpremiTempSatnicu(SatnicaProjekta satnica)
 		  {
-            //Repo.SaveTempSatnica(satnica);
-            
-            double diff = satnica.End.Subtract(satnica.Start).TotalSeconds;
-
-            string s = satnica.Start.Hour.ToString().PadLeft(2, '0') + ":" 
-                + satnica.Start.Minute.ToString().PadLeft(2, '0');
-
-            string e = satnica.End.Hour.ToString().PadLeft(2, '0') + ":" 
-                + satnica.End.Minute.ToString().PadLeft(2, '0');
-
-            diff = Math.Ceiling(diff / 60);
-
-            string[] res =
+            string key = "satnica" + satnica.SatnicaID.ToString();
+            Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[key].ToString());
+            sat.Satnice.Add(new SatnicaProjekta
             {
-                s, e, diff.ToString(), satnica.ProjektID
-            };
+                IDSatnicaProjekta = (sat.IDSatnica + satnica.Projekt.IDProjekt).GetHashCode(),
+                SatnicaID = sat.IDSatnica,
+                Projekt = Repo.SelectProjekt(satnica.Projekt.IDProjekt),
+                StartEnd = satnica.StartEnd
+            });
 
-            return Json(res);
+
+
+            return Json("ok");
 		  }
     }
 }

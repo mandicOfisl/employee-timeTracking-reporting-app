@@ -8,7 +8,6 @@ namespace EvidencijaSati.Models.ViewModels
 	 public class UnosSatiVM
 	 {
 		  public Djelatnik Djelatnik { get; set; }
-		  public List<Projekt> Projekti { get; set; }
-		  public SatnicaProjekta Satnica { get; set; }
+		  public Satnica Satnica { get; set; }
 	 }
 }

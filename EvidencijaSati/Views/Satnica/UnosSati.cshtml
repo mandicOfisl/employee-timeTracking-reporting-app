@@ -33,68 +33,22 @@
 								</tr>
 							</thead>
 						  <tbody>
-						  	 <tr class="row0">
-						  	 	 <td>Bolovanje</td>
-						  	 	 <td id="txtZabBolovanje" class="zabiljezeno"></td>
+						  @for (int i = 0; i < Model.Satnica.Satnice.Count; i++)
+						  {
+						  	 <tr class="@Model.Satnica.Satnice[i].Projekt.IDProjekt rowProjekt">
+								 <td>@Model.Satnica.Satnice[i].Projekt.Naziv</td>
+						  	 	 <td id="@("txtZab" + Model.Satnica.Satnice[i].Projekt.IDProjekt)" class="zabiljezeno"></td>
 						  	 	 <td>
-									 <button id="btnBolovanje"
-												class="btn btn-success btnTimer"
+									 <button id="@("btnProjekt" + Model.Satnica.Satnice[i].Projekt.IDProjekt)"
+												class="btn btn-success btnTimer @i"
 												type="button">Start
 									 </button>
 								 </td>
 						  	 	 <td></td>
 						  	 	 <td></td>
-						  	 	 <td></td>
+						  	 	 <td><a href="#"><i class="fa fa-info-circle fa-3x" style="color: grey;"></i></a></td>
 						  	 </tr>
-						  	 <tr  class="row1">
-						  	 	 <td>Godišnji odmor</td>
-						  	 	 <td id="txtZabGodisnji" class="zabiljezeno"></td>
-								<td>
-									 <button id="btnGodisnji"
-												class="btn btn-success btnTimer"
-												type="button">Start
-									 </button>
-								</td>
-						  	 	 <td></td>
-						  	 	 <td></td>
-						  	 	 <td></td>
-						  	 </tr>
-							 @for (int i = 0; i < Model.Projekti.Count; i++)
-							 {
-								<tr class="@("row" + (i + 2))">
-						  		  <td>@Model.Projekti[i].Naziv</td>
-						  		  <td id="@("txtZab" + Model.Projekti[i].IDProjekt)" class="zabiljezeno"></td>
-						  		  <td>
-											<button id="@("btnProjekt" + Model.Projekti[i].IDProjekt)"
-													  class="btn btn-success btnTimer"
-													  type="button">
-												 Start
-											</button>
-									</td>
-						  		  <td></td>
-						  		  <td></td>
-						  		  <td>
-										<a href="#"
-										   id="@("btnInfo" + Model.Projekti[i].IDProjekt)">
-												<i class="fa fa-info-circle fa-3x" style="color: grey;"></i>
-										 </a>
-									</td>
-								</tr>
-							 }
-								<tr class="@("row" + Model.Projekti.Count + 2)">
-						  		  <td>Putovanje</td>
-						  		  <td id="txtZabPutovanje" class="zabiljezeno"></td>
-						  		  <td>
-											<button id="btnPutovanje"
-													  class="btn btn-success btnTimer"
-													  type="button">
-												 Start
-											</button>
-									</td>
-						  		  <td></td>
-						  		  <td></td>
-						  		  <td></td>
-								</tr>
+						  }
 						  </tbody>
 						  <tfoot>
 								<tr>
@@ -117,11 +71,13 @@
 
 <script type="text/javascript">
 
+
 	 $(document).ready(function () {
 
 		  var projectId, start, end;
 
 		  var table = $("#table").DataTable({
+				select: true,
 				paging: false,
 				ordering: false,
 				info: false,
@@ -172,14 +128,18 @@
 					 $(this).addClass('btn-success');
 					 $(this).html('Start');
 
+
 					 var model = {
-						  IDSatnica: -1,
-						  DjelatnikID: @Model.Djelatnik.IDDjelatnik,
-						  Datum: $('#dtpDate').val(),
-						  ProjektID: projectId.toString(),
-						  Start: start,
-						  End: end,
-						  Komentar: null
+						  IDSatnicaProjekta: -1,
+						  SatnicaID: @Model.Satnica.IDSatnica,
+						  Projekt: {
+								IDProjekt: projectId.toString(),
+								Naziv: null,
+								KlijentID: -1,
+								DatumOtvaranja: null,
+								VoditeljProjektaID: -1
+						  },
+						  StartEnd: start.toString() + ' - ' + end.toString()
 					 };
 
 
@@ -202,6 +162,7 @@
 
 		  });
 
+		  
 		  function isProject(id) {
 				if (id == 'btnBolovanje' || id == 'btnGodisnji' || id == 'btnPutovanje') {
 					 return false;
