@@ -77,10 +77,11 @@ namespace EvidencijaSati.Controllers
 
 				float zabiljezeno = CalculateProjectMinutes(sat.Satnice[p.Naziv]);
 
+
 				string zab = Utils.ParseMinutesToString(zabiljezeno);
 				string[] res =
 				{
-					 row.ToString(), zabiljezeno.ToString()
+					 row.ToString(), zab, (zabiljezeno / 60 > 8).ToString()
 				};
 
             return Json(res);

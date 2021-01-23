@@ -9,9 +9,9 @@ namespace EvidencijaSati.Models
 	 {
 		  internal static string ParseMinutesToString(float zabiljezeno)
 		  {
-				double num = Math.Ceiling(zabiljezeno);
-				double h = num / 60;
-				double m = num % 60;
+				double num = Math.Floor(zabiljezeno);
+				int h = (int)(num / 60);
+				int m = (int)(num % 60);
 				return h.ToString().PadLeft(2, '0') + ":" + m.ToString().PadLeft(2, '0');
 		  }
 	 }
