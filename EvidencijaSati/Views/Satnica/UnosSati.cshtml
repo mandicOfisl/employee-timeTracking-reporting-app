@@ -7,72 +7,74 @@
 <h1>Pozdrav @Model.Djelatnik.Ime !</h1>
 
 <div class="container">
-	  @using (Html.BeginForm("", "", FormMethod.Post, new { @id = "frmSatnica" }))
-	  {
-		  <div class="row">
-				<p>Odaberi Datum</p>
-				@Html.TextBoxFor(s => s.Satnica.Datum, new
-			  {
-					@id = "dtpDate",
-					@type = "date",
-					@class = "form-control"
-			  })
+	 <div class="row dateRow">
+		  <p>Bileže se sati za <b><span id="txtDatum"></span></b></p>
+		  <button id="btnDrugiDatum"
+					 class="btn btn-outline-primary"
+					 type="button">Odaberi drugi datum</button>
+	 </div>
+	 <div class="row">
+		  <div class="card card-body">
+
+				<table id="table" style="width: 100%">
+					 <thead>
+						  <tr>
+								<th>Projekt</th>
+								<th>Zabilježeno</th>
+								<th>Start / Stop</th>
+								<th>Radni sati</th>
+								<th>Prekovremeni sati</th>
+								<th>Detalji</th>
+						  </tr>
+						  </thead>
+					 <tbody>
+					 @for (int i = 0; i < Model.Projekti.Count; i++)
+					 {
+						  <tr class="@Model.Projekti[i].IDProjekt rowProjekt">
+								<td>@Model.Projekti[i].Naziv</td>
+						  	 	<td id="@("txtZab" + Model.Projekti[i].IDProjekt)" class="zabiljezeno"></td>
+						  	 	<td>
+								<button id="@("btnProjekt" + Model.Projekti[i].IDProjekt)"
+										  class="btn btn-success btnTimer @i"
+										  type="button">Start
+								</button>
+								</td>
+						  	 	<td></td>
+						  	 	<td></td>
+						  	 	<td><a href="#"><i class="fa fa-info-circle fa-3x" style="color: grey;"></i></a></td>
+						  </tr>
+					 }
+					 </tbody>
+					 <tfoot>
+						  <tr>
+								<td>Ukupno</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+						  </tr>
+					 </tfoot>
+				</table>
+
 		  </div>
-		  <div class="row">
-				<div class="card card-body">
+		  </div>
+	 <div class="row justify-content-center">
+		  <div class="col col-3"><button class="btn btn-outline-danger">Odustani</button></div>
+		  <div class="col col-3"><button class="btn btn-primary">Spremi</button></div>
+		  <div class="col col-3"><button class="btn btn-warning">Predaj</button></div>
+	 </div>
 
-					 <table id="table" style="width: 100%">
-						  <thead>
-								<tr>
-									 <th>Projekt</th>
-									 <th>Zabilježeno</th>
-									 <th>Start / Stop</th>
-									 <th>Radni sati</th>
-									 <th>Prekovremeni sati</th>
-									 <th>Detalji</th>
-								</tr>
-							</thead>
-						  <tbody>
-						  @for (int i = 0; i < Model.Projekti.Count; i++)
-						  {
-						  	 <tr class="@Model.Projekti[i].IDProjekt rowProjekt">
-								 <td>@Model.Projekti[i].Naziv</td>
-						  	 	 <td id="@("txtZab" + Model.Projekti[i].IDProjekt)" class="zabiljezeno"></td>
-						  	 	 <td>
-									 <button id="@("btnProjekt" + Model.Projekti[i].IDProjekt)"
-												class="btn btn-success btnTimer @i"
-												type="button">Start
-									 </button>
-								 </td>
-						  	 	 <td></td>
-						  	 	 <td></td>
-						  	 	 <td><a href="#"><i class="fa fa-info-circle fa-3x" style="color: grey;"></i></a></td>
-						  	 </tr>
-						  }
-						  </tbody>
-						  <tfoot>
-								<tr>
-									 <td>Ukupno</td>
-									 <td></td>
-									 <td></td>
-									 <td></td>
-									 <td></td>
-									 <td></td>
-								</tr>
-						  </tfoot>
-					 </table>
-
-				</div>
-			 </div>
-		  <div class="row"></div>
-
-	  }
 </div>
 
 <script type="text/javascript">
 
 
 	 $(document).ready(function () {
+
+		  var datum = "@Model.Satnica.Datum.ToString()".split(" ")[0];
+
+		  $('#txtDatum').html(datum);
 
 		  var projectId, start, end;
 
@@ -111,7 +113,7 @@
 						  projectId = this.id.split('btnProjekt')[1];
 					 } else {
 						  projectId = this.id.split('btn')[1];
-					 }					 
+					 }
 
 					 $(this).removeClass('btn-success');
 					 $(this).addClass('btn-danger');
@@ -134,7 +136,7 @@
 						  SatnicaID: @Model.Satnica.IDSatnica,
 						  ProjektID: projectId.toString(),
 						  Start: start,
-						  End: end						  
+						  End: end
 					 };
 
 
@@ -151,13 +153,13 @@
 								console.log(res);
 						  }
 					 });
-					 
+
 
 				}
 
 		  });
 
-		  
+
 		  function isProject(id) {
 				if (id == 'btnBolovanje' || id == 'btnGodisnji' || id == 'btnPutovanje') {
 					 return false;

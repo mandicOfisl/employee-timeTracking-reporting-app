@@ -1,3 +1,16 @@
 ﻿button {
 	 width: 100%;
 }
+
+#btnDrugiDatum {
+	 width: 25%;
+}
+
+.dateRow {
+	padding: 2vh 0;
+	flex-direction: column !important;
+}
+
+#dtpDate {
+	 width: 30%;
+}

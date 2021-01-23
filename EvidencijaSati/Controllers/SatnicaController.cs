@@ -58,21 +58,60 @@ namespace EvidencijaSati.Controllers
 
             Projekt p = Repo.SelectProjekt(int.Parse(satnica.ProjektID));
 
-            sat.Satnice[p.Naziv].Add(new SatnicaProjekta
-            {
-                IDSatnicaProjekta = (sat.IDSatnica + satnica.ProjektID).GetHashCode(),
-                SatnicaID = sat.IDSatnica,
-                ProjektID = satnica.ProjektID,
-                Start = satnica.Start,
-                End = satnica.End,
-                StartEnd = float.Parse((satnica.End - satnica.Start).TotalMinutes.ToString())
-            });
+				SatnicaProjekta sp = new SatnicaProjekta
+				{
+					 IDSatnicaProjekta = (sat.IDSatnica + satnica.ProjektID).GetHashCode(),
+					 SatnicaID = sat.IDSatnica,
+					 ProjektID = satnica.ProjektID,
+					 Start = satnica.Start,
+					 End = satnica.End,
+					 StartEnd = float.Parse((satnica.End - satnica.Start).TotalMinutes.ToString())
+				};
 
-            Repo.SpremiSatnicuProjekta(sat.Satnice[p.Naziv].Last());
+				sat.Satnice[p.Naziv].Add(sp);
+				
+				Repo.SpremiSatnicuProjekta(sat.Satnice[p.Naziv].Last());
             HttpContext.Session.Add(key, JsonConvert.SerializeObject(sat));
 
+				int row = sat.Satnice.Keys.ToList().IndexOf(p.Naziv);
 
-            return Json("ok");
+				float zabiljezeno = CalculateProjectMinutes(sat.Satnice[p.Naziv]);
+
+				string zab = Utils.ParseMinutesToString(zabiljezeno);
+				string[] res =
+				{
+					 row.ToString(), zabiljezeno.ToString()
+				};
+
+            return Json(res);
 		  }
-    }
+
+		  private float CalculateProjectMinutes(List<SatnicaProjekta> lists)
+		  {
+				float total = 0;
+
+				foreach (var sp in lists)
+				{
+					 total += sp.StartEnd;
+				}
+
+				return total;
+		  }
+
+		  private double CalculateTotalMinutes(Dictionary<string, List<SatnicaProjekta>> satnice)
+		  {
+				double total = 0;
+
+				foreach (var lista in satnice)
+				{
+					 foreach (var s in lista.Value)
+					 {
+						  total += double.Parse(s.StartEnd.ToString());
+					 }
+				}
+
+				return total;
+		  }
+
+	 }
 }
