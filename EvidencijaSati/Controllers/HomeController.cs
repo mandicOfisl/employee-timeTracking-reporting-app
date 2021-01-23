@@ -1,5 +1,6 @@
 ﻿using EvidencijaSati.Models;
 using EvidencijaSati.Models.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,8 @@ namespace EvidencijaSati.Controllers
 				{
 					 Djelatnik djelatnik = Repo.GetDjelatnikByEmail(d.Email);
 					 if (djelatnik.Zaporka == d.Zaporka)
-					 {						  
+					 {
+						  HttpContext.Session.Add("id", JsonConvert.SerializeObject(djelatnik.IDDjelatnik));
 						  return RedirectToAction("UnosSati", "Satnica", new { id = djelatnik.IDDjelatnik });
 					 }
 					 else

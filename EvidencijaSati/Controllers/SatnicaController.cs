@@ -14,33 +14,41 @@ namespace EvidencijaSati.Controllers
         // GET: Satnica
         public ActionResult UnosSati(int id)
         {
-            UnosSatiVM model = new UnosSatiVM
-            {
-                Djelatnik = Repo.SelectDjelatnik(id),
-                Satnica = new Satnica {
-                    IDSatnica = DateTime.Now.AddDays((double)id).GetHashCode(),
-                    Datum = DateTime.Now,
-                    DjelatnikID = id,
-                    Satnice = new Dictionary<string, List<SatnicaProjekta>>(),
-                    Staus = SatnicaStatusEnum.WAITING_APPROVAL
-                },
-                Projekti = Repo.GetProjektiDjelatnika(id).ToList()
-            };
-            foreach (var p in model.Projekti)
+				if (HttpContext.Session["id"] != null)
 				{
-                model.Satnica.Satnice.Add(p.Naziv, new List<SatnicaProjekta>
-                {
-                    new SatnicaProjekta {
-                        ProjektID = p.IDProjekt.ToString(),
-                    }
-                });
-				}
-            model.Satnica.IDSatnica = Repo.DodajNovuSatnicu(model.Satnica);
-            string key = "satnica" + model.Satnica.IDSatnica.ToString();
-            HttpContext.Session.Add(key, JsonConvert.SerializeObject(model.Satnica));
+					 if (JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString()) == id)
+					 {
+						  UnosSatiVM model = new UnosSatiVM
+						  {
+								Djelatnik = Repo.SelectDjelatnik(id),
+								Satnica = new Satnica
+								{
+									 IDSatnica = DateTime.Now.AddDays((double)id).GetHashCode(),
+									 Datum = DateTime.Now,
+									 DjelatnikID = id,
+									 Satnice = new Dictionary<string, List<SatnicaProjekta>>(),
+									 Staus = SatnicaStatusEnum.WAITING_APPROVAL
+								},
+								Projekti = Repo.GetProjektiDjelatnika(id).ToList()
+						  };
+						  foreach (var p in model.Projekti)
+						  {
+								model.Satnica.Satnice.Add(p.Naziv, new List<SatnicaProjekta>
+					 {
+						  new SatnicaProjekta {
+								ProjektID = p.IDProjekt.ToString(),
+						  }
+					 });
+						  }
+						  model.Satnica.IDSatnica = Repo.DodajNovuSatnicu(model.Satnica);
+						  string key = "satnica" + model.Satnica.IDSatnica.ToString();
+						  HttpContext.Session.Add(key, JsonConvert.SerializeObject(model.Satnica));
 
-            return View(model);
-        }
+						  return View(model);
+					 }
+				}
+				return RedirectToAction("Login", "Home");
+		  }
 
         [HttpPost]
         public ActionResult SpremiTempSatnicu(SatnicaProjekta satnica)
