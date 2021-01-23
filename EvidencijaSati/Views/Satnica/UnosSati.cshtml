@@ -7,11 +7,17 @@
 <h1>Pozdrav @Model.Djelatnik.Ime !</h1>
 
 <div class="container">
-	 <div class="row dateRow">
-		  <p>Bileže se sati za <b><span id="txtDatum"></span></b></p>
-		  <button id="btnDrugiDatum"
-					 class="btn btn-outline-primary"
-					 type="button">Odaberi drugi datum</button>
+	 <div class="row justify-content-between">
+		  <div class="col col-4 dateCol">
+				<p>Bilježe se sati za <b><span id="txtDatum"></span></b></p>
+		  </div>
+		  <div class="col col-4">
+				<button id="btnPregled"
+						  class="btn btn-outline-success"
+						  type="button">
+							Pregledaj unose na čekanju
+				</button>
+		  </div>
 	 </div>
 	 <div class="row">
 		  <div class="card card-body">
@@ -41,8 +47,16 @@
 										  type="button">Start
 								</button>
 								</td>
-						  	 	<td></td>
-						  	 	<td></td>
+						  	 	<td>
+									 <input id="@("txtRadni" + Model.Projekti[i].IDProjekt.ToString())"
+											  class="form-control"
+											  type="text" />
+								</td>
+								<td>
+									 <input id="@("txtPrekovremeni" + Model.Projekti[i].IDProjekt.ToString())"
+												class="form-control"
+												type="text" />
+								</td>
 						  	 	<td><a href="#"><i class="fa fa-info-circle fa-3x" style="color: grey;"></i></a></td>
 						  </tr>
 					 }
@@ -52,8 +66,8 @@
 								<td>Ukupno</td>
 								<td><b>@Model.Satnica.GetFormatedProperties("total")</b></td>
 								<td></td>
-								<td><b>@Model.Satnica.GetFormatedProperties("redovni")</b></td>
-								<td><b>@Model.Satnica.GetFormatedProperties("prekovremeni")</b></td>
+								<td><b></b></td>
+								<td><b></b></td>
 								<td></td>
 						  </tr>
 					 </tfoot>
@@ -61,10 +75,19 @@
 
 		  </div>
 		  </div>
-	 <div class="row justify-content-center">
-		  <div class="col col-3"><button class="btn btn-outline-danger">Odustani</button></div>
-		  <div class="col col-3"><button class="btn btn-primary">Spremi</button></div>
-		  <div class="col col-3"><button class="btn btn-warning">Predaj</button></div>
+	 <div class="row btns justify-content-center">
+		  <div class="col col-4">
+			 <button id="btnOdustani"
+						class="btn btn-outline-danger">Odustani</button>
+		  </div>
+		  <div class="col col-4">
+			 <button id="btnSpremi"
+						class="btn btn-primary">Spremi</button>
+		  </div>
+		  <div class="col col-4">
+			 <button id="btnPredaj"
+						class="btn btn-warning">Predaj</button>
+		  </div>
 	 </div>
 
 </div>
@@ -75,8 +98,10 @@
 	 $(document).ready(function () {
 
 		  var datum = "@Model.Satnica.Datum.ToString()".split(" ")[0];
-
 		  $('#txtDatum').html(datum);
+
+		  $('#btnPredaj').prop('disabled', true);
+		  //$('#btnSpremi').prop('disabled', true);
 
 		  var projectId, start, end;
 
@@ -111,11 +136,7 @@
 
 				if ($(this).hasClass('btn-success')) {
 					 start = new Date();
-					 if (isProject(this.id)) {
-						  projectId = this.id.split('btnProjekt')[1];
-					 } else {
-						  projectId = this.id.split('btn')[1];
-					 }
+					 projectId = this.id.split('btnProjekt')[1];
 
 					 $(this).removeClass('btn-success');
 					 $(this).addClass('btn-danger');
@@ -150,15 +171,17 @@
 						  success: function (res) {
 								//res[0] row
 								//res[1] zabiljezeno
-								//res[2] prekovremeno?
+								//res[2] prekovremeno
+								//res[3] projID
 
-								table.cell(res[0], 1, 0).data(res[1]).draw();
+								table.cell(res[0], 1, 0).data(addHoursMinutes(table.cell(res[0], 1, 0).data(), res[1])).draw();
 
-								if (res[2]) {
-									 console.log(res[2]);
-								}
+								var txtR = "#txtRadni" + res[3];
+								var txtP = "#txtPrekovremeni" + res[3];
 
-								console.log(res);
+								$(txtR).val(res[1]);
+								$(txtP).val(res[2]);					
+
 						  }
 					 });
 
@@ -167,17 +190,72 @@
 
 		  });
 
+		  $('#btnSpremi').on('click', function (e) {
+				e.preventDefault();
+				const regex = new RegExp('\\d{1,2}[:]\\d{1,2}');
 
-		  function isProject(id) {
-				if (id == 'btnBolovanje' || id == 'btnGodisnji' || id == 'btnPutovanje') {
-					 return false;
-				} else {
-					 return true;
-				}
-		  }
+				$('input').each(function (i) {
+					 if (regex.test($(this).val())) {
+						  $('button.btnTimer').prop('disabled', true);
+						  lockTextFields(true);
+						  $('#btnSpremi').prop('disabled', true);
+						  $('#btnPredaj').prop('disabled', false);
+					 } else {
+						  alert("krivi unos");
+						  return false;
+					 }
+				});
+		  });
+
+		  $('#btnOdustani').on('click', function (e) {
+				e.preventDefault();
+				$('button.btnTimer').prop('disabled', false);
+				$('input').each(function (i) {
+					 $(this).val("00:00");
+				});
+				lockTextFields(false);
+				$('#btnSpremi').prop('disabled', false);
+				$('#btnPredaj').prop('disabled', true);
+		  });
+
+		  $('#btnPredaj').on('click', function (e) {
+				e.preventDefault();
+				$('#btnPredaj').prop('disabled', tru);
+		  });
 
 	 });
 
+	 function isProject(id) {
+		  return (id == 'btnBolovanje' || id == 'btnGodisnji' || id == 'btnPutovanje');
+	 }
+
+	 function addHoursMinutes(first, second) {
+		  var f = first.split(':');
+		  var s = second.split(':');
+
+		  var fH = parseInt(f[0]);
+		  var sH = parseInt(s[0]);
+		  var fM = parseInt(f[1]);
+		  var sM = parseInt(s[1]);
+
+		  var newH = fH + sH;
+		  var newM = fM + sM;
+
+		  return newH.toString().padStart(2, '0') + ":" + newM.toString().padStart(2, '0')
+
+	 }
+
+	 function lockTextFields(trueFalse) {
+		  if (trueFalse) {
+				$('input').each(function (i) {
+					 $(this).prop('disabled', true);
+				});
+		  } else {
+				$('input').each(function (i) {
+					 $(this).prop('disabled', false);
+				});
+		  }
+	 }
 
 
 </script>

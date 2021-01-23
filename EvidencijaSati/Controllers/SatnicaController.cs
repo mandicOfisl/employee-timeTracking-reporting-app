@@ -69,23 +69,27 @@ namespace EvidencijaSati.Controllers
 										  model.Satnica.ProjektZabiljezeno.Add(p.IDProjekt, "00:00");
 									 }
 								}
+
 								model.Satnica.Total = double.Parse(total.ToString());
+
 								if (model.Satnica.Total > RADNI_SATI_U_DANU)
 								{
 									 model.Satnica.TotalRedovni = RADNI_SATI_U_DANU;
 									 model.Satnica.TotalPrekovremeni = model.Satnica.Total - RADNI_SATI_U_DANU;
 								}
 								else
-								{
+								{									 
 									 model.Satnica.TotalRedovni = model.Satnica.Total;
 								}
 						  }
 						  else
 						  {
+								model.Projekti.ForEach(p => model.Satnica.ProjektZabiljezeno.Add(p.IDProjekt, "00:00"));
 								model.Satnica.IDSatnica = Repo.DodajNovuSatnicu(model.Satnica);
 						  }
 						  string key = "satnica" + model.Satnica.IDSatnica.ToString();
 						  HttpContext.Session.Add(key, JsonConvert.SerializeObject(model.Satnica));
+						  HttpContext.Session.Add("satnicaId", JsonConvert.SerializeObject(model.Satnica.IDSatnica));
 
 						  return View(model);
 					 }
@@ -95,8 +99,8 @@ namespace EvidencijaSati.Controllers
 
         [HttpPost]
         public ActionResult SpremiTempSatnicu(SatnicaProjekta satProj)
-		  {
-            string key = "satnica" + satProj.SatnicaID.ToString();
+		  {				
+				string key = "satnica" + satProj.SatnicaID.ToString();
             Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[key].ToString());
 
             Projekt p = Repo.SelectProjekt(int.Parse(satProj.ProjektID));
@@ -123,11 +127,25 @@ namespace EvidencijaSati.Controllers
 				string[] res =
 				{
 					 row.ToString(),
-					 Utils.ParseMinutesToString(zabiljezeno),
-					 (zabiljezeno / 60 > 8).ToString()
+					 Utils.ParseMinutesToString(sp.StartEnd),
+					 zabiljezeno / 60 > 8 ? Utils.ParseMinutesToString(sp.StartEnd % 60) : "00:00",
+					 p.IDProjekt.ToString()
 				};
 
             return Json(res);
+		  }
+
+		  [HttpPost]
+		  public ActionResult SpremiZaPredaju()
+		  {
+				int satId = JsonConvert.DeserializeObject<int>(HttpContext.Session["satnicaId"].ToString());
+
+				string key = "satnica" + satId.ToString();
+				Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[key].ToString());
+
+
+
+				return Json("ok");
 		  }
 
 
