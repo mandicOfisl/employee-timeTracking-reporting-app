@@ -3,6 +3,7 @@ using EvidencijaSati.Models.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -31,16 +32,30 @@ namespace EvidencijaSati.Controllers
 								},
 								Projekti = Repo.GetProjektiDjelatnika(id).ToList()
 						  };
+
 						  foreach (var p in model.Projekti)
 						  {
 								model.Satnica.Satnice.Add(p.Naziv, new List<SatnicaProjekta>
-					 {
-						  new SatnicaProjekta {
-								ProjektID = p.IDProjekt.ToString(),
+									 {
+										  new SatnicaProjekta {
+												ProjektID = p.IDProjekt.ToString(),
+										  }
+									 });
 						  }
-					 });
+
+						  List<Satnica> satniceDjelatnika = Repo.GetSatniceDjelatnika(id).ToList();
+
+						  if (satniceDjelatnika.Where(s => 
+								DateTime.Parse(s.Datum.ToString()).Date == DateTime.Now.Date).Count() > 0)
+						  {
+								model.Satnica = satniceDjelatnika.Where(s =>
+									 DateTime.Parse(s.Datum.ToString()).Date == DateTime.Now.Date).First();
+								List<SatnicaProjekta> sps = Repo.GetSatniceProjekata(model.Satnica.IDSatnica);
 						  }
-						  model.Satnica.IDSatnica = Repo.DodajNovuSatnicu(model.Satnica);
+						  else
+						  {
+								model.Satnica.IDSatnica = Repo.DodajNovuSatnicu(model.Satnica);
+						  }
 						  string key = "satnica" + model.Satnica.IDSatnica.ToString();
 						  HttpContext.Session.Add(key, JsonConvert.SerializeObject(model.Satnica));
 

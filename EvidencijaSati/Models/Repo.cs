@@ -49,6 +49,52 @@ namespace EvidencijaSati.Models
 				}
 		  }
 
+		  internal static IEnumerable<SatnicaProjekta> GetSatniceProjekata(int iDSatnica)
+		  {
+				Dictionary<string, List<SatnicaProjekta>> dic = new Dictionary<string, List<SatnicaProjekta>>();
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure,
+					 "GetSatniceProjektaSatnice", new SqlParameter("@IdSatnica", iDSatnica)))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {
+						  yield return new SatnicaProjekta
+						  {
+								IDSatnicaProjekta = (int)row[nameof(SatnicaProjekta.IDSatnicaProjekta)],
+								ProjektID = row[nameof(SatnicaProjekta.ProjektID)].ToString(),
+								SatnicaID = (int)row[nameof(SatnicaProjekta.SatnicaID)],
+								Start = DateTime.Parse(row[nameof(SatnicaProjekta.Start)].ToString()),
+								End = DateTime.Parse(row[nameof(SatnicaProjekta.End)].ToString()),
+								StartEnd = (float)row[nameof(SatnicaProjekta.StartEnd)]
+						  };
+					 }
+
+				}
+				
+		  }
+
+		  internal static IEnumerable<Satnica> GetSatniceDjelatnika(int id)
+		  {
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure,
+					 "GetSatniceDjelatnika", new SqlParameter("@Id", id)))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {
+						  yield return new Satnica
+						  {
+								IDSatnica = (int)row[nameof(Satnica.IDSatnica)],
+								DjelatnikID = (int)row[nameof(Satnica.DjelatnikID)],
+								Datum = DateTime.Parse(row[nameof(Satnica.Datum)].ToString()),
+								Komentar = row[nameof(Satnica.Komentar)].ToString(),
+								Satnice = new Dictionary<string, List<SatnicaProjekta>>(),
+								Total = double.Parse(row[nameof(Satnica.Total)].ToString()),
+								TotalPrekovremeni = double.Parse(row[nameof(Satnica.TotalPrekovremeni)].ToString()),
+								TotalRedovni = double.Parse(row[nameof(Satnica.TotalRedovni)].ToString())
+						  };
+					 }
+
+				}
+		  }
+
 		  internal static int DodajNovuSatnicu(Satnica satnica)
 		  {
 				using (SqlConnection con = new SqlConnection(cs))
