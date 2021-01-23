@@ -33,13 +33,13 @@
 								</tr>
 							</thead>
 						  <tbody>
-						  @for (int i = 0; i < Model.Satnica.Satnice.Count; i++)
+						  @for (int i = 0; i < Model.Projekti.Count; i++)
 						  {
-						  	 <tr class="@Model.Satnica.Satnice[i].Projekt.IDProjekt rowProjekt">
-								 <td>@Model.Satnica.Satnice[i].Projekt.Naziv</td>
-						  	 	 <td id="@("txtZab" + Model.Satnica.Satnice[i].Projekt.IDProjekt)" class="zabiljezeno"></td>
+						  	 <tr class="@Model.Projekti[i].IDProjekt rowProjekt">
+								 <td>@Model.Projekti[i].Naziv</td>
+						  	 	 <td id="@("txtZab" + Model.Projekti[i].IDProjekt)" class="zabiljezeno"></td>
 						  	 	 <td>
-									 <button id="@("btnProjekt" + Model.Satnica.Satnice[i].Projekt.IDProjekt)"
+									 <button id="@("btnProjekt" + Model.Projekti[i].IDProjekt)"
 												class="btn btn-success btnTimer @i"
 												type="button">Start
 									 </button>
@@ -132,14 +132,9 @@
 					 var model = {
 						  IDSatnicaProjekta: -1,
 						  SatnicaID: @Model.Satnica.IDSatnica,
-						  Projekt: {
-								IDProjekt: projectId.toString(),
-								Naziv: null,
-								KlijentID: -1,
-								DatumOtvaranja: null,
-								VoditeljProjektaID: -1
-						  },
-						  StartEnd: start.toString() + ' - ' + end.toString()
+						  ProjektID: projectId.toString(),
+						  Start: start,
+						  End: end						  
 					 };
 
 

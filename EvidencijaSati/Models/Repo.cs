@@ -49,6 +49,31 @@ namespace EvidencijaSati.Models
 				}
 		  }
 
+		  internal static int DodajNovuSatnicu(Satnica satnica)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "AddSatnica";
+						  cmd.Parameters.AddWithValue("@DjelatnikId", satnica.DjelatnikID);
+						  cmd.Parameters.AddWithValue("@Datum", satnica.Datum);
+						  cmd.Parameters.AddWithValue("@Komentar", satnica.Komentar ?? "nema komentara");
+						  cmd.Parameters.AddWithValue("@TotalRedovni", satnica.TotalRedovni);
+						  cmd.Parameters.AddWithValue("@TotalPrekovremeni", satnica.TotalPrekovremeni);
+						  cmd.Parameters.AddWithValue("@Total", satnica.Total);
+						  cmd.Parameters.AddWithValue("@Status", (int)satnica.Staus);
+						  cmd.Parameters.Add("@Id", SqlDbType.Int);
+						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
+
+						  _ = cmd.ExecuteNonQuery();
+						  return int.Parse(cmd.Parameters["@Id"].Value.ToString());
+					 }
+				}
+		  }
+
 		  internal static Projekt SelectProjekt(int iDProjekt)
 		  {
 				using (SqlConnection con = new SqlConnection(cs))
@@ -75,6 +100,26 @@ namespace EvidencijaSati.Models
 						  }
 					 }
 					 throw new Exception("No can do!");
+				}
+		  }
+
+		  internal static int SpremiSatnicuProjekta(SatnicaProjekta satnicaProjekta)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "AddSatnicaProjekta";
+						  cmd.Parameters.AddWithValue("@SatnicaID", satnicaProjekta.SatnicaID);
+						  cmd.Parameters.AddWithValue("@ProjektID", int.Parse(satnicaProjekta.ProjektID));
+						  cmd.Parameters.AddWithValue("@Start", satnicaProjekta.Start);
+						  cmd.Parameters.AddWithValue("@End", satnicaProjekta.End);
+						  cmd.Parameters.AddWithValue("@StartEnd", satnicaProjekta.StartEnd);
+
+						  return cmd.ExecuteNonQuery();
+					 }
 				}
 		  }
 
@@ -127,6 +172,7 @@ namespace EvidencijaSati.Models
 								VoditeljProjektaID = (int)row[nameof(Projekt.VoditeljProjektaID)]
 						  };
 					 }
+					 
 				}
 		  }
 	 }

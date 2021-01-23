@@ -9,8 +9,12 @@ namespace EvidencijaSati.Models
 	 {
 		  public int IDSatnicaProjekta { get; set; }
 		  public int SatnicaID { get; set; }
-		  public Projekt Projekt { get; set; }
-		  public string StartEnd { get; set; }
+		  public string ProjektID { get; set; }
+		  public DateTime Start { get; set; }
+		  public DateTime End { get; set; }
+		  public float StartEnd { get; set; }
 
 	 }
+
+	 
 }

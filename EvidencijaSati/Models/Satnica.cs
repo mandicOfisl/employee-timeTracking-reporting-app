@@ -10,7 +10,12 @@ namespace EvidencijaSati.Models
 		  public int IDSatnica { get; set; }
 		  public int DjelatnikID { get; set; }
 		  public DateTime Datum { get; set; }
-		  public List<SatnicaProjekta> Satnice { get; set; }
+		  public Dictionary<string, List<SatnicaProjekta>> Satnice { get; set; }
 		  public string Komentar { get; set; }
+		  public double Total { get; set; }
+		  public double TotalRedovni { get; set; }
+		  public double TotalPrekovremeni { get; set; }
+		  public SatnicaStatusEnum Staus { get; set; }
+
 	 }
 }

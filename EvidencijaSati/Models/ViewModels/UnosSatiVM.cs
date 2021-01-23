@@ -9,5 +9,6 @@ namespace EvidencijaSati.Models.ViewModels
 	 {
 		  public Djelatnik Djelatnik { get; set; }
 		  public Satnica Satnica { get; set; }
+		  public List<Projekt> Projekti { get; set; }
 	 }
 }

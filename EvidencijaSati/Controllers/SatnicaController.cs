@@ -19,18 +19,24 @@ namespace EvidencijaSati.Controllers
                 Djelatnik = Repo.SelectDjelatnik(id),
                 Satnica = new Satnica {
                     IDSatnica = DateTime.Now.AddDays((double)id).GetHashCode(),
+                    Datum = DateTime.Now,
                     DjelatnikID = id,
-                    Satnice = new List<SatnicaProjekta>()
-                }
+                    Satnice = new Dictionary<string, List<SatnicaProjekta>>(),
+                    Staus = SatnicaStatusEnum.WAITING_APPROVAL
+                },
+                Projekti = Repo.GetProjektiDjelatnika(id).ToList()
             };
-            foreach (var p in Repo.GetProjektiDjelatnika(id))
+            foreach (var p in model.Projekti)
 				{
-                model.Satnica.Satnice.Add(new SatnicaProjekta
+                model.Satnica.Satnice.Add(p.Naziv, new List<SatnicaProjekta>
                 {
-                    Projekt = p
+                    new SatnicaProjekta {
+                        ProjektID = p.IDProjekt.ToString(),
+                    }
                 });
 				}
-            string key = "satnica" + id.ToString();
+            model.Satnica.IDSatnica = Repo.DodajNovuSatnicu(model.Satnica);
+            string key = "satnica" + model.Satnica.IDSatnica.ToString();
             HttpContext.Session.Add(key, JsonConvert.SerializeObject(model.Satnica));
 
             return View(model);
@@ -41,14 +47,21 @@ namespace EvidencijaSati.Controllers
 		  {
             string key = "satnica" + satnica.SatnicaID.ToString();
             Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[key].ToString());
-            sat.Satnice.Add(new SatnicaProjekta
+
+            Projekt p = Repo.SelectProjekt(int.Parse(satnica.ProjektID));
+
+            sat.Satnice[p.Naziv].Add(new SatnicaProjekta
             {
-                IDSatnicaProjekta = (sat.IDSatnica + satnica.Projekt.IDProjekt).GetHashCode(),
+                IDSatnicaProjekta = (sat.IDSatnica + satnica.ProjektID).GetHashCode(),
                 SatnicaID = sat.IDSatnica,
-                Projekt = Repo.SelectProjekt(satnica.Projekt.IDProjekt),
-                StartEnd = satnica.StartEnd
+                ProjektID = satnica.ProjektID,
+                Start = satnica.Start,
+                End = satnica.End,
+                StartEnd = float.Parse((satnica.End - satnica.Start).TotalMinutes.ToString())
             });
 
+            Repo.SpremiSatnicuProjekta(sat.Satnice[p.Naziv].Last());
+            HttpContext.Session.Add(key, JsonConvert.SerializeObject(sat));
 
 
             return Json("ok");
