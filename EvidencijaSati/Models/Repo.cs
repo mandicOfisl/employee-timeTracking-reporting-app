@@ -51,7 +51,6 @@ namespace EvidencijaSati.Models
 
 		  internal static IEnumerable<SatnicaProjekta> GetSatniceProjekata(int iDSatnica)
 		  {
-				Dictionary<string, List<SatnicaProjekta>> dic = new Dictionary<string, List<SatnicaProjekta>>();
 				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure,
 					 "GetSatniceProjektaSatnice", new SqlParameter("@IdSatnica", iDSatnica)))
 				{
@@ -64,7 +63,7 @@ namespace EvidencijaSati.Models
 								SatnicaID = (int)row[nameof(SatnicaProjekta.SatnicaID)],
 								Start = DateTime.Parse(row[nameof(SatnicaProjekta.Start)].ToString()),
 								End = DateTime.Parse(row[nameof(SatnicaProjekta.End)].ToString()),
-								StartEnd = (float)row[nameof(SatnicaProjekta.StartEnd)]
+								StartEnd = float.Parse(row[nameof(SatnicaProjekta.StartEnd)].ToString())
 						  };
 					 }
 
@@ -86,6 +85,7 @@ namespace EvidencijaSati.Models
 								Datum = DateTime.Parse(row[nameof(Satnica.Datum)].ToString()),
 								Komentar = row[nameof(Satnica.Komentar)].ToString(),
 								Satnice = new Dictionary<string, List<SatnicaProjekta>>(),
+								ProjektZabiljezeno = new Dictionary<int, string>(),
 								Total = double.Parse(row[nameof(Satnica.Total)].ToString()),
 								TotalPrekovremeni = double.Parse(row[nameof(Satnica.TotalPrekovremeni)].ToString()),
 								TotalRedovni = double.Parse(row[nameof(Satnica.TotalRedovni)].ToString())

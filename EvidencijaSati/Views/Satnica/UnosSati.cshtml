@@ -32,7 +32,9 @@
 					 {
 						  <tr class="@Model.Projekti[i].IDProjekt rowProjekt">
 								<td>@Model.Projekti[i].Naziv</td>
-						  	 	<td id="@("txtZab" + Model.Projekti[i].IDProjekt)" class="zabiljezeno"></td>
+								<td id="@("txtZab" + Model.Projekti[i].IDProjekt)" class="zabiljezeno">
+									 @(Model.Satnica.ProjektZabiljezeno[Model.Projekti[i].IDProjekt])
+								</td>
 						  	 	<td>
 								<button id="@("btnProjekt" + Model.Projekti[i].IDProjekt)"
 										  class="btn btn-success btnTimer @i"
@@ -48,10 +50,10 @@
 					 <tfoot>
 						  <tr>
 								<td>Ukupno</td>
+								<td><b>@Model.Satnica.GetFormatedProperties("total")</b></td>
 								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+								<td><b>@Model.Satnica.GetFormatedProperties("redovni")</b></td>
+								<td><b>@Model.Satnica.GetFormatedProperties("prekovremeni")</b></td>
 								<td></td>
 						  </tr>
 					 </tfoot>
@@ -151,6 +153,11 @@
 								//res[2] prekovremeno?
 
 								table.cell(res[0], 1, 0).data(res[1]).draw();
+
+								if (res[2]) {
+									 console.log(res[2]);
+								}
+
 								console.log(res);
 						  }
 					 });
