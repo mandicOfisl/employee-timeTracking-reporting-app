@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using EvidencijaSati.Resources
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -11,9 +13,9 @@
 	 <nav class="navbar navbar-dark bg-dark justify-content-between">
 	 	 <a class="navbar-brand">Evidencija sati</a>
 		 <div class="form-inline">
-	 	     <div class="dropdown" style="padding: 0 2vw;">
+	 	     <div class="dropdown" style="margin: 0 2vw;">
 	 	 	     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	 	 	 	     Jezik
+	 	 	 	     @Common.Jezik
 	 	 	     </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 	                 @Html.ActionLink("Hrvatski", "SetLanguage", "Home", 
@@ -27,9 +29,9 @@
                 <a id="btnLogout"
                    class="btn btn-outline-danger"
                    href="@Url.Action("Login", "Home")"
-                   style="padding: 0 2vw;">
+                   style="margin: 0 2vw;">
                    <i class="fa fa-exclamation"></i>
-                      <b>Odjava</b>
+                      <b>@Common.Odjava</b>
                 </a>
        </div>
 	 </nav>

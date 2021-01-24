@@ -120,10 +120,16 @@
   <data name="Do" xml:space="preserve">
     <value>Do</value>
   </data>
+  <data name="Jezik" xml:space="preserve">
+    <value>Jezik</value>
+  </data>
   <data name="Obrisi" xml:space="preserve">
     <value>Obriši</value>
   </data>
   <data name="Od" xml:space="preserve">
     <value>Od</value>
+  </data>
+  <data name="Odjava" xml:space="preserve">
+    <value>Odjava</value>
   </data>
 </root>
