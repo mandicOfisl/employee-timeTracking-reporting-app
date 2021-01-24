@@ -16,6 +16,8 @@ namespace EvidencijaSati.Controllers
 	 {
 		  public ActionResult Login()
 		  {
+				if (HttpContext.Session["id"] != null) HttpContext.Session.Remove("id");
+				
 				return View(new Djelatnik());
 		  }
 
@@ -54,6 +56,13 @@ namespace EvidencijaSati.Controllers
 				});
 				
 				return Redirect(url);								
+		  }
+
+		  public ActionResult Logout()
+		  {
+				if (HttpContext.Session["id"] != null) HttpContext.Session.Remove("id");
+
+				return View("Login", new Djelatnik());
 		  }
 	 }
 }
