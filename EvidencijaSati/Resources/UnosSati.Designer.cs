@@ -59,5 +59,122 @@ namespace EvidencijaSati.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bilježe se sati za.
+        /// </summary>
+        public static string Bilježe_se_sati__za {
+            get {
+                return ResourceManager.GetString("Bilježe_se_sati_ za", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detalji.
+        /// </summary>
+        public static string Detalji {
+            get {
+                return ResourceManager.GetString("Detalji", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Odustani.
+        /// </summary>
+        public static string Odustani {
+            get {
+                return ResourceManager.GetString("Odustani", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pozdrav.
+        /// </summary>
+        public static string Pozdrav {
+            get {
+                return ResourceManager.GetString("Pozdrav", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Predaj.
+        /// </summary>
+        public static string Predaj {
+            get {
+                return ResourceManager.GetString("Predaj", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prekovremeni sati.
+        /// </summary>
+        public static string Prekovremeni_sati {
+            get {
+                return ResourceManager.GetString("Prekovremeni_sati", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profil.
+        /// </summary>
+        public static string Profil {
+            get {
+                return ResourceManager.GetString("Profil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projekt.
+        /// </summary>
+        public static string Projekt {
+            get {
+                return ResourceManager.GetString("Projekt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Radni sati.
+        /// </summary>
+        public static string Radni_sati {
+            get {
+                return ResourceManager.GetString("Radni_sati", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spremi.
+        /// </summary>
+        public static string Spremi {
+            get {
+                return ResourceManager.GetString("Spremi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ukupno.
+        /// </summary>
+        public static string Ukupno {
+            get {
+                return ResourceManager.GetString("Ukupno", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uredi.
+        /// </summary>
+        public static string Uredi {
+            get {
+                return ResourceManager.GetString("Uredi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zabilježeno.
+        /// </summary>
+        public static string Zabiljezeno {
+            get {
+                return ResourceManager.GetString("Zabiljezeno", resourceCulture);
+            }
+        }
     }
 }

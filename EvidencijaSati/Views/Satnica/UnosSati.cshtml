@@ -1,112 +1,122 @@
 ﻿@model EvidencijaSati.Models.ViewModels.UnosSatiVM
+@using EvidencijaSati.Resources
 
 @Scripts.Render("~/bundles/dataTables")
 @Styles.Render("~/Content/dataTables")
 @Styles.Render("~/Content/unosSati")
 
-<h1>Pozdrav @Model.Djelatnik.Ime !</h1>
+<h1>@UnosSati.Pozdrav @Model.Djelatnik.Ime !</h1>
 
 <div class="container">
 	 <div class="row justify-content-between">
-		  <div class="col col-4 dateCol">
-				<p>Bilježe se sati za <b><span id="txtDatum"></span></b></p>
-		  </div>
-		  <div class="col col-4">
-				<button id="btnPregled"
-						  class="btn btn-outline-success"
-						  type="button">
-							Profil
-				</button>
-		  </div>
+	 	 <div class="col col-4 dateCol">
+	 	 	 <p>@UnosSati.Bilježe_se_sati__za <b><span id="txtDatum"></span></b></p>
+	 	 </div>
+	 	 <div class="col col-4">
+	 	 	 <button id="btnPregled"
+					  class="btn btn-outline-success"
+					  type="button">
+	 	 	 	 @UnosSati.Profil
+	 	 	 </button>
+	 	 </div>
 	 </div>
 	 <div class="row">
-		  <div class="card card-body">
+	 	 <div class="card card-body">
 
-				<table id="table" style="width: 100%">
-					 <thead>
-						  <tr>
-								<th>Projekt</th>
-								<th>Zabilježeno</th>
-								<th>Start / Stop</th>
-								<th>Radni sati</th>
-								<th>Prekovremeni sati</th>
-								<th>Detalji</th>
-						  </tr>
-						  </thead>
-					 <tbody>
-					 @for (int i = 0; i < Model.Projekti.Count; i++)
+	 	 	 <table id="table" style="width: 100%">
+	 	 	 	 <thead>
+	 	 	 	 	 <tr>
+						  <th>@UnosSati.Projekt</th>
+						  <th>@UnosSati.Zabiljezeno</th>
+	 	 	 	 	 	 <th>Start / Stop</th>
+						 <th>@UnosSati.Radni_sati</th>
+						 <th>@UnosSati.Prekovremeni_sati</th>
+						 <th>@UnosSati.Detalji</th>
+	 	 	 	 	 </tr>
+	 	 	 	 </thead>
+	 	 	 	 <tbody>
+	 	 	 	 	 @for (int i = 0; i < Model.Projekti.Count; i++)
 					 {
-						  <tr class="@Model.Projekti[i].IDProjekt rowProjekt">
-								<td>@Model.Projekti[i].Naziv</td>
-								<td id="@("txtZab" + Model.Projekti[i].IDProjekt)" class="zabiljezeno">
-									 @(Model.Satnica.ProjektZabiljezeno[Model.Projekti[i].IDProjekt])
-								</td>
-						  	 	<td>
-								<button id="@("btnProjekt" + Model.Projekti[i].IDProjekt)"
-										  class="btn btn-success btnTimer @i"
-										  type="button">Start
-								</button>
-								</td>
-						  	 	<td>
-									 <input id="@("txtRadni" + Model.Projekti[i].IDProjekt.ToString())"
-											  class="form-control radni"
-											  type="text" />
-								</td>
-								<td>
-									 <input id="@("txtPrekovremeni" + Model.Projekti[i].IDProjekt.ToString())"
-												class="form-control"
-												type="text" />
-								</td>
-						  	 	<td>
-									 <button id="@("btnInfo" + Model.Projekti[i].IDProjekt)"
-												class="btn btn-outline-dark modal-link"
-												type="button"
-												data-targeturl="@Url.Action("PrikaziInfoProjekta", new { @projId = Model.Projekti[i].IDProjekt, @satId = Model.Satnica.IDSatnica })">
-														<i class="fa fa-info"></i>
-												 </button>
-								</td>
-						  </tr>
-					 }
-					 </tbody>
-					 <tfoot>
-						  <tr>
-								<td>Ukupno</td>
-								<td><b><span id="txtTotal">@Model.Satnica.GetFormatedProperties("total")</span></b></td>
-								<td></td>
-								<td><span id="txtTotalRedovni">00:00</span></td>
-								<td><span id="txtTotalPrekovremeni">00:00</span></td>
-								<td></td>
-						  </tr>
-					 </tfoot>
-				</table>
+	 	 	 	 	 <tr class="@Model.Projekti[i].IDProjekt rowProjekt">
+	 	 	 	 	 	 <td>@Model.Projekti[i].Naziv</td>
+	 	 	 	 <td id="@("txtZab" + Model.Projekti[i].IDProjekt)" class="zabiljezeno">
+	 	 	 	 	 @(Model.Satnica.ProjektZabiljezeno[Model.Projekti[i].IDProjekt])
+	 	 	 	 </td>
+	 	 	 	 <td>
+	 	 	 	 	 <button id="@("btnProjekt" + Model.Projekti[i].IDProjekt)"
+							 class="btn btn-success btnTimer @i"
+							 type="button">
+	 	 	 	 	 	 Start
+	 	 	 	 	 </button>
+	 	 	 	 </td>
+	 	 	 	 <td>
+	 	 	 	 	 <input id="@("txtRadni" + Model.Projekti[i].IDProjekt.ToString())"
+							class="form-control radni"
+							type="text" />
+	 	 	 	 </td>
+	 	 	 	 <td>
+	 	 	 	 	 <input id="@("txtPrekovremeni" + Model.Projekti[i].IDProjekt.ToString())"
+							class="form-control"
+							type="text" />
+	 	 	 	 </td>
+	 	 	 	 <td>
+	 	 	 	 	 <button id="@("btnInfo" + Model.Projekti[i].IDProjekt)"
+							 class="btn btn-outline-dark modal-link"
+							 type="button"
+							 data-targeturl="@Url.Action("PrikaziInfoProjekta", new { @projId = Model.Projekti[i].IDProjekt, @satId = Model.Satnica.IDSatnica })">
+	 	 	 	 	 	 <i class="fa fa-info"></i>
+	 	 	 	 	 </button>
+	 	 	 	 </td>
+	 	 	 </tr>
+	  }
+	 	 	 </tbody>
+	 	 	 <tfoot>
+	 	 	 	 <tr>
+					  <td>@UnosSati.Ukupno</td>
+	 	 	 	 	 <td><b><span id="txtTotal">@Model.Satnica.GetFormatedProperties("total")</span></b></td>
+	 	 	 	 <td></td>
+	 	 	 	 <td><span id="txtTotalRedovni">00:00</span></td>
+	 	 	 	 <td><span id="txtTotalPrekovremeni">00:00</span></td>
+	 	 	 	 <td></td>
+	 	 	 </tr>
+	 	 </tfoot>
+	 </table>
 
-		  </div>
-		  </div>
-	 <div class="row btns justify-content-center">
-		  <div class="col col-3">
-			 <button id="btnOdustani"
-						class="btn btn-outline-danger">Odustani</button>
-		  </div>
-		  <div class="col col-3">
-			 <button id="btnUredi"
-						class="btn btn-success">Uredi</button>
-		  </div>
-		  <div class="col col-3">
-			 <button id="btnSpremi"
-						class="btn btn-primary">Spremi</button>
-		  </div>
-		  <div class="col col-3">
-			 <button id="btnPredaj"
-						class="btn btn-warning">Predaj</button>
-		  </div>
+</div>
+</div>
+<div class="row btns justify-content-center">
+	 <div class="col col-3">
+		  <button id="btnOdustani"
+				class="btn btn-outline-danger">
+		  	 @UnosSati.Odustani
+		  </button>
 	 </div>
+	 <div class="col col-3">
+		  <button id="btnUredi"
+				class="btn btn-success">
+		  	 @UnosSati.Uredi
+		  </button>
+	 </div>
+	 <div class="col col-3">
+		  <button id="btnSpremi"
+				class="btn btn-primary">
+		  	 @UnosSati.Spremi
+		  </button>
+	 </div>
+	 <div class="col col-3">
+		  <button id="btnPredaj"
+				class="btn btn-warning">
+		  	 @UnosSati.Predaj
+		  </button>
+	 </div>
+</div>
 
 </div>
 
 <div id="modal-container" class="modal" tabindex="-1" role="dialog">
 	 <a href="#close" title="Close" class="modal-close-btn">X</a>
 	 <div class="modal-content">
-		  <div class="modal-body"></div>
+	 	 <div class="modal-body"></div>
 	 </div>
 </div>
 
@@ -381,7 +391,7 @@
 				$("#modal-container").remove();
 				$.get($(this).data("targeturl"), function (data) {
 					 $('<div id="modal-container" class="modal fade">' +
-						  '<div class="modal-dialog modal modal-dialog-centered" role="document">' +
+						  '<div class="modal-dialog" role="document">' +
 						  data + '</div></div> ').modal();
 				});
 		  });

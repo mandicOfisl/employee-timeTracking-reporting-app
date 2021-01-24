@@ -10,28 +10,28 @@
 <body>
 	 <nav class="navbar navbar-dark bg-dark justify-content-between">
 	 	 <a class="navbar-brand">Evidencija sati</a>
-	 	 <div class="dropdown">
-	 	 	 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	 	 	 	 Jezik
-	 	 	 </button>
-			 <div class="d-inline">
-	 	 	     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-	 	 	 	     @Html.ActionLink("Hrvatski", "SetLanguage", "Home", 
+		 <div class="form-inline">
+	 	     <div class="dropdown" style="padding: 0 2vw;">
+	 	 	     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	 	 	 	     Jezik
+	 	 	     </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	                 @Html.ActionLink("Hrvatski", "SetLanguage", "Home", 
                     new { culture = "hr", url = Context.Request.Path }, 
                     new { @class = "dropdown-item" })
-	 	 	        @Html.ActionLink("English", "SetLanguage", "Home", 
+	                 @Html.ActionLink("English", "SetLanguage", "Home", 
                     new { culture = "en", url = Context.Request.Path }, 
                     new { @class = "dropdown-item" })
-	           </div>
+                </div>
+	        </div>
                 <a id="btnLogout"
-                    class="btn btn-outline-danger"
-                    href="@Url.Action("Login", "Home")">
-                    <i class="fa fa-exclamation"></i>
-                    <b>Odjava</b>
+                   class="btn btn-outline-danger"
+                   href="@Url.Action("Login", "Home")"
+                   style="padding: 0 2vw;">
+                   <i class="fa fa-exclamation"></i>
+                      <b>Odjava</b>
                 </a>
-
-          </div>
-	    </div>
+       </div>
 	 </nav>
     <div class="container body-content">
         @Scripts.Render("~/bundles/jquery")

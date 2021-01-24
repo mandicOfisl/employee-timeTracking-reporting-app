@@ -118,42 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Bilježe_se_sati_ za" xml:space="preserve">
-    <value>Bilježe se sati za</value>
+    <value>Recording hours for</value>
   </data>
   <data name="Detalji" xml:space="preserve">
-    <value>Detalji</value>
+    <value>Details</value>
   </data>
   <data name="Odustani" xml:space="preserve">
-    <value>Odustani</value>
+    <value>Delete</value>
   </data>
   <data name="Pozdrav" xml:space="preserve">
-    <value>Pozdrav</value>
+    <value>Hi</value>
   </data>
   <data name="Predaj" xml:space="preserve">
-    <value>Predaj</value>
+    <value>Submit</value>
   </data>
   <data name="Prekovremeni_sati" xml:space="preserve">
-    <value>Prekovremeni sati</value>
+    <value>Overtime</value>
   </data>
   <data name="Profil" xml:space="preserve">
-    <value>Profil</value>
+    <value>Profile</value>
   </data>
   <data name="Projekt" xml:space="preserve">
-    <value>Projekt</value>
+    <value>Project</value>
   </data>
   <data name="Radni_sati" xml:space="preserve">
-    <value>Radni sati</value>
+    <value>Work hours</value>
   </data>
   <data name="Spremi" xml:space="preserve">
-    <value>Spremi</value>
+    <value>Save</value>
   </data>
   <data name="Ukupno" xml:space="preserve">
-    <value>Ukupno</value>
+    <value>Total</value>
   </data>
   <data name="Uredi" xml:space="preserve">
-    <value>Uredi</value>
+    <value>Edit</value>
   </data>
   <data name="Zabiljezeno" xml:space="preserve">
-    <value>Zabilježeno</value>
+    <value>Saved</value>
   </data>
 </root>
