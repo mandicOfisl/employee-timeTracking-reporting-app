@@ -1,0 +1,39 @@
+﻿@model List<EvidencijaSati.Models.SatnicaProjekta>
+
+<div class="modal-content">
+	 <div class="modal-header">
+	 	 Detalji
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	 		  <span aria-hidden="true">&times;</span>
+		  </button>
+	 </div>
+	 <div class="modal-body">
+		  <div class="container">
+
+				@foreach (var satnica in Model)
+				{
+					 <div class="row">
+						  <div class="col">
+								<input id="@("spTxtRadni" + satnica.IDSatnicaProjekta)"
+										 class="form-control"
+										 type="text" />
+						  </div>
+						  <div class="col">
+								<input id="@("spTxtPrekovremeni" + satnica.IDSatnicaProjekta)"
+										 class="form-control"
+										 type="text" />
+						  </div>
+						  <div class="col col-2">
+								<button id="@("btnDelete" + satnica.IDSatnicaProjekta)"
+										  class="btn btn-danger"
+										  type="button"
+										  data-targeturl="@Url.Action("ObrisiUnosSatniceProjekta", new { @id = satnica.IDSatnicaProjekta })">
+									 <i class="fa fa-minus-circle"></i>
+								</button>
+						  </div>
+					 </div>
+				}
+
+		  </div>
+	 </div>
+</div>

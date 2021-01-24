@@ -57,7 +57,14 @@
 												class="form-control"
 												type="text" />
 								</td>
-						  	 	<td><a href="#"><i class="fa fa-info-circle fa-3x" style="color: grey;"></i></a></td>
+						  	 	<td>
+									 <button id="@("btnInfo" + Model.Projekti[i].IDProjekt)"
+												class="btn btn-outline-dark modal-link"
+												type="button"
+												data-targeturl="@Url.Action("", new { @projId = Model.Projekti[i].IDProjekt, @satId = Model.Satnica.IDSatnica })">
+														<i class="fa fa-info"></i>
+												 </button>
+								</td>
 						  </tr>
 					 }
 					 </tbody>
@@ -65,7 +72,7 @@
 						  <tr>
 								<td>Ukupno</td>
 								<td><b><span id="txtTotal">@Model.Satnica.GetFormatedProperties("total")</span></b></td>
-								<td><b>Nespremljeno:</b></td>
+								<td></td>
 								<td><span id="txtTotalRedovni">00:00</span></td>
 								<td><span id="txtTotalPrekovremeni">00:00</span></td>
 								<td></td>
@@ -94,6 +101,13 @@
 		  </div>
 	 </div>
 
+</div>
+
+<div id="modal-container" class="modal" tabindex="-1" role="dialog">
+	 <a href="#close" title="Close" class="modal-close-btn">X</a>
+	 <div class="modal-content">
+		  <div class="modal-body"></div>
+	 </div>
 </div>
 
 <script type="text/javascript">
@@ -164,7 +178,6 @@
 					 $(this).html('Start');
 
 					 var minutes = calculateMinutes(start, end);
-					 var isPrekovremeno = minutes / 60 > 8;
 					 var zabiljezeno = parseMinutesToString(minutes);
 					 var row;
 					 $('input').each(function (i) {
@@ -180,19 +193,18 @@
 						  )
 					 ).draw();
 
-					 var txtR = "txtRadni" + projectId;
-					 var txtP = "txtPrekovremeni" + projectId;
+					 //var txtR = "txtRadni" + projectId;
+					 //var txtP = "txtPrekovremeni" + projectId;
 
-					 document.getElementById(txtR).value = zabiljezeno;
-					 document.getElementById(txtP).value = isPrekovremeno ?
-						  parseMinutesToString(minutes - 8 * 60) : "00:00";
+					 //document.getElementById(txtR).value = zabiljezeno;
+					 //document.getElementById(txtP).value = isPrekovremeno ?
+						//  parseMinutesToString(minutes - 8 * 60) : "00:00";
 
 
 					 calculateTotals();
-					 $('#btnPredaj').prop('disabled', false);
 					 $('#btnOdustani').prop('disabled', false);
 
-					 @*var model = {
+					 var model = {
 						  IDSatnicaProjekta: -1,
 						  SatnicaID: @Model.Satnica.IDSatnica,
 						  ProjektID: projectId.toString(),
@@ -214,16 +226,16 @@
 
 								table.cell(res[0], 1, 0).data(addHoursMinutes(table.cell(res[0], 1, 0).data(), res[1])).draw();
 
-								var txtR = "txtRadni" + res[3];
-								var txtP = "txtPrekovremeni" + res[3];
+								//var txtR = "txtRadni" + res[3];
+								//var txtP = "txtPrekovremeni" + res[3];
 
-								document.getElementById(txtR).value = res[1];
-								document.getElementById(txtP).value = res[2];
+								//document.getElementById(txtR).value = res[1];
+								//document.getElementById(txtP).value = res[2];
 
 								calculateTotals();
-								$('#btnPredaj').prop('disabled', false);
+								//$('#btnPredaj').prop('disabled', false);
 						  }
-					 });*@
+					 });
 
 
 				}
@@ -364,9 +376,17 @@
 
 	 });
 
-	 function isProject(id) {
-		  return (id == 'btnBolovanje' || id == 'btnGodisnji' || id == 'btnPutovanje');
-	 }
+	 $(function () {
+		  $('body').on('click', '.modal-link', function (e) {
+				e.preventDefault();
+				$("#modal-container").remove();
+				$.get($(this).data("targeturl"), function (data) {
+					 $('<div id="modal-container" class="modal fade">' +
+						  '<div class="modal-dialog modal modal-dialog-centered" role="document">' +
+						  data + '</div></div> ').modal();
+				});
+		  });
+	 });
 
 	 function addHoursMinutes(first, second) {
 		  var f = (first != '' && regex.test(first)) ? first.split(':') : ['00', '00'];

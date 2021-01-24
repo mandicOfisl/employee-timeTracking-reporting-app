@@ -10,7 +10,7 @@ namespace EvidencijaSati.Models
 		  public int IDSatnica { get; set; }
 		  public int DjelatnikID { get; set; }
 		  public DateTime Datum { get; set; }
-		  public Dictionary<string, List<SatnicaProjekta>> Satnice { get; set; }
+		  public Dictionary<int, List<SatnicaProjekta>> Satnice { get; set; }
 		  public Dictionary<int, string> ProjektZabiljezeno { get; set; }
 		  public string Komentar { get; set; }
 		  public double Total { get; set; }

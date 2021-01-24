@@ -59,7 +59,7 @@ namespace EvidencijaSati.Models
 						  yield return new SatnicaProjekta
 						  {
 								IDSatnicaProjekta = (int)row[nameof(SatnicaProjekta.IDSatnicaProjekta)],
-								ProjektID = row[nameof(SatnicaProjekta.ProjektID)].ToString(),
+								ProjektID = (int)row[nameof(SatnicaProjekta.ProjektID)],
 								SatnicaID = (int)row[nameof(SatnicaProjekta.SatnicaID)],
 								Start = DateTime.Parse(row[nameof(SatnicaProjekta.Start)].ToString()),
 								End = DateTime.Parse(row[nameof(SatnicaProjekta.End)].ToString()),
@@ -176,7 +176,7 @@ namespace EvidencijaSati.Models
 						  cmd.CommandType = CommandType.StoredProcedure;
 						  cmd.CommandText = "AddSatnicaProjekta";
 						  cmd.Parameters.AddWithValue("@SatnicaID", satnicaProjekta.SatnicaID);
-						  cmd.Parameters.AddWithValue("@ProjektID", int.Parse(satnicaProjekta.ProjektID));
+						  cmd.Parameters.AddWithValue("@ProjektID", satnicaProjekta.ProjektID);
 						  cmd.Parameters.AddWithValue("@Start", satnicaProjekta.Start);
 						  cmd.Parameters.AddWithValue("@End", satnicaProjekta.End);
 						  cmd.Parameters.AddWithValue("@StartEnd", satnicaProjekta.StartEnd);
