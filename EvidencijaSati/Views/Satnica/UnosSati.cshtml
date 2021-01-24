@@ -49,7 +49,7 @@
 								</td>
 						  	 	<td>
 									 <input id="@("txtRadni" + Model.Projekti[i].IDProjekt.ToString())"
-											  class="form-control"
+											  class="form-control radni"
 											  type="text" />
 								</td>
 								<td>
@@ -64,10 +64,10 @@
 					 <tfoot>
 						  <tr>
 								<td>Ukupno</td>
-								<td><b>@Model.Satnica.GetFormatedProperties("total")</b></td>
-								<td></td>
-								<td><b></b></td>
-								<td><b></b></td>
+								<td><b><span id="txtTotal">@Model.Satnica.GetFormatedProperties("total")</span></b></td>
+								<td><b>Nespremljeno:</b></td>
+								<td><span id="txtTotalRedovni">00:00</span></td>
+								<td><span id="txtTotalPrekovremeni">00:00</span></td>
 								<td></td>
 						  </tr>
 					 </tfoot>
@@ -76,15 +76,19 @@
 		  </div>
 		  </div>
 	 <div class="row btns justify-content-center">
-		  <div class="col col-4">
+		  <div class="col col-3">
 			 <button id="btnOdustani"
 						class="btn btn-outline-danger">Odustani</button>
 		  </div>
-		  <div class="col col-4">
+		  <div class="col col-3">
+			 <button id="btnUredi"
+						class="btn btn-success">Uredi</button>
+		  </div>
+		  <div class="col col-3">
 			 <button id="btnSpremi"
 						class="btn btn-primary">Spremi</button>
 		  </div>
-		  <div class="col col-4">
+		  <div class="col col-3">
 			 <button id="btnPredaj"
 						class="btn btn-warning">Predaj</button>
 		  </div>
@@ -94,16 +98,21 @@
 
 <script type="text/javascript">
 
+	 const regex = new RegExp('^\\d{1,2}[:]\\d{1,2}$');
 
 	 $(document).ready(function () {
+
 
 		  var datum = "@Model.Satnica.Datum.ToString()".split(" ")[0];
 		  $('#txtDatum').html(datum);
 
-		  $('#btnPredaj').prop('disabled', true);
-		  //$('#btnSpremi').prop('disabled', true);
+		  lockTextFields(true);
+		  calculateTotals();
 
-		  var projectId, start, end;
+		  $('#btnPredaj').prop('disabled', true);
+		  $('#btnSpremi').prop('disabled', true);
+
+		  var projectId, start, end, satId;
 
 		  var table = $("#table").DataTable({
 				select: true,
@@ -153,8 +162,35 @@
 					 $(this).addClass('btn-success');
 					 $(this).html('Start');
 
+					 var minutes = calculateMinutes(start, end);
+					 var isPrekovremeno = minutes / 60 > 8;
+					 var zabiljezeno = parseMinutesToString(minutes);
+					 var row;
+					 $('input').each(function (i) {
+						  if ($(this).attr('id').endsWith(projectId)) {
+								row = Math.floor(i / 2);
+						  }
+					 });
 
-					 var model = {
+					 table.cell(row, 1, 0).data(
+						  addHoursMinutes(
+								table.cell(row, 1, 0).data(),
+								zabiljezeno
+						  )
+					 ).draw();
+
+					 var txtR = "txtRadni" + projectId;
+					 var txtP = "txtPrekovremeni" + projectId;
+
+					 document.getElementById(txtR).value = zabiljezeno;
+					 document.getElementById(txtP).value = isPrekovremeno ?
+						  parseMinutesToString(minutes - 8 * 60) : "00:00";
+
+
+					 calculateTotals();
+					 $('#btnPredaj').prop('disabled', false);
+
+					 @*var model = {
 						  IDSatnicaProjekta: -1,
 						  SatnicaID: @Model.Satnica.IDSatnica,
 						  ProjektID: projectId.toString(),
@@ -176,33 +212,82 @@
 
 								table.cell(res[0], 1, 0).data(addHoursMinutes(table.cell(res[0], 1, 0).data(), res[1])).draw();
 
-								var txtR = "#txtRadni" + res[3];
-								var txtP = "#txtPrekovremeni" + res[3];
+								var txtR = "txtRadni" + res[3];
+								var txtP = "txtPrekovremeni" + res[3];
 
-								$(txtR).val(res[1]);
-								$(txtP).val(res[2]);					
+								document.getElementById(txtR).value = res[1];
+								document.getElementById(txtP).value = res[2];
 
+								calculateTotals();
+								$('#btnPredaj').prop('disabled', false);
 						  }
-					 });
+					 });*@
 
 
 				}
 
 		  });
 
+		  $('input').on('focusout', function (e) {
+
+		  });
+
+		  $('#btnUredi').on('click', function (e) {
+				e.preventDefault();
+				lockTextFields(false);
+				$('#btnSpremi').prop('disabled', false);
+		  });
+
 		  $('#btnSpremi').on('click', function (e) {
 				e.preventDefault();
-				const regex = new RegExp('\\d{1,2}[:]\\d{1,2}');
-
+				
 				$('input').each(function (i) {
-					 if (regex.test($(this).val())) {
-						  $('button.btnTimer').prop('disabled', true);
-						  lockTextFields(true);
-						  $('#btnSpremi').prop('disabled', true);
-						  $('#btnPredaj').prop('disabled', false);
-					 } else {
-						  alert("krivi unos");
-						  return false;
+					 var value = $(this).val();
+					 if (value != "") {
+						  if (regex.test(value)) {
+								lockTextFields(true);
+								$('button.btnTimer').prop('disabled', true);
+								lockTextFields(true);
+								$('#btnSpremi').prop('disabled', true);
+								$('#btnPredaj').prop('disabled', false);
+
+								if ($(this).attr('id').startsWith('txtRadni')) {
+									 var projId = $(this).attr('id').split('txtRadni')[1];
+									 var txtId = 'txtPrekovremeni' + projId;
+									 if ($(this).val() != "00:00" || document.getElementById(txtId).value != "00:00") {
+
+										  var startEnd = parseStringMinutesToFloat($(this).val(), document.getElementById(txtId).value);
+
+										  var model = {
+												IDSatnicaProjekta: 0,
+												SatnicaID: 0,
+												ProjektID: projId,
+												Start: new Date(),
+												End: new Date(),
+												StartEnd: startEnd
+										  };
+
+										  $.ajax({
+												url: "@Url.Action("SpremiZaPredaju")",
+												method: "POST",
+												data: JSON.stringify(model),
+												contentType: 'application/json',
+												success: function (res) {
+													 calculateTotals();
+													 console.log(res);
+													 $('#btnPredaj').prop('disabled', false);
+												}
+										  });
+
+									 }
+
+								}
+
+						  } else {
+								$(this).focus();
+								alert("krivi unos");
+								return false;
+						  }
 					 }
 				});
 		  });
@@ -210,9 +295,6 @@
 		  $('#btnOdustani').on('click', function (e) {
 				e.preventDefault();
 				$('button.btnTimer').prop('disabled', false);
-				$('input').each(function (i) {
-					 $(this).val("00:00");
-				});
 				lockTextFields(false);
 				$('#btnSpremi').prop('disabled', false);
 				$('#btnPredaj').prop('disabled', true);
@@ -220,7 +302,7 @@
 
 		  $('#btnPredaj').on('click', function (e) {
 				e.preventDefault();
-				$('#btnPredaj').prop('disabled', tru);
+				$('#btnPredaj').prop('disabled', true);
 		  });
 
 	 });
@@ -230,8 +312,8 @@
 	 }
 
 	 function addHoursMinutes(first, second) {
-		  var f = first.split(':');
-		  var s = second.split(':');
+		  var f = (first != '' && regex.test(first)) ? first.split(':') : ['00', '00'];
+		  var s = (second != '' && regex.test(second)) ? second.split(':') : ['00', '00'];
 
 		  var fH = parseInt(f[0]);
 		  var sH = parseInt(s[0]);
@@ -241,8 +323,7 @@
 		  var newH = fH + sH;
 		  var newM = fM + sM;
 
-		  return newH.toString().padStart(2, '0') + ":" + newM.toString().padStart(2, '0')
-
+		  return newH.toString().padStart(2, '0') + ":" + newM.toString().padStart(2, '0');
 	 }
 
 	 function lockTextFields(trueFalse) {
@@ -257,5 +338,51 @@
 		  }
 	 }
 
+	 function calculateTotals() {
+		  var newTotal = "00:00";
+		  var newTotalRed = "00:00";
+		  var newTotalPre = "00:00";
+
+		  $('.zabiljezeno').each(function (i) {
+				newTotal = addHoursMinutes(newTotal, $(this).html());
+		  });
+
+		  $('input').each(function (i) {
+				if ($(this).hasClass('radni')) {
+					 newTotalRed = addHoursMinutes(newTotalRed, $(this).val());
+				} else {
+					 newTotalPre = addHoursMinutes(newTotalPre, $(this).val());
+				}
+		  });
+
+		  $('#txtTotal').html(newTotal);
+		  $('#txtTotalRedovni').html(newTotalRed);
+		  $('#txtTotalPrekovremeni').html(newTotalPre);
+
+	 }
+
+	 function calculateMinutes(start, end) {
+		  var diff = end - start;
+		  return Math.round(((diff % 86400000) % 3600000) / 60000);
+	 }
+
+	 function parseStringMinutesToFloat(first, second) {
+
+		  var zbroj = addHoursMinutes(first, second);
+
+		  var p = zbroj.split(':');
+
+		  var h = parseInt(p[0]);
+		  var m = parseInt(p[1]);
+
+		  return (h * 60) + m;
+	 }
+
+	 function parseMinutesToString(minutes) {
+		  var num = Math.floor(minutes);
+		  var h = Math.floor(num / 60);
+		  var m = num % 60;
+		  return h.toString().padStart(2, '0') + ':' + m.toString().padStart(2, '0');
+	 }
 
 </script>

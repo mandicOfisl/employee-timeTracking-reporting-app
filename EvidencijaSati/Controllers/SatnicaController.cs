@@ -30,7 +30,7 @@ namespace EvidencijaSati.Controllers
 									 DjelatnikID = id,
 									 Satnice = new Dictionary<string, List<SatnicaProjekta>>(),
 									 ProjektZabiljezeno = new Dictionary<int, string>(),
-									 Staus = SatnicaStatusEnum.WAITING_APPROVAL
+									 Staus = SatnicaStatusEnum.WAITING_SUBMIT
 								},
 								Projekti = Repo.GetProjektiDjelatnika(id).ToList()
 						  };
@@ -103,11 +103,13 @@ namespace EvidencijaSati.Controllers
 				string key = "satnica" + satProj.SatnicaID.ToString();
             Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[key].ToString());
 
+				string oldValue = sat.ProjektZabiljezeno[int.Parse(satProj.ProjektID)];
+
+
             Projekt p = Repo.SelectProjekt(int.Parse(satProj.ProjektID));
 
 				SatnicaProjekta sp = new SatnicaProjekta
 				{
-					 IDSatnicaProjekta = (sat.IDSatnica + satProj.ProjektID).GetHashCode(),
 					 SatnicaID = sat.IDSatnica,
 					 ProjektID = satProj.ProjektID,
 					 Start = satProj.Start,
@@ -115,9 +117,16 @@ namespace EvidencijaSati.Controllers
 					 StartEnd = float.Parse((satProj.End - satProj.Start).TotalMinutes.ToString())
 				};
 
+				int spId = Repo.SpremiSatnicuProjekta(sp);
+				sp.IDSatnicaProjekta = spId;
+
 				sat.Satnice[p.Naziv].Add(sp);
-				
-				Repo.SpremiSatnicuProjekta(sp);
+				foreach (var s in sat.Satnice)
+				{
+					 sat.ProjektZabiljezeno[int.Parse(s.Value.First().ProjektID)] = 
+							Utils.ParseMinutesToString(Utils.CalculateProjectMinutes(s.Value));
+				}
+								
             HttpContext.Session.Add(key, JsonConvert.SerializeObject(sat));
 
 				int row = sat.Satnice.Keys.ToList().IndexOf(p.Naziv);
@@ -128,7 +137,7 @@ namespace EvidencijaSati.Controllers
 				{
 					 row.ToString(),
 					 Utils.ParseMinutesToString(sp.StartEnd),
-					 zabiljezeno / 60 > 8 ? Utils.ParseMinutesToString(sp.StartEnd % 60) : "00:00",
+					 zabiljezeno / 60 > 8 ? Utils.ParseMinutesToString(sp.StartEnd - 8 * 60) : "00:00",
 					 p.IDProjekt.ToString()
 				};
 
@@ -136,14 +145,28 @@ namespace EvidencijaSati.Controllers
 		  }
 
 		  [HttpPost]
-		  public ActionResult SpremiZaPredaju()
+		  public ActionResult SpremiZaPredaju(SatnicaProjekta sps)
 		  {
 				int satId = JsonConvert.DeserializeObject<int>(HttpContext.Session["satnicaId"].ToString());
 
 				string key = "satnica" + satId.ToString();
 				Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[key].ToString());
 
+				SatnicaProjekta sp = new SatnicaProjekta
+				{
+					 IDSatnicaProjekta = sps.IDSatnicaProjekta,
+					 SatnicaID = satId,
+					 ProjektID = sps.ProjektID,
+					 Start = sps.Start,
+					 End = sps.End,
+					 StartEnd = sps.StartEnd
+					 
+				};
 
+				Repo.SpremiSatnicuProjekta(sp);
+				
+
+				//int r = Repo.ChangeSatnicaStatus(satId, SatnicaStatusEnum.WAITING_APPROVAL);
 
 				return Json("ok");
 		  }

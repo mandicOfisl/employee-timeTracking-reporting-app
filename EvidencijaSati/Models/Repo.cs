@@ -149,6 +149,23 @@ namespace EvidencijaSati.Models
 				}
 		  }
 
+		  internal static int ChangeSatnicaStatus(int satId, SatnicaStatusEnum status)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "AddSatnica";
+						  cmd.Parameters.AddWithValue("@IdSatnica", satId);
+						  cmd.Parameters.AddWithValue("@Status", (int)status);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
 		  internal static int SpremiSatnicuProjekta(SatnicaProjekta satnicaProjekta)
 		  {
 				using (SqlConnection con = new SqlConnection(cs))
@@ -163,8 +180,11 @@ namespace EvidencijaSati.Models
 						  cmd.Parameters.AddWithValue("@Start", satnicaProjekta.Start);
 						  cmd.Parameters.AddWithValue("@End", satnicaProjekta.End);
 						  cmd.Parameters.AddWithValue("@StartEnd", satnicaProjekta.StartEnd);
+						  cmd.Parameters.Add("@Id", SqlDbType.Int);
+						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
 
-						  return cmd.ExecuteNonQuery();
+						  _ = cmd.ExecuteNonQuery();
+						  return int.Parse(cmd.Parameters["@Id"].Value.ToString());
 					 }
 				}
 		  }
