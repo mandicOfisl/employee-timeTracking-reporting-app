@@ -55,7 +55,7 @@ namespace EvidencijaSati.Controllers
 								float total = 0;
 								foreach (var p in model.Projekti)
 								{
-									 model.Satnica.Satnice[p.IDProjekt] = sps.Where(s => s.ProjektID.Equals(p.IDProjekt.ToString())).ToList();
+									 model.Satnica.Satnice.Add(p.IDProjekt, sps.Where(s => s.ProjektID == p.IDProjekt).ToList());
 									 if (model.Satnica.Satnice[p.IDProjekt].Count > 0)
 									 {
 										  float t = Utils.CalculateProjectMinutes(model.Satnica.Satnice[p.IDProjekt]);
@@ -132,15 +132,11 @@ namespace EvidencijaSati.Controllers
             HttpContext.Session.Add(key, JsonConvert.SerializeObject(sat));
 
 				int row = sat.Satnice.Keys.ToList().IndexOf(p.IDProjekt);
-
-				float zabiljezeno = Utils.CalculateProjectMinutes(sat.Satnice[p.IDProjekt]);
-				
+								
 				string[] res =
 				{
 					 row.ToString(),
-					 Utils.ParseMinutesToString(sp.StartEnd),
-					 zabiljezeno / 60 > 8 ? Utils.ParseMinutesToString(sp.StartEnd - 8 * 60) : "00:00",
-					 p.IDProjekt.ToString()
+					 Utils.ParseMinutesToString(sp.StartEnd)
 				};
 
             return Json(res);
