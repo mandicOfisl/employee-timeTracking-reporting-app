@@ -17,7 +17,7 @@ namespace EvidencijaSati.Controllers
 		  public ActionResult Login()
 		  {
 				if (HttpContext.Session["id"] != null) HttpContext.Session.Remove("id");
-				
+				ViewBag.Site = "Login";
 				return View(new Djelatnik());
 		  }
 

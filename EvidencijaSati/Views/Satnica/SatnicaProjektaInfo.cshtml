@@ -30,14 +30,14 @@
 				{
 					 <div class="row">
 						  <div class="col">
-								<input id="@("spTxtOd" + satnica.IDSatnicaProjekta)"
+								<input id="@("spTxt-Od-" + satnica.IDSatnicaProjekta)"
 										 class="form-control"
 										 type="text"
 										 value="@satnica.GetTimeString("start")"
 										 style="margin: 0 auto;"/>
 						  </div>
 						  <div class="col">
-								<input id="@("spTxtDo" + satnica.IDSatnicaProjekta)"
+								<input id="@("spTxt-Do-" + satnica.IDSatnicaProjekta)"
 										 class="form-control"
 										 type="text"
 										 value="@satnica.GetTimeString("end")"/>
@@ -46,7 +46,8 @@
 								<button id="@("btnEdit-" + satnica.IDSatnicaProjekta)"
 										  class="btn btn-warning"
 										  type="button"
-										  data-targeturl="@Url.Action("UpdateUnosSatniceProjekta", new { @id = satnica.IDSatnicaProjekta })">
+										  data-targeturl="@Url.Action("UpdateUnosSatniceProjekta", new { @id = satnica.IDSatnicaProjekta })"
+										  disabled>
 									 <i class="fa fa-floppy-o"></i>
 								</button>
 						  </div>

@@ -26,13 +26,26 @@
                     new { @class = "dropdown-item" })
                 </div>
 	        </div>
-                <a id="btnLogout"
-                   class="btn btn-outline-danger"
-                   href="@Url.Action("Logout", "Home")"
-                   style="margin: 0 2vw;">
-                   <i class="fa fa-exclamation"></i>
-                      <b>@Common.Odjava</b>
+             @if (ViewBag.Site != "Login")
+				 {
+                <a id="btnProfil"
+                    class="btn btn-outline-success"
+                    href="@Url.Action("Profile", "User")"
+                    style="margin: 0 2vw;">
+                    <i class="fa fa-user"></i>
+                        <b>@UnosSati.Profil</b>
                 </a>
+
+                <a id="btnLogout"
+                    class="btn btn-outline-danger"
+                    href="@Url.Action("Logout", "Home")"
+                    style="margin: 0 2vw;">
+                    <i class="fa fa-exclamation"></i>
+                        <b>@Common.Odjava</b>
+                </a>
+
+
+				 }
        </div>
 	 </nav>
     <div class="container body-content">

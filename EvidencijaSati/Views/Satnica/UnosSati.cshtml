@@ -8,16 +8,9 @@
 <h1>@UnosSati.Pozdrav @Model.Djelatnik.Ime !</h1>
 
 <div class="container">
-	 <div class="row justify-content-between">
+	 <div class="row justify-content-start">
 	 	 <div class="col col-4 dateCol">
 	 	 	 <p>@UnosSati.Bilježe_se_sati__za <b><span id="txtDatum"></span></b></p>
-	 	 </div>
-	 	 <div class="col col-4">
-	 	 	 <button id="btnPregled"
-					  class="btn btn-outline-success"
-					  type="button">
-	 	 	 	 @UnosSati.Profil
-	 	 	 </button>
 	 	 </div>
 	 </div>
 	 <div class="row">
@@ -190,30 +183,6 @@
 					 $(this).addClass('btn-success');
 					 $(this).html('Start');
 
-					 //var minutes = calculateMinutes(start, end);
-					 //var zabiljezeno = parseMinutesToString(minutes);
-					 //var row;
-					 //$('input').each(function (i) {
-						//  if ($(this).attr('id').endsWith(projectId)) {
-						//		row = Math.floor(i / 2);
-						//  }
-					 //});
-
-					 //table.cell(row, 1, 0).data(
-						//  addHoursMinutes(
-						//		table.cell(row, 1, 0).data(),
-						//		zabiljezeno
-						//  )
-					 //).draw();
-
-					 //var txtR = "txtRadni" + projectId;
-					 //var txtP = "txtPrekovremeni" + projectId;
-
-					 //document.getElementById(txtR).value = zabiljezeno;
-					 //document.getElementById(txtP).value = isPrekovremeno ?
-						//  parseMinutesToString(minutes - 8 * 60) : "00:00";
-
-
 					 calculateTotals();
 					 $('#btnOdustani').prop('disabled', false);
 
@@ -225,7 +194,6 @@
 						  End: end
 					 };
 
-
 					 $.ajax({
 						  url: "@Url.Action("SpremiTempSatnicu")",
 						  method: "POST",
@@ -234,23 +202,10 @@
 						  success: function (res) {
 								//res[0] row
 								//res[1] zabiljezeno
-								//res[2] prekovremeno
-								//res[3] projID
-
 								table.cell(res[0], 1, 0).data(addHoursMinutes(table.cell(res[0], 1, 0).data(), res[1])).draw();
-
-								//var txtR = "txtRadni" + res[3];
-								//var txtP = "txtPrekovremeni" + res[3];
-
-								//document.getElementById(txtR).value = res[1];
-								//document.getElementById(txtP).value = res[2];
-
 								calculateTotals();
-								//$('#btnPredaj').prop('disabled', false);
 						  }
 					 });
-
-
 				}
 
 		  });
@@ -448,14 +403,13 @@
 
 	 }
 
-	 function calculateMinutes(start, end) {
-		  var diff = end - start;
-		  return Math.round(((diff % 86400000) % 3600000) / 60000);
-	 }
-
 	 function parseStringMinutesToFloat(first, second) {
 		  var zbroj = addHoursMinutes(first, second);
-		  var p = zbroj.split(':');
+		  return parseStringToMinutes(zbroj);
+	 }
+
+	 function parseStringToMinutes(str) {
+		  var p = str.split(':');
 
 		  var h = parseInt(p[0]);
 		  var m = parseInt(p[1]);
@@ -484,44 +438,72 @@
 					 }
 				}
 		  });
-
 	 });
 
 	 $('body').delegate("button[id|='btnEdit']", "click", function (e) {
 		  e.preventDefault();
 		  var btn = $(this);
 		  var uspId = btn.attr('id').split('btnEdit-')[1];;
-		  var date = new Date();
 
-		  var odId = "spTxtOd" + uspId;
-		  var doId = "spTxtDo" + uspId;		  
+		  var s = new Date();
+		  s.setHours(0);
+		  s.setMinutes(0);
+		  s.setSeconds(0);
 
-		  var startEnd = parseStringMinutesToFloat(document.getElementById(odId).value, document.getElementById(doId).value)
+		  var endDate = new Date();
+		  endDate.setHours(0);
+		  endDate.setMinutes(0);
+		  endDate.setSeconds(0);
 
-		  var startEnd = parseStringMinutesToFloat();
-		  var model = {
-				IDSatnicaProjekta: uspId,
-				SatnicaID: 0,
-				ProjektID: 0,
-				Start: date.setMinutes(date.getMinutes() - startEnd),
-				End: date,
-				StartEnd: startEnd
-		  };
+		  var odId = "spTxt-Od-" + uspId;
+		  var doId = "spTxt-Do-" + uspId;
 
-		  $.ajax({
-				url: "@Url.Action("ObrisiUnosSatniceProjekta")",
-				method: "POST",
-				data: JSON.stringify(model),
-				dataType: 'application/json',
-				success: function (res) {
-					 if (res != "error") {
+		  var editId = "btnEdit-" + uspId;
+		  document.getElementById(editId).disabled = true;
+
+		  var odMin = parseStringToMinutes(document.getElementById(odId).value);
+		  var doMin = parseStringToMinutes(document.getElementById(doId).value);
+
+		  if (odMin < doMin) {
+				var startEnd = doMin - odMin;
+
+				var start = s.setMinutes(odMin);
+
+				var end = endDate.setMinutes(doMin);
+
+				var model = {
+					 IDSatnicaProjekta: uspId,
+					 SatnicaID: 0,
+					 ProjektID: 0,
+					 Start: new Date(start),
+					 End: new Date(end),
+					 StartEnd: startEnd
+				};
+
+				$.ajax({
+					 url: "@Url.Action("UpdateUnosSatniceProjekta")",
+					 method: "POST",
+					 data: JSON.stringify(model),
+					 contentType: 'application/json',
+					 success: function (res) {
+						  if (res == "error") {
+
+						  }
 					 }
-				}
-		  });
-
+				});
+		  } else {
+				alert("Krivi unos");
+		  }
 	 });
 
+	 $('body').delegate("input[id|='spTxt']", "change", function (e) {
+		  e.preventDefault();
+		  var input = $(this);
+		  var uspId = input.attr('id').split('-')[2];;
 
+		  var editId = "btnEdit-" + uspId;
+		  document.getElementById(editId).disabled = false;
+	 });
 
 
 </script>

@@ -178,6 +178,7 @@ namespace EvidencijaSati.Models
 						  cmd.Parameters.AddWithValue("@Id", satnica.IDSatnicaProjekta);
 						  cmd.Parameters.AddWithValue("@Start", satnica.Start);
 						  cmd.Parameters.AddWithValue("@End", satnica.End);
+						  cmd.Parameters.AddWithValue("@StartEnd", satnica.StartEnd);
 
 						  return cmd.ExecuteNonQuery();
 					 }
