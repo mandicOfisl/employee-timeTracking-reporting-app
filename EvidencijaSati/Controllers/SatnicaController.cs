@@ -183,6 +183,15 @@ namespace EvidencijaSati.Controllers
 				return PartialView("SatnicaProjektaInfo", sat.Satnice[projId]);
 		  }
 
+		  public ActionResult UpdateUnosSatniceProjekta(SatnicaProjekta satnica)
+		  {
+				int i = Repo.UpdateSatnicaProjekta(satnica);
 
+				
+
+
+
+				return i != 1 ? Json("error") : Json(i);
+		  }
 	 }
 }

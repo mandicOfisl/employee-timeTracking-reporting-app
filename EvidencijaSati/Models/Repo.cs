@@ -166,6 +166,24 @@ namespace EvidencijaSati.Models
 				}
 		  }
 
+		  internal static int UpdateSatnicaProjekta(SatnicaProjekta satnica)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "UpdateSatnicaProjekta";
+						  cmd.Parameters.AddWithValue("@Id", satnica.IDSatnicaProjekta);
+						  cmd.Parameters.AddWithValue("@Start", satnica.Start);
+						  cmd.Parameters.AddWithValue("@End", satnica.End);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
 		  internal static int DeleteUnosSatniceProjekta(int id)
 		  {
 				using (SqlConnection con = new SqlConnection(cs))

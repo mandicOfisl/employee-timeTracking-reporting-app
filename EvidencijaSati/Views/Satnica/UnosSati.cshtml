@@ -383,6 +383,7 @@
 				}
 		  });
 
+
 	 });
 
 	 $(function () {
@@ -429,8 +430,6 @@
 		  var newTotalRed = "00:00";
 		  var newTotalPre = "00:00";
 
-
-
 		  $('.zabiljezeno').each(function (i) {
 				newTotal = addHoursMinutes(newTotal, $(this).text().trim());
 		  });
@@ -455,9 +454,7 @@
 	 }
 
 	 function parseStringMinutesToFloat(first, second) {
-
 		  var zbroj = addHoursMinutes(first, second);
-
 		  var p = zbroj.split(':');
 
 		  var h = parseInt(p[0]);
@@ -488,7 +485,41 @@
 				}
 		  });
 
-	 });;
+	 });
+
+	 $('body').delegate("button[id|='btnEdit']", "click", function (e) {
+		  e.preventDefault();
+		  var btn = $(this);
+		  var uspId = btn.attr('id').split('btnEdit-')[1];;
+		  var date = new Date();
+
+		  var odId = "spTxtOd" + uspId;
+		  var doId = "spTxtDo" + uspId;		  
+
+		  var startEnd = parseStringMinutesToFloat(document.getElementById(odId).value, document.getElementById(doId).value)
+
+		  var startEnd = parseStringMinutesToFloat();
+		  var model = {
+				IDSatnicaProjekta: uspId,
+				SatnicaID: 0,
+				ProjektID: 0,
+				Start: date.setMinutes(date.getMinutes() - startEnd),
+				End: date,
+				StartEnd: startEnd
+		  };
+
+		  $.ajax({
+				url: "@Url.Action("ObrisiUnosSatniceProjekta")",
+				method: "POST",
+				data: JSON.stringify(model),
+				dataType: 'application/json',
+				success: function (res) {
+					 if (res != "error") {
+					 }
+				}
+		  });
+
+	 });
 
 
 

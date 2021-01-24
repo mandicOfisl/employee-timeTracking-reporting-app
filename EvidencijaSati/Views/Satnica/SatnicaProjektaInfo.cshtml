@@ -18,6 +18,9 @@
 					 <div class="col text-center">
 						  <b>@Common.Do</b>
 					 </div>
+					 <div class="col col-2">
+						  <b>@UnosSati.Spremi</b>
+					 </div>
 					 <div class="col col-2 text-right">
 						  <b>@Common.Obrisi</b>
 					 </div>
@@ -27,17 +30,25 @@
 				{
 					 <div class="row">
 						  <div class="col">
-								<input id="@("spTxtRadni" + satnica.IDSatnicaProjekta)"
+								<input id="@("spTxtOd" + satnica.IDSatnicaProjekta)"
 										 class="form-control"
 										 type="text"
 										 value="@satnica.GetTimeString("start")"
 										 style="margin: 0 auto;"/>
 						  </div>
 						  <div class="col">
-								<input id="@("spTxtPrekovremeni" + satnica.IDSatnicaProjekta)"
+								<input id="@("spTxtDo" + satnica.IDSatnicaProjekta)"
 										 class="form-control"
 										 type="text"
 										 value="@satnica.GetTimeString("end")"/>
+						  </div>
+						  <div class="col col-2">
+								<button id="@("btnEdit-" + satnica.IDSatnicaProjekta)"
+										  class="btn btn-warning"
+										  type="button"
+										  data-targeturl="@Url.Action("UpdateUnosSatniceProjekta", new { @id = satnica.IDSatnicaProjekta })">
+									 <i class="fa fa-floppy-o"></i>
+								</button>
 						  </div>
 						  <div class="col col-2">
 								<button id="@("btnDelete-" + satnica.IDSatnicaProjekta)"
@@ -52,12 +63,16 @@
 
 		  </div>
 	 </div>
-	 <div class="modal-footer">
-	 	 <button id="btnOk"
-				 class="btn btn-primary"
-				 type="button">
-	 	 	 Ok
-	 	 </button>
+	 <div class="modal-footer justify-content-start">
+		  <div class="row">
+	 		  <div class="col">
+					<b>@UnosSati.Ukupno</b>
+	 		  </div>
+	 		  <div class="col col-2">
+	 	 		  <b><span id="txtTotalProjekta"></span></b>
+	 		  </div>
+
+		 </div>
 	 </div>
 </div>
 
