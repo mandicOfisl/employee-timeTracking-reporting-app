@@ -42,7 +42,6 @@ namespace EvidencijaSati.Controllers
 		  }
 
 
-		  [HttpPost]
 		  public ActionResult SetLanguage(string culture, string url)
 		  {
 				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(culture);

@@ -31,9 +31,9 @@ namespace EvidencijaSati
             else
             {
                 System.Threading.Thread.CurrentThread.CurrentCulture
-                    = new System.Globalization.CultureInfo("en");
+                    = new System.Globalization.CultureInfo("hr");
                 System.Threading.Thread.CurrentThread.CurrentUICulture
-                    = new System.Globalization.CultureInfo("en");
+                    = new System.Globalization.CultureInfo("hr");
             }
         }
     }
