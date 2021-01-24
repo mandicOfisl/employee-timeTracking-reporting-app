@@ -15,7 +15,7 @@
 				<button id="btnPregled"
 						  class="btn btn-outline-success"
 						  type="button">
-							Pregledaj unose na čekanju
+							Profil
 				</button>
 		  </div>
 	 </div>
@@ -61,7 +61,7 @@
 									 <button id="@("btnInfo" + Model.Projekti[i].IDProjekt)"
 												class="btn btn-outline-dark modal-link"
 												type="button"
-												data-targeturl="@Url.Action("", new { @projId = Model.Projekti[i].IDProjekt, @satId = Model.Satnica.IDSatnica })">
+												data-targeturl="@Url.Action("PrikaziInfoProjekta", new { @projId = Model.Projekti[i].IDProjekt, @satId = Model.Satnica.IDSatnica })">
 														<i class="fa fa-info"></i>
 												 </button>
 								</td>

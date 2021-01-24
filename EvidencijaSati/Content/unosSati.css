@@ -13,10 +13,15 @@
 
 input {
 	 width: 80px!important;
+	 margin: 0 auto;
+}
+
+.dt-body-center {
+	text-align: center;
 }
 
 @media (max-width: 500px) {
-	 .btns {
+	.btns {
 		  flex-direction: column;
 	 }
 }

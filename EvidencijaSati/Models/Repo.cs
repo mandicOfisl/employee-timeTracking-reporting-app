@@ -84,7 +84,7 @@ namespace EvidencijaSati.Models
 								DjelatnikID = (int)row[nameof(Satnica.DjelatnikID)],
 								Datum = DateTime.Parse(row[nameof(Satnica.Datum)].ToString()),
 								Komentar = row[nameof(Satnica.Komentar)].ToString(),
-								Satnice = new Dictionary<string, List<SatnicaProjekta>>(),
+								Satnice = new Dictionary<int, List<SatnicaProjekta>>(),
 								ProjektZabiljezeno = new Dictionary<int, string>(),
 								Total = double.Parse(row[nameof(Satnica.Total)].ToString()),
 								TotalPrekovremeni = double.Parse(row[nameof(Satnica.TotalPrekovremeni)].ToString()),

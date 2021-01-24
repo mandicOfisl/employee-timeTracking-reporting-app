@@ -14,7 +14,6 @@ namespace EvidencijaSati.Controllers
     {
 		  private readonly double RADNI_SATI_U_DANU = 8 * 60;
 
-		  // GET: Satnica
 		  public ActionResult UnosSati(int id)
         {
 				if (HttpContext.Session["id"] != null)
@@ -118,10 +117,16 @@ namespace EvidencijaSati.Controllers
 				sp.IDSatnicaProjekta = spId;
 
 				sat.Satnice[p.IDProjekt].Add(sp);
-				foreach (var s in sat.Satnice)
+				try
 				{
-					 sat.ProjektZabiljezeno[s.Value.First().ProjektID] = 
-							Utils.ParseMinutesToString(Utils.CalculateProjectMinutes(s.Value));
+					 foreach (var s in sat.Satnice)
+					 {
+						  sat.ProjektZabiljezeno[s.Value.First().ProjektID] =
+								 Utils.ParseMinutesToString(Utils.CalculateProjectMinutes(s.Value));
+					 }
+				}
+				catch
+				{
 				}
 								
             HttpContext.Session.Add(key, JsonConvert.SerializeObject(sat));
@@ -156,8 +161,7 @@ namespace EvidencijaSati.Controllers
 					 ProjektID = sps.ProjektID,
 					 Start = sps.Start,
 					 End = sps.End,
-					 StartEnd = sps.StartEnd
-					 
+					 StartEnd = sps.StartEnd					 
 				};
 
 				Repo.SpremiSatnicuProjekta(sp);
@@ -173,6 +177,11 @@ namespace EvidencijaSati.Controllers
 				Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[satId.ToString()].ToString());
 
 				return PartialView("SatnicaProjektaInfo", sat.Satnice[projId]);
+		  }
+
+		  public ActionResult ObrisiUnosSatniceProjekta(int id)
+		  {
+				return Json("ok");
 		  }
 
 	 }
