@@ -1,4 +1,5 @@
 ﻿@model List<EvidencijaSati.Models.SatnicaProjekta>
+@using EvidencijaSati.Resources
 
 <div class="modal-content">
 	 <div class="modal-header">
@@ -12,13 +13,13 @@
 
 				<div class="row">
 					 <div class="col text-center">
-					 	 <b>Od</b>
+					 	 <b>@Common.Od</b>
 					 </div>
 					 <div class="col text-center">
-					 	 <b>Do</b>
+						  <b>@Common.Do</b>
 					 </div>
 					 <div class="col col-2 text-right">
-					 	 <b>Obriši</b>
+						  <b>@Common.Obrisi</b>
 					 </div>
 				</div>
 
