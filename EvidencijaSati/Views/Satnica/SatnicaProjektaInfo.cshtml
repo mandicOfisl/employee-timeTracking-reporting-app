@@ -3,7 +3,7 @@
 
 <div class="modal-content">
 	 <div class="modal-header">
-	 	 Uredi vremena
+	 	 @Model.First().Start.Date.ToString().Split(' ')[0]
 		  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="width: auto">
 	 		  <span aria-hidden="true">&times;</span>
 		  </button>
@@ -40,7 +40,7 @@
 										 value="@satnica.GetTimeString("end")"/>
 						  </div>
 						  <div class="col col-2">
-								<button id="@("btnDelete" + satnica.IDSatnicaProjekta)"
+								<button id="@("btnDelete-" + satnica.IDSatnicaProjekta)"
 										  class="btn btn-danger"
 										  type="button"
 										  data-targeturl="@Url.Action("ObrisiUnosSatniceProjekta", new { @id = satnica.IDSatnicaProjekta })">
@@ -60,3 +60,9 @@
 	 	 </button>
 	 </div>
 </div>
+
+<script type="text/javascript">
+
+
+
+</script>

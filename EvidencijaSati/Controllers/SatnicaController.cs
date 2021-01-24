@@ -168,6 +168,14 @@ namespace EvidencijaSati.Controllers
 				return Json("ok");
 		  }
 
+		  [HttpPost]
+		  public ActionResult ObrisiUnosSatniceProjekta(int id)
+		  {
+				int i = Repo.DeleteUnosSatniceProjekta(id);
+
+				return i != 1 ? Json("error") : Json(i);
+		  }
+
 		  public ActionResult PrikaziInfoProjekta(int projId, int satId)
 		  {
 				Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[satId.ToString()].ToString());
@@ -175,10 +183,6 @@ namespace EvidencijaSati.Controllers
 				return PartialView("SatnicaProjektaInfo", sat.Satnice[projId]);
 		  }
 
-		  public ActionResult ObrisiUnosSatniceProjekta(int id)
-		  {
-				return Json("ok");
-		  }
 
 	 }
 }

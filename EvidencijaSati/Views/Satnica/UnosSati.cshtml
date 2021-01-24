@@ -473,4 +473,24 @@
 		  return h.toString().padStart(2, '0') + ':' + m.toString().padStart(2, '0');
 	 }
 
+	 $('body').delegate("button[id|='btnDelete']", "click", function (e) {
+		  e.preventDefault();
+		  var btn = $(this);
+		  var uspId = btn.attr('id').split('btnDelete-')[1];;
+
+		  $.ajax({
+				url: "@Url.Action("ObrisiUnosSatniceProjekta")/" + uspId,
+				method: "POST",
+				success: function (res) {
+					 if (res != "error") {
+						  btn.parent().parent().remove();
+					 }
+				}
+		  });
+
+	 });;
+
+
+
+
 </script>
