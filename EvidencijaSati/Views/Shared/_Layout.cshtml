@@ -8,20 +8,31 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                Evidencija sati
-            </div>
-            <div class="navbar-collapse collapse">
-            </div>
-        </div>
-    </div>
+	 <nav class="navbar navbar-dark bg-dark justify-content-between">
+	 	 <a class="navbar-brand">Evidencija sati</a>
+	 	 <div class="dropdown">
+	 	 	 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	 	 	 	 Jezik
+	 	 	 </button>
+			 <div class="d-inline">
+	 	 	     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	 	 	 	     @Html.ActionLink("Hrvatski", "SetLanguage", "Home", 
+                    new { culture = "hr", url = Context.Request.Path }, 
+                    new { @class = "dropdown-item" })
+	 	 	        @Html.ActionLink("English", "SetLanguage", "Home", 
+                    new { culture = "en", url = Context.Request.Path }, 
+                    new { @class = "dropdown-item" })
+	           </div>
+                <a id="btnLogout"
+                    class="btn btn-outline-danger"
+                    href="@Url.Action("Login", "Home")">
+                    <i class="fa fa-exclamation"></i>
+                    <b>Odjava</b>
+                </a>
+
+          </div>
+	    </div>
+	 </nav>
     <div class="container body-content">
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
@@ -37,3 +48,7 @@
 
 </body>
 </html>
+
+
+
+

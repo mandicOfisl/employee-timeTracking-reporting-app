@@ -3,7 +3,10 @@ using EvidencijaSati.Models.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -36,6 +39,22 @@ namespace EvidencijaSati.Controllers
 				{
 					 return View("Error", new ErrorVM { Msg = "There has been an error. Please try again later." });
 				}
+		  }
+
+
+		  [HttpPost]
+		  public ActionResult SetLanguage(string culture, string url)
+		  {
+				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(culture);
+				Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
+
+				Response.Cookies.Add(new HttpCookie("Language")
+				{
+					 Value = culture,
+					 Expires = DateTime.Now.AddYears(1)
+				});
+				
+				return Redirect(url);								
 		  }
 	 }
 }
