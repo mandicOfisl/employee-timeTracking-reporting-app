@@ -136,7 +136,7 @@
 		  $('#btnOdustani').prop('disabled', true);
 		  $('#btnSpremi').prop('disabled', true);
 
-		  var projectId, start, end, satId;
+		  var projectId, start, end;
 
 		  var table = $("#table").DataTable({
 				select: true,
@@ -220,7 +220,7 @@
 					 var model = {
 						  IDSatnicaProjekta: -1,
 						  SatnicaID: @Model.Satnica.IDSatnica,
-						  ProjektID: projectId.toString(),
+						  ProjektID: projectId,
 						  Start: start,
 						  End: end
 					 };
