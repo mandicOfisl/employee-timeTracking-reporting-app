@@ -62,7 +62,8 @@ namespace EvidencijaSati.Models
 								ProjektID = (int)row[nameof(SatnicaProjekta.ProjektID)],
 								SatnicaID = (int)row[nameof(SatnicaProjekta.SatnicaID)],
 								Start = DateTime.Parse(row[nameof(SatnicaProjekta.Start)].ToString()),
-								End = DateTime.Parse(row[nameof(SatnicaProjekta.End)].ToString()),
+								End = row[nameof(SatnicaProjekta.End)].GetType().Equals(typeof(DBNull)) ?
+										  new DateTime(0) : DateTime.Parse(row[nameof(SatnicaProjekta.End)].ToString()),
 								StartEnd = float.Parse(row[nameof(SatnicaProjekta.StartEnd)].ToString())
 						  };
 					 }
@@ -213,7 +214,7 @@ namespace EvidencijaSati.Models
 						  cmd.Parameters.AddWithValue("@SatnicaID", satnicaProjekta.SatnicaID);
 						  cmd.Parameters.AddWithValue("@ProjektID", satnicaProjekta.ProjektID);
 						  cmd.Parameters.AddWithValue("@Start", satnicaProjekta.Start);
-						  cmd.Parameters.AddWithValue("@End", satnicaProjekta.End);
+						  cmd.Parameters.AddWithValue("@End", null);
 						  cmd.Parameters.AddWithValue("@StartEnd", satnicaProjekta.StartEnd);
 						  cmd.Parameters.Add("@Id", SqlDbType.Int);
 						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;

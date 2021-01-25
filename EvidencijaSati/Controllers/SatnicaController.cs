@@ -102,36 +102,28 @@ namespace EvidencijaSati.Controllers
 				string key = satProj.SatnicaID.ToString();
             Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[key].ToString());
 
-            Projekt p = Repo.SelectProjekt(satProj.ProjektID);
-
 				SatnicaProjekta sp = new SatnicaProjekta
 				{
 					 SatnicaID = sat.IDSatnica,
 					 ProjektID = satProj.ProjektID,
 					 Start = satProj.Start,
 					 End = satProj.End,
-					 StartEnd = float.Parse((satProj.End - satProj.Start).TotalMinutes.ToString())
+					 StartEnd = 0
 				};
 
-				int spId = Repo.SpremiSatnicuProjekta(sp);
-				sp.IDSatnicaProjekta = spId;
+				sp.IDSatnicaProjekta = Repo.SpremiSatnicuProjekta(sp);
 
-				sat.Satnice[p.IDProjekt].Add(sp);
-				try
+				sat.Satnice[satProj.ProjektID].Add(sp);
+
+				foreach (var s in sat.Satnice)
 				{
-					 foreach (var s in sat.Satnice)
-					 {
-						  sat.ProjektZabiljezeno[s.Value.First().ProjektID] =
-								 Utils.ParseMinutesToString(Utils.CalculateProjectMinutes(s.Value));
-					 }
-				}
-				catch
-				{
+					 sat.ProjektZabiljezeno[s.Value.First().ProjektID] =
+								Utils.ParseMinutesToString(Utils.CalculateProjectMinutes(s.Value));
 				}
 								
             HttpContext.Session.Add(key, JsonConvert.SerializeObject(sat));
 
-				int row = sat.Satnice.Keys.ToList().IndexOf(p.IDProjekt);
+				int row = sat.Satnice.Keys.ToList().IndexOf(satProj.ProjektID);
 								
 				string[] res =
 				{
