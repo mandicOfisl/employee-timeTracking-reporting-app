@@ -1,4 +1,5 @@
 ﻿using EvidencijaSati.Models;
+using EvidencijaSati.Models.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -29,11 +30,16 @@ namespace EvidencijaSati.Controllers
 
 				if (i > 0)
 				{
-					 return Json("ok");
+					 ViewBag.Id = d.IDDjelatnik;
+					 return View("Success");
 				}
 				else
 				{
-					 return Json("error");
+					 ErrorVM model = new ErrorVM
+					 {
+						  Msg = Resources.Common.Greska
+					 }; 
+					 return View("Error", model);
 				}
 		  }
     }

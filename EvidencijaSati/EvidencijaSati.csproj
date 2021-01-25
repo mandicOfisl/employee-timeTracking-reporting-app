@@ -342,6 +342,7 @@
     <Content Include="Views\User\UserProfile.cshtml" />
     <Content Include="Views\User\DjelatnikInfoCard.cshtml" />
     <Content Include="Views\User\PromijeniZaporku.cshtml" />
+    <Content Include="Views\Shared\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

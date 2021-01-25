@@ -70,6 +70,15 @@ namespace EvidencijaSati.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dogodila se greška.
+        /// </summary>
+        public static string Greska {
+            get {
+                return ResourceManager.GetString("Greska", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jezik.
         /// </summary>
         public static string Jezik {
@@ -120,6 +129,15 @@ namespace EvidencijaSati.Resources {
         public static string Odjava {
             get {
                 return ResourceManager.GetString("Odjava", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promjene su uspješno spremljene.
+        /// </summary>
+        public static string Promjene_spremljene {
+            get {
+                return ResourceManager.GetString("Promjene_spremljene", resourceCulture);
             }
         }
     }
