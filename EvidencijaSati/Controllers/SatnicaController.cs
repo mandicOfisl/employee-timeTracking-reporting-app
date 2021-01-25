@@ -249,31 +249,31 @@ namespace EvidencijaSati.Controllers
 				return Json(Utils.ParseMinutesToString(s.StartEnd));
 		  }
 
-		  public	ActionResult PregledSatnica()
-		  {
-				try
-				{
-					 int id = JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString());
-					 int tipDjelatnika = JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
-					 ViewBag.TipDjelatnika = tipDjelatnika;
+		  //public	ActionResult PregledSatnica()
+		  //{
+				////try
+				////{
+				////	 int id = JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString());
+				////	 int tipDjelatnika = JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
+				////	 ViewBag.TipDjelatnika = tipDjelatnika;
 
-					 PregledSatnicaVM model = new PregledSatnicaVM
-					 {
-						  Djelatnik = Repo.SelectDjelatnik(id),
-						  Satnice =
-								Repo.GetSatniceDjelatnikaByStatus(
-									 id,
-									 tipDjelatnika,
-									 (int)SatnicaStatusEnum.WAITING_APPROVAL).ToList(),
-						  Projekti = Repo.GetProjektiDjelatnika(id).ToList()
-					 };
+				////	 PregledSatnicaVM model = new PregledSatnicaVM
+				////	 {
+				////		  Djelatnik = Repo.SelectDjelatnik(id),
+				////		  Satnice =
+				////				Repo.GetSatniceProjektaZaVoditeljaDirektora(
+				////					 id,
+				////					 tipDjelatnika,
+				////					 (int)SatnicaStatusEnum.WAITING_APPROVAL).ToList(),
+				////		  Projekti = Repo.GetProjektiDjelatnika(id).ToList()
+				////	 };
 
-					 return View(model);
-				}
-				catch (Exception)
-				{
-					 return RedirectToAction("Login", "Home");
-				}
-		  }
+				////	 return View(model);
+				////}
+				////catch (Exception)
+				////{
+				////	 return RedirectToAction("Login", "Home");
+				////}
+		  //}
 	 }
 }

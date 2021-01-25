@@ -66,10 +66,10 @@
 	 	 			 <tfoot>
 	 	 	 			  <tr>
 								<td>@UnosSati.Ukupno</td>
-	 	 	 	 				<td><b><span id="txtTotal">@Model.Satnica.GetFormatedProperties("total")</span></b></td>
+	 	 	 	 				<td></td>
 	 	 	 					<td></td>
-	 	 	 					<td><span id="txtTotalRedovni">00:00</span></td>
-	 	 	 					<td><span id="txtTotalPrekovremeni">00:00</span></td>
+	 	 	 					<td><b><span id="txtTotalRedovni">00:00</span></b></td>
+								<td><b><span id="txtTotalPrekovremeni">00:00</span></b></td>
 	 	 	 					<td></td>
 	 	 				  </tr>
 	 				 </tfoot>
@@ -258,11 +258,13 @@
 		  $('#btnUredi').on('click', function (e) {
 				e.preventDefault();
 				lockTextFields(false);
-				$('#btnSpremi').prop('disabled', false);
 		  });
 
 		  $('#btnSpremi').on('click', function (e) {
 				e.preventDefault();
+
+
+
 
 				$('input').each(function (i) {
 					 var value = $(this).val();
@@ -589,13 +591,51 @@
 		  }
 	 });
 
-	 $('body').delegate("input[id|='spTxt']", "change", function (e) {
+	 $('body').delegate("input", "change", function (e) {
 		  e.preventDefault();
+		  var time;
 		  var input = $(this);
-		  var uspId = input.attr('id').split('-')[2];
 
-		  var editId = "btnEdit-" + uspId;
-		  document.getElementById(editId).disabled = false;
+		  if (input.attr('id').startsWith('spTxt')) {
+				var uspId = input.attr('id').split('-')[2];
+
+				var editId = "btnEdit-" + uspId;
+				document.getElementById(editId).disabled = false;
+
+		  } else if (regex.test(input.val())) {
+				if (input.attr('id').startsWith('txtRadni')) {
+					 time = addHoursMinutes(document.getElementById("txtTotalRedovni").innerHTML.trim(),
+						  input.val());
+					 var h = parseInt(time.split(':')[0]);
+					 var m = parseInt(time.split(':')[1]);
+					 if ((h > 8) || (h == 8 && m != 0)) {
+						  input.css('border', '3px solid red');
+					 } else {
+						  document.getElementById("txtTotalRedovni").innerHTML = time;
+						  input.css('border', '1px solid #ced4da');
+						  if (h == 8 && m == 0) {
+								$('#btnSpremi').prop('disabled', false);
+						  }
+					 }
+				} else if ($(this).attr('id').startsWith('txtPrekovremeni')) {
+					 time = addHoursMinutes(document.getElementById("txtTotalPrekovremeni").innerHTML.trim(),
+						  input.val());
+					 var totalTime = addHoursMinutes(time, document.getElementById("txtTotalRedovni").innerHTML.trim());
+					 var h = parseInt(totalTime.split(':')[0]);
+					 var m = parseInt(totalTime.split(':')[1]);
+
+					 if ((h > 12) || (h == 12 && m != 0)) {
+						  input.css('border', '3px solid red');
+					 } else {
+						  document.getElementById("txtTotalPrekovremeni").innerHTML = addHoursMinutes(
+								document.getElementById("txtTotalPrekovremeni").innerHTML.trim(),
+								input.val());
+						  input.css('border', '1px solid #ced4da');
+					 }
+				}
+		  } else {
+				input.css('border', '3px solid red');
+		  }
 	 });
 
 
