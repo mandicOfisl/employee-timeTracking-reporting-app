@@ -31,21 +31,21 @@
                 
 						      @if ((int)ViewBag.TipDjelatnika != 1) //ako nije direktor
 						      {
-                            <li class="nav-item">
+                            <li class="nav-item" style="margin: 1vh 2vw;">
 									     @Html.ActionLink("Evidencija sati", 
                                         "UnosSatiFromNav", 
                                         "Satnica", 
                                         null, 
-                                        new { @class = "navbar-link btn" })
+                                        new { @class = "navbar-link btn btn-success" })
 								    </li>
 								    if ((int)ViewBag.TipDjelatnika == 2) //ako je voditelj tima
 								    {
-                                <li class="nav-item">
+                                <li class="nav-item" style="margin: 1vh 2vw;">
 									         @Html.ActionLink("Pregled satnica", 
                                             "PregledSatnica", 
                                             "Satnica", 
                                             null, 
-                                            new { @class = "navbar-link" })
+                                            new { @class = "navbar-link btn btn-warning" })
 								        </li>
 								    }
 						      }
@@ -56,7 +56,7 @@
                                         "PregledSatnica", 
                                         "Satnica", 
                                         null, 
-                                        new { @class = "navbar-link" })
+                                        new { @class = "navbar-link btn btn-warning" })
 								    </li>
 						      }						  
                     </ul>					 
@@ -73,11 +73,11 @@
                         <a id="btnLogout"
                             class="btn btn-outline-danger"
                             href="@Url.Action("Logout", "Home")"
-                            style="margin: 0 2vw;">
+                            style="margin: 1vh 2vw;">
                             <i class="fa fa-exclamation"></i>
                                 <b>@Common.Odjava</b>
                         </a>
-	 	                 <div class="dropdown" style="margin: 0 2vw;">
+	 	                 <div class="dropdown" style="margin: 1vh 2vw;">
 	 	 	                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	 	 	 	                 @Common.Jezik
 	 	 	                 </button>

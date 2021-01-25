@@ -135,6 +135,9 @@
   <data name="Ponovi_zaporku" xml:space="preserve">
     <value>Repeat password</value>
   </data>
+  <data name="Pregledaj_satnice" xml:space="preserve">
+    <value>Show timetable queue</value>
+  </data>
   <data name="Prezime" xml:space="preserve">
     <value>Surname</value>
   </data>

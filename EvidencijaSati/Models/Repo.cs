@@ -81,7 +81,8 @@ namespace EvidencijaSati.Models
 								Start = DateTime.Parse(row[nameof(SatnicaProjekta.Start)].ToString()),
 								End = row[nameof(SatnicaProjekta.End)].GetType().Equals(typeof(DBNull)) ?
 										  new DateTime(0) : DateTime.Parse(row[nameof(SatnicaProjekta.End)].ToString()),
-								StartEnd = float.Parse(row[nameof(SatnicaProjekta.StartEnd)].ToString())
+								StartEnd = float.Parse(row[nameof(SatnicaProjekta.StartEnd)].ToString()),
+								Komentar = row[nameof(SatnicaProjekta.Komentar)].ToString()
 						  };
 					 }
 
@@ -101,7 +102,6 @@ namespace EvidencijaSati.Models
 								IDSatnica = (int)row[nameof(Satnica.IDSatnica)],
 								DjelatnikID = (int)row[nameof(Satnica.DjelatnikID)],
 								Datum = DateTime.Parse(row[nameof(Satnica.Datum)].ToString()),
-								Komentar = row[nameof(Satnica.Komentar)].ToString(),
 								Satnice = new Dictionary<int, List<SatnicaProjekta>>(),
 								ProjektZabiljezeno = new Dictionary<int, string>(),
 								Total = double.Parse(row[nameof(Satnica.Total)].ToString()),
@@ -112,6 +112,10 @@ namespace EvidencijaSati.Models
 
 				}
 		  }
+
+		  //Komentar = row[nameof(Satnica.Komentar)].ToString(),
+				
+		  //cmd.Parameters.AddWithValue("@Komentar", satnica.Komentar ?? "nema komentara");
 
 		  internal static int DodajNovuSatnicu(Satnica satnica)
 		  {
@@ -124,7 +128,6 @@ namespace EvidencijaSati.Models
 						  cmd.CommandText = "AddSatnica";
 						  cmd.Parameters.AddWithValue("@DjelatnikId", satnica.DjelatnikID);
 						  cmd.Parameters.AddWithValue("@Datum", satnica.Datum);
-						  cmd.Parameters.AddWithValue("@Komentar", satnica.Komentar ?? "nema komentara");
 						  cmd.Parameters.AddWithValue("@TotalRedovni", satnica.TotalRedovni);
 						  cmd.Parameters.AddWithValue("@TotalPrekovremeni", satnica.TotalPrekovremeni);
 						  cmd.Parameters.AddWithValue("@Total", satnica.Total);
@@ -206,7 +209,8 @@ namespace EvidencijaSati.Models
 										  Start = DateTime.Parse(dr[nameof(SatnicaProjekta.Start)].ToString()),
 										  End = dr[nameof(SatnicaProjekta.End)].GetType().Equals(typeof(DBNull)) ?
 										  new DateTime(0) : DateTime.Parse(dr[nameof(SatnicaProjekta.End)].ToString()),
-										  StartEnd = float.Parse(dr[nameof(SatnicaProjekta.StartEnd)].ToString())
+										  StartEnd = float.Parse(dr[nameof(SatnicaProjekta.StartEnd)].ToString()),
+										  Komentar = dr[nameof(SatnicaProjekta.Komentar)].ToString()
 									 };
 								}
 						  }
@@ -215,7 +219,12 @@ namespace EvidencijaSati.Models
 				}
 		  }
 
-		  internal static int UpdateEndSatniceProjekta(DateTime end, int iDSatnicaProjekta, float startEnd)
+		  internal static IEnumerable<Satnica> GetSatniceDjelatnikaByStatus(int idDjelatnik, int tipDjelatnika, int timId)
+		  {
+				
+		  }
+
+		  internal static int UpdateEndSatniceProjekta(DateTime end, int iDSatnicaProjekta, float startEnd, string komentar)
 		  {
 				using (SqlConnection con = new SqlConnection(cs))
 				{
@@ -227,6 +236,7 @@ namespace EvidencijaSati.Models
 						  cmd.Parameters.AddWithValue("@Id", iDSatnicaProjekta);
 						  cmd.Parameters.AddWithValue("@End", end);
 						  cmd.Parameters.AddWithValue("@StartEnd", startEnd);
+						  cmd.Parameters.AddWithValue("@Komentar", komentar);
 
 						  return cmd.ExecuteNonQuery();
 					 }
@@ -246,6 +256,7 @@ namespace EvidencijaSati.Models
 						  cmd.Parameters.AddWithValue("@Start", satnica.Start);
 						  cmd.Parameters.AddWithValue("@End", satnica.End);
 						  cmd.Parameters.AddWithValue("@StartEnd", satnica.StartEnd);
+						  cmd.Parameters.AddWithValue("@Komentar", satnica.Komentar);
 
 						  return cmd.ExecuteNonQuery();
 					 }
@@ -281,6 +292,7 @@ namespace EvidencijaSati.Models
 						  cmd.Parameters.AddWithValue("@ProjektID", satnicaProjekta.ProjektID);
 						  cmd.Parameters.AddWithValue("@Start", satnicaProjekta.Start);
 						  cmd.Parameters.AddWithValue("@StartEnd", satnicaProjekta.StartEnd);
+						  cmd.Parameters.AddWithValue("@Komentar", satnicaProjekta.Komentar);
 						  cmd.Parameters.Add("@Id", SqlDbType.Int);
 						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
 

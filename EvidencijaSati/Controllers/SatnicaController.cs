@@ -217,14 +217,37 @@ namespace EvidencijaSati.Controllers
 
 				var startEnd = float.Parse((satnica.End - satnica.Start).TotalMinutes.ToString());
 
-				int r = Repo.UpdateEndSatniceProjekta(satnica.End, s.IDSatnicaProjekta, startEnd);
+				int r = Repo.UpdateEndSatniceProjekta(satnica.End, s.IDSatnicaProjekta, startEnd, satnica.Komentar);
 
 				return Json("ok");
 		  }
 
-		  public	ActionResult PregledSatnica(int id)
+		  public	ActionResult PregledSatnica()
 		  {
-				return View();
+				try
+				{
+					 int id = JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString());
+					 int tipDjelatnika = JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
+					 ViewBag.TipDjelatnika = tipDjelatnika;
+
+					 IEnumerable<Satnica> satnice = Repo.GetSatniceDjelatnikaByStatus(id, tipDjelatnika, (int)SatnicaStatusEnum.WAITING_APPROVAL);
+
+					 PregledSatnicaVM model = new PregledSatnicaVM
+					 {
+						  Djelatnik = Repo.SelectDjelatnik(id),
+						  Satnice =
+								Repo.GetSatniceDjelatnikaByStatus(
+									 id,
+									 tipDjelatnika,
+									 (int)SatnicaStatusEnum.WAITING_APPROVAL).ToList()
+					 };
+
+					 return View(model);
+				}
+				catch (Exception)
+				{
+					 return RedirectToAction("Login", "Home");
+				}
 		  }
 	 }
 }

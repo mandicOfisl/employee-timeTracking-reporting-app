@@ -140,6 +140,7 @@
     <Compile Include="Models\TipDjelatnikaEnum.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Models\ViewModels\ErrorVM.cs" />
+    <Compile Include="Models\ViewModels\PregledSatnicaVM.cs" />
     <Compile Include="Models\ViewModels\UnosSatiVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Common.en.Designer.cs">

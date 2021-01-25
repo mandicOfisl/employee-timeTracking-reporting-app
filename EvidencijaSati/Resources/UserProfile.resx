@@ -135,6 +135,9 @@
   <data name="Ponovi_zaporku" xml:space="preserve">
     <value>Ponovi zaporku</value>
   </data>
+  <data name="Pregledaj_satnice" xml:space="preserve">
+    <value>Pregledaj satnice</value>
+  </data>
   <data name="Prezime" xml:space="preserve">
     <value>Prezime</value>
   </data>

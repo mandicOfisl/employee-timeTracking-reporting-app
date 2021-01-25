@@ -13,6 +13,7 @@ namespace EvidencijaSati.Models
 		  public DateTime Start { get; set; }
 		  public DateTime End { get; set; }
 		  public float StartEnd { get; set; }
+		  public string Komentar { get; set; }
 
 		  public string GetTimeString (string key)
 		  {
