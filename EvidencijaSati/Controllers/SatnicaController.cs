@@ -237,7 +237,8 @@ namespace EvidencijaSati.Controllers
 								Repo.GetSatniceDjelatnikaByStatus(
 									 id,
 									 tipDjelatnika,
-									 (int)SatnicaStatusEnum.WAITING_APPROVAL).ToList()
+									 (int)SatnicaStatusEnum.WAITING_APPROVAL).ToList(),
+						  Projekti = Repo.GetProjektiDjelatnika(id).ToList()
 					 };
 
 					 return View(model);
