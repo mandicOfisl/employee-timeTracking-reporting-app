@@ -3,14 +3,18 @@
 }
 
 .card {
-	 width: 70%;
+	 width: 85%;
 }
 
 .card-body {
 	 flex: none!important;
 }
 
-@media (max-width: 500px){
+.lblTxt {
+	 color: grey;
+}
+
+@media (max-width: 769px){
 	 .row {
 		  flex-direction: column!important;
 	 }

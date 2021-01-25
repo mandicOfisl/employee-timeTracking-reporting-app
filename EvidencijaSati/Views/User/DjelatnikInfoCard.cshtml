@@ -1,0 +1,64 @@
+﻿@model EvidencijaSati.Models.Djelatnik
+@using EvidencijaSati.Resources
+
+<div class="card card-body">
+	 <div class="row">
+		  <div class="col lblTxt">@UserProfile.Ime</div>
+		  <div class="col">@Html.TextBoxFor(d => d.Ime, new {
+								@class = "form-control",
+								@disabled = true
+								})</div>
+	 </div>
+	 <div class="row">
+		  <div class="col lblTxt">@UserProfile.Prezime</div>
+		  <div class="col">@Html.TextBoxFor(d => d.Prezime, new
+								{
+									 @class = "form-control",
+									 @disabled = true
+								})</div>
+	 </div>
+	 <div class="row">
+		  <div class="col lblTxt">Email</div>
+		  <div class="col">@Html.TextBoxFor(d => d.Email, new
+								{
+									 @type = "email",
+									 @class = "form-control",
+									 @disabled = true
+								})</div>
+	 </div>
+	 <div class="row">
+		  <div class="col lblTxt">@UserProfile.Datum_zaposlenja</div>
+		  <div class="col">@Html.TextBoxFor(d => d.DatumZaposlenja, new
+								{
+									 @class = "form-control",
+									 @disabled = true
+								})</div>
+	 </div>
+	 <div class="row">
+		  <div class="col lblTxt">@UserProfile.Tip_djelatnika</div>
+		  <div class="col">
+				@{ 
+					 switch (Model.TipDjelatnikaID)
+					 {
+						  case EvidencijaSati.Models.TipDjelatnikaEnum.DIREKTOR:
+								<span>@UserProfile.Direktor</span>
+								break;
+						  case EvidencijaSati.Models.TipDjelatnikaEnum.VODITELJ_TIMA:
+								<span>@UserProfile.Voditelj_tima</span>
+								break;
+						  case EvidencijaSati.Models.TipDjelatnikaEnum.ZAPOSLENIK:
+								<span>@UserProfile.Zaposlenik</span>
+								break;
+						  case EvidencijaSati.Models.TipDjelatnikaEnum.HONORARNI_DJELATNIK:
+								<span>@UserProfile.Honorarni_djelatnik</span>
+								break;
+						  case EvidencijaSati.Models.TipDjelatnikaEnum.STUDENT:
+								<span>Student</span>
+								break;
+						  default:
+								break;
+					 }
+				}
+		  </div>
+	 </div>
+</div>
