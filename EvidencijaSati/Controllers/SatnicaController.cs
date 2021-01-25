@@ -230,8 +230,6 @@ namespace EvidencijaSati.Controllers
 					 int tipDjelatnika = JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
 					 ViewBag.TipDjelatnika = tipDjelatnika;
 
-					 IEnumerable<Satnica> satnice = Repo.GetSatniceDjelatnikaByStatus(id, tipDjelatnika, (int)SatnicaStatusEnum.WAITING_APPROVAL);
-
 					 PregledSatnicaVM model = new PregledSatnicaVM
 					 {
 						  Djelatnik = Repo.SelectDjelatnik(id),

@@ -219,9 +219,32 @@ namespace EvidencijaSati.Models
 				}
 		  }
 
-		  internal static IEnumerable<Satnica> GetSatniceDjelatnikaByStatus(int idDjelatnik, int tipDjelatnika, int timId)
+		  internal static IEnumerable<Satnica> GetSatniceDjelatnikaByStatus(int idDjelatnik, int tipDjelatnika, int status)
 		  {
-				
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure,
+					 "GetSatniceDjelatnikaByStatus", 
+						  new SqlParameter[]{ 
+								new SqlParameter("@IdDjelatnik", idDjelatnik),
+								new SqlParameter("@IdTip", tipDjelatnika),
+								new SqlParameter("@IdStatus", status)								
+						  }))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {
+						  yield return new Satnica
+						  {
+								IDSatnica = (int)row[nameof(Satnica.IDSatnica)],
+								DjelatnikID = (int)row[nameof(Satnica.DjelatnikID)],
+								Datum = DateTime.Parse(row[nameof(Satnica.Datum)].ToString()),
+								Satnice = new Dictionary<int, List<SatnicaProjekta>>(),
+								ProjektZabiljezeno = new Dictionary<int, string>(),
+								Total = double.Parse(row[nameof(Satnica.Total)].ToString()),
+								TotalPrekovremeni = double.Parse(row[nameof(Satnica.TotalPrekovremeni)].ToString()),
+								TotalRedovni = double.Parse(row[nameof(Satnica.TotalRedovni)].ToString())
+						  };
+					 }
+
+				}
 		  }
 
 		  internal static int UpdateEndSatniceProjekta(DateTime end, int iDSatnicaProjekta, float startEnd, string komentar)
