@@ -129,11 +129,20 @@
   <data name="Ime" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="Nova_zaporka" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="Ponovi_zaporku" xml:space="preserve">
+    <value>Repeat password</value>
+  </data>
   <data name="Prezime" xml:space="preserve">
     <value>Surname</value>
   </data>
   <data name="Promijeni_zaporku" xml:space="preserve">
     <value>Change password</value>
+  </data>
+  <data name="Stara_zaporka" xml:space="preserve">
+    <value>Old password</value>
   </data>
   <data name="Tip djelatnika" xml:space="preserve">
     <value>Employee type</value>

@@ -97,6 +97,24 @@ namespace EvidencijaSati.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nova zaporka.
+        /// </summary>
+        public static string Nova_zaporka {
+            get {
+                return ResourceManager.GetString("Nova_zaporka", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ponovi zaporku.
+        /// </summary>
+        public static string Ponovi_zaporku {
+            get {
+                return ResourceManager.GetString("Ponovi_zaporku", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prezime.
         /// </summary>
         public static string Prezime {
@@ -111,6 +129,15 @@ namespace EvidencijaSati.Resources {
         public static string Promijeni_zaporku {
             get {
                 return ResourceManager.GetString("Promijeni_zaporku", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stara zaporka.
+        /// </summary>
+        public static string Stara_zaporka {
+            get {
+                return ResourceManager.GetString("Stara_zaporka", resourceCulture);
             }
         }
         

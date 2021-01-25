@@ -341,6 +341,7 @@
     <Content Include="Views\Satnica\SatnicaProjektaInfo.cshtml" />
     <Content Include="Views\User\UserProfile.cshtml" />
     <Content Include="Views\User\DjelatnikInfoCard.cshtml" />
+    <Content Include="Views\User\PromijeniZaporku.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

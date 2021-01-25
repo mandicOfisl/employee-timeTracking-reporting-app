@@ -1,0 +1,55 @@
+﻿@model EvidencijaSati.Models.Djelatnik
+@using EvidencijaSati.Resources
+
+<div class="modal-content">
+	 <div class="modal-header">
+			 @UserProfile.Promijeni_zaporku
+	 	 <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="width: auto">
+			  <span aria-hidden="true">&times;</span>
+	 	 </button>
+	 </div>
+	 @using (Html.BeginForm("PromijeniZaporku", "User", FormMethod.Post))
+		  {
+		  <div class="modal-body">
+	 			<div class="container">
+
+	 	 			 <div class="row">
+	 	 	 			  <div class="col">
+								<span class="lblTxt">@UserProfile.Stara_zaporka</span>
+						  </div>
+	 	 	 			  <div class="col">
+						  @Html.Password("txtOldPass", "", new { @class = "form-control"})
+						  </div>
+	 	 			 </div>
+	 	 			 <div class="row">
+	 	 	 			  <div class="col">
+								<span class="lblTxt">@UserProfile.Nova_zaporka</span>
+						  </div>
+	 	 	 			  <div class="col">
+						  @Html.PasswordFor(d => d.Zaporka, new { @class = "form-control" })
+						  </div>
+	 	 			 </div>
+	 	 			 <div class="row">
+	 	 	 			  <div class="col">
+								<span class="lblTxt">@UserProfile.Ponovi_zaporku</span>
+						  </div>
+	 	 	 			  <div class="col">
+						  @Html.Password("txtRepeatPass", "", new
+								{
+									 @class = "form-control"
+								})
+						  </div>
+	 	 			 </div>
+	 			</div>
+		  </div>
+		  <div class="modal-footer">
+				<div class="row">
+					 <button class="btn btn-success"
+								type="submit">
+						  <i class="fa fa-floppy-o"></i>
+						  @UnosSati.Spremi
+					 </button>
+				</div>
+		  </div>
+		  }
+</div>

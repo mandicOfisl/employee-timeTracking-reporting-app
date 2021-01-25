@@ -129,11 +129,20 @@
   <data name="Ime" xml:space="preserve">
     <value>Ime</value>
   </data>
+  <data name="Nova_zaporka" xml:space="preserve">
+    <value>Nova zaporka</value>
+  </data>
+  <data name="Ponovi_zaporku" xml:space="preserve">
+    <value>Ponovi zaporku</value>
+  </data>
   <data name="Prezime" xml:space="preserve">
     <value>Prezime</value>
   </data>
   <data name="Promijeni_zaporku" xml:space="preserve">
     <value>Promijeni zaporku</value>
+  </data>
+  <data name="Stara_zaporka" xml:space="preserve">
+    <value>Stara zaporka</value>
   </data>
   <data name="Tip djelatnika" xml:space="preserve">
     <value>Tip djelatnika</value>
