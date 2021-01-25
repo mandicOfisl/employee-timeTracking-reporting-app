@@ -203,7 +203,8 @@
 						  SatnicaID: @Model.Satnica.IDSatnica,
 						  ProjektID: projectId,
 						  Start: start,
-						  End: null
+						  End: null,
+						  Komentar: $('#txtKomentar').val()
 					 };
 
 					 $.ajax({
@@ -238,7 +239,8 @@
 						  SatnicaID: @Model.Satnica.IDSatnica,
 						  ProjektID: projectId,
 						  Start: start,
-						  End: end
+						  End: end,
+						  Komentar: $('#txtKomentar').val()
 					 };
 
 					 $.ajax({
@@ -289,7 +291,8 @@
 												ProjektID: projId,
 												Start: new Date(),
 												End: new Date(),
-												StartEnd: startEnd
+												StartEnd: startEnd,
+												Komentar: $('#txtKomentar').val()
 										  };
 
 										  $.ajax({
@@ -299,7 +302,6 @@
 												contentType: 'application/json',
 												success: function (res) {
 													 calculateTotals();
-													 console.log(res);
 													 $('#btnPredaj').prop('disabled', false);
 												}
 										  });
@@ -526,7 +528,8 @@
 					 ProjektID: 0,
 					 Start: new Date(start),
 					 End: new Date(end),
-					 StartEnd: startEnd
+					 StartEnd: startEnd,
+					 Komentar: $('#txtKomentar').val()
 				};
 
 				$.ajax({
@@ -535,13 +538,15 @@
 					 data: JSON.stringify(model),
 					 contentType: 'application/json',
 					 success: function (res) {
-						  if (res == "error") {
-
+						  if (res != "error") {
+								alert("@UnosSati.Promjene_spremljene");
+						  } else {
+								alert("@Common.Greska")
 						  }
 					 }
 				});
 		  } else {
-				alert("Krivi unos");
+				alert("@Common.Krivi_unos");
 		  }
 	 });
 
@@ -550,7 +555,7 @@
 		  var input = $(this);
 		  var uspId = input.attr('id').split('-')[2];;
 
-		  var editId = "btnEdit-" + uspId;
+Common	  var editId = "btnEdit-" + uspId;
 		  document.getElementById(editId).disabled = false;
 	 });
 

@@ -141,6 +141,9 @@
   <data name="Projekt" xml:space="preserve">
     <value>Projekt</value>
   </data>
+  <data name="Promjene_spremljene" xml:space="preserve">
+    <value>Promjene spremljene!</value>
+  </data>
   <data name="Radni_sati" xml:space="preserve">
     <value>Radni sati</value>
   </data>

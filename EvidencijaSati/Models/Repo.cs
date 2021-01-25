@@ -113,10 +113,6 @@ namespace EvidencijaSati.Models
 				}
 		  }
 
-		  //Komentar = row[nameof(Satnica.Komentar)].ToString(),
-				
-		  //cmd.Parameters.AddWithValue("@Komentar", satnica.Komentar ?? "nema komentara");
-
 		  internal static int DodajNovuSatnicu(Satnica satnica)
 		  {
 				using (SqlConnection con = new SqlConnection(cs))
@@ -219,6 +215,7 @@ namespace EvidencijaSati.Models
 				}
 		  }
 
+
 		  internal static IEnumerable<Satnica> GetSatniceDjelatnikaByStatus(int idDjelatnik, int tipDjelatnika, int status)
 		  {
 				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure,
@@ -259,7 +256,7 @@ namespace EvidencijaSati.Models
 						  cmd.Parameters.AddWithValue("@Id", iDSatnicaProjekta);
 						  cmd.Parameters.AddWithValue("@End", end);
 						  cmd.Parameters.AddWithValue("@StartEnd", startEnd);
-						  cmd.Parameters.AddWithValue("@Komentar", komentar);
+						  cmd.Parameters.AddWithValue("@Komentar", komentar?? "");
 
 						  return cmd.ExecuteNonQuery();
 					 }
@@ -279,7 +276,7 @@ namespace EvidencijaSati.Models
 						  cmd.Parameters.AddWithValue("@Start", satnica.Start);
 						  cmd.Parameters.AddWithValue("@End", satnica.End);
 						  cmd.Parameters.AddWithValue("@StartEnd", satnica.StartEnd);
-						  cmd.Parameters.AddWithValue("@Komentar", satnica.Komentar);
+						  cmd.Parameters.AddWithValue("@Komentar", satnica.Komentar?? "");
 
 						  return cmd.ExecuteNonQuery();
 					 }
@@ -315,7 +312,7 @@ namespace EvidencijaSati.Models
 						  cmd.Parameters.AddWithValue("@ProjektID", satnicaProjekta.ProjektID);
 						  cmd.Parameters.AddWithValue("@Start", satnicaProjekta.Start);
 						  cmd.Parameters.AddWithValue("@StartEnd", satnicaProjekta.StartEnd);
-						  cmd.Parameters.AddWithValue("@Komentar", satnicaProjekta.Komentar);
+						  cmd.Parameters.AddWithValue("@Komentar", satnicaProjekta.Komentar?? "");
 						  cmd.Parameters.Add("@Id", SqlDbType.Int);
 						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
 

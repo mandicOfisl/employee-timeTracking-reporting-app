@@ -88,6 +88,15 @@ namespace EvidencijaSati.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Krivi unos.
+        /// </summary>
+        public static string Krivi_unos {
+            get {
+                return ResourceManager.GetString("Krivi_unos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Natrag.
         /// </summary>
         public static string Natrag {

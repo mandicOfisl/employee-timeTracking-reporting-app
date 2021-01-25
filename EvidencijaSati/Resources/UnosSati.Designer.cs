@@ -133,6 +133,15 @@ namespace EvidencijaSati.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Promjene spremljene!.
+        /// </summary>
+        public static string Promjene_spremljene {
+            get {
+                return ResourceManager.GetString("Promjene_spremljene", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Radni sati.
         /// </summary>
         public static string Radni_sati {

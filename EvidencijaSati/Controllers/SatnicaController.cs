@@ -214,10 +214,21 @@ namespace EvidencijaSati.Controllers
 		  public ActionResult ZabiljeziKraj(SatnicaProjekta satnica)
 		  {
 				SatnicaProjekta s = Repo.SelectRadnaSatnicaProjekta(satnica.ProjektID);
+				Satnica sat = 
+					 JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[s.SatnicaID.ToString()].ToString());
+				
+				s.End = satnica.End;
+				s.Komentar = satnica.Komentar;
 
-				var startEnd = float.Parse((satnica.End - satnica.Start).TotalMinutes.ToString());
+				var startEnd = float.Parse((s.End - s.Start).TotalMinutes.ToString());
+				s.StartEnd = startEnd;
 
-				int r = Repo.UpdateEndSatniceProjekta(satnica.End, s.IDSatnicaProjekta, startEnd, satnica.Komentar);
+				if (Repo.UpdateEndSatniceProjekta(s.End, s.IDSatnicaProjekta, startEnd, s.Komentar) > 0)
+				{
+					 sat.Satnice[s.ProjektID][sat.Satnice[s.ProjektID].Count - 1] = s;
+				}
+
+				HttpContext.Session.Add(s.SatnicaID.ToString(), JsonConvert.SerializeObject(sat));
 
 				return Json("ok");
 		  }
