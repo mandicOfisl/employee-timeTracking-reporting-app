@@ -409,8 +409,8 @@
 		  var fM = parseInt(f[1]);
 		  var sM = parseInt(s[1]);
 
-		  var newH = fH + sH;
-		  var newM = fM + sM;
+		  var newH = sH - fH;
+		  var newM = sM - fM;
 
 		  return newH.toString().padStart(2, '0') + ":" + newM.toString().padStart(2, '0');
 	 }
@@ -454,9 +454,13 @@
 
 	 }
 
-	 function parseStringMinutesToFloat(first, second) {
-		  var zbroj = addHoursMinutes(first, second);
-		  return parseStringToMinutes(zbroj);
+	 function parseStringMinutesToFloat(str) {
+		  var s = (str != '' && regex.test(str)) ? str.split(':') : ['00', '00'];
+
+		  var h = parseInt(s[0]);
+		  var m = parseInt(s[0]);
+
+		  return (h * 60) + m;
 	 }
 
 	 function parseStringToMinutes(str) {
@@ -540,6 +544,16 @@
 					 success: function (res) {
 						  if (res != "error") {
 								alert("@UnosSati.Promjene_spremljene");
+
+								var odId = "spTxt-Od-" + res;
+								var doId = "spTxt-Do-" + res;
+
+								$('#txtTotalProjekta').html(
+									 addHoursMinutes(
+										  $('#txtTotalProjekta').html(),
+										  addHoursMinutes(
+												document.getElementById(odId).value,
+												document.getElementById(doId).value)));
 						  } else {
 								alert("@Common.Greska")
 						  }
@@ -553,9 +567,9 @@
 	 $('body').delegate("input[id|='spTxt']", "change", function (e) {
 		  e.preventDefault();
 		  var input = $(this);
-		  var uspId = input.attr('id').split('-')[2];;
+		  var uspId = input.attr('id').split('-')[2];
 
-Common	  var editId = "btnEdit-" + uspId;
+		  var editId = "btnEdit-" + uspId;
 		  document.getElementById(editId).disabled = false;
 	 });
 

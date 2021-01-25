@@ -208,7 +208,7 @@ namespace EvidencijaSati.Controllers
 		  {
 				int i = Repo.UpdateSatnicaProjekta(satnica);
 				
-				return i != 1 ? Json("error") : Json(i);
+				return i != 1 ? Json("error") : Json(satnica.IDSatnicaProjekta);
 		  }
 
 		  public ActionResult ZabiljeziKraj(SatnicaProjekta satnica)
