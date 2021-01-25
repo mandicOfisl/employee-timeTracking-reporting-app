@@ -36,6 +36,9 @@ namespace EvidencijaSati
 
 				bundles.Add(new StyleBundle("~/Content/unosSati").Include(
 							 "~/Content/unosSati.css"));
+
+				bundles.Add(new StyleBundle("~/Content/userProfile").Include(
+							 "~/Content/userProfile.css"));
 		  }
 	 }
 }

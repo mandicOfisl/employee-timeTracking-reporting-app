@@ -123,6 +123,9 @@
   <data name="Jezik" xml:space="preserve">
     <value>Jezik</value>
   </data>
+  <data name="Natrag" xml:space="preserve">
+    <value>Natrag</value>
+  </data>
   <data name="Nema_podataka" xml:space="preserve">
     <value>Nema podataka</value>
   </data>

@@ -1,9 +1,11 @@
 ﻿@model EvidencijaSati.Models.Djelatnik
 @using EvidencijaSati.Resources
 
+@Styles.Render("~/Content/userProfile")
+
 <div class="container">
 	 <div class="row">
-	 	 <div class="col">
+	 	 <div class="col col-6">
 			  <h1>@(UnosSati.Pozdrav + " " + Model.ToString())</h1>
 		 </div>
 	 	 <div class="col">
@@ -14,7 +16,7 @@
 			  </button>
 		 </div>
 	 </div>
-	 <div class="row">
+	 <div class="row justify-content-center">
 		  <div class="card card-body">
 		  	 <div class="row">
 		  	 	 <div class="col">@UserProfile.Ime</div>
@@ -76,6 +78,16 @@
 				 </div>
 		  	 </div>
 		  </div>
+	 </div>
+	 <div class="row justify-content-center">
+	 	 <div class="col text-center">
+			 <a class="btn btn-outline-primary"
+				 
+				 href="@(Url.Action("UnosSati", "Satnica", new { @id = Model.IDDjelatnik }))">
+				  <i class="fa fa-arrow-left"></i>
+						@Common.Natrag
+			 </a>
+		 </div>
 	 </div>
 </div>
  

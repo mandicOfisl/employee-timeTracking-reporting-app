@@ -1,0 +1,17 @@
+﻿.row {
+	 margin: 2vh 0;
+}
+
+.card {
+	 width: 70%;
+}
+
+.card-body {
+	 flex: none!important;
+}
+
+@media (max-width: 500px){
+	 .row {
+		  flex-direction: column!important;
+	 }
+}

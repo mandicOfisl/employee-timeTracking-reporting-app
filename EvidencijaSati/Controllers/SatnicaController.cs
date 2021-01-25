@@ -14,6 +14,19 @@ namespace EvidencijaSati.Controllers
     {
 		  private readonly double RADNI_SATI_U_DANU = 8 * 60;
 
+		  public ActionResult UnosSatiFromNav()
+		  {
+				try
+				{
+					 int id = JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString());
+					 return UnosSati(id);
+				}
+				catch (Exception)
+				{
+					 return RedirectToAction("Login", "Home");
+				}
+		  }
+
 		  public ActionResult UnosSati(int id)
         {
 				if (HttpContext.Session["id"] != null)
@@ -98,7 +111,7 @@ namespace EvidencijaSati.Controllers
 						  HttpContext.Session.Add(key, JsonConvert.SerializeObject(model.Satnica));
 						  HttpContext.Session.Add("satnicaId", JsonConvert.SerializeObject(model.Satnica.IDSatnica));
 
-						  return View(model);
+						  return View("UnosSati", model);
 					 }
 				}
 				return RedirectToAction("Login", "Home");

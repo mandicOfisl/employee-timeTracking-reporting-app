@@ -195,6 +195,7 @@
     <Content Include="Content\jquery.dataTables.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\unosSati.css" />
+    <Content Include="Content\userProfile.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax">
