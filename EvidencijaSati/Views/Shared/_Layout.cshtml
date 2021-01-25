@@ -10,43 +10,111 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-	 <nav class="navbar navbar-dark bg-dark justify-content-between">
-	 	 @Html.ActionLink("Evidencija sati", "UnosSatiFromNav", "Satnica", null, new { @class = "navbar-brand" })
-		 <div class="form-inline">
-	 	     <div class="dropdown" style="margin: 0 2vw;">
-	 	 	     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	 	 	 	     @Common.Jezik
-	 	 	     </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-	                 @Html.ActionLink("Hrvatski", "SetLanguage", "Home", 
-                    new { culture = "hr", url = Context.Request.Path }, 
-                    new { @class = "dropdown-item" })
-	                 @Html.ActionLink("English", "SetLanguage", "Home", 
-                    new { culture = "en", url = Context.Request.Path }, 
-                    new { @class = "dropdown-item" })
-                </div>
-	        </div>
-             @if (ViewBag.Site != "Login")
-				 {
-                <a id="btnProfil"
-                    class="btn btn-outline-success"
-                    href="@Url.Action("UserProfile", "User")"
-                    style="margin: 0 2vw;">
-                    <i class="fa fa-user"></i>
-                        <b>@UnosSati.Profil</b>
-                </a>
+	 <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+		  <a class="navbar-brand" href="">Evidencija sati</a>
+         <button class="navbar-toggler" 
+                 type="button" 
+                 data-toggle="collapse" 
+                 data-target="#navbarSupportedContent" 
+                 aria-controls="navbarSupportedContent" 
+                 aria-expanded="false" 
+                 aria-label="Toggle navigation">
+             <span class="navbar-toggler-icon"></span>
+        </button>
 
-                <a id="btnLogout"
-                    class="btn btn-outline-danger"
-                    href="@Url.Action("Logout", "Home")"
-                    style="margin: 0 2vw;">
-                    <i class="fa fa-exclamation"></i>
-                        <b>@Common.Odjava</b>
-                </a>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            @{ 
+					 if (ViewBag.Site != "Login")
+					 {
+                    <ul class="navbar-nav mr-auto">
 
+                
+						      @if ((int)ViewBag.TipDjelatnika != 1) //ako nije direktor
+						      {
+                            <li class="nav-item">
+									     @Html.ActionLink("Evidencija sati", 
+                                        "UnosSatiFromNav", 
+                                        "Satnica", 
+                                        null, 
+                                        new { @class = "navbar-link btn" })
+								    </li>
+								    if ((int)ViewBag.TipDjelatnika == 2) //ako je voditelj tima
+								    {
+                                <li class="nav-item">
+									         @Html.ActionLink("Pregled satnica", 
+                                            "PregledSatnica", 
+                                            "Satnica", 
+                                            null, 
+                                            new { @class = "navbar-link" })
+								        </li>
+								    }
+						      }
+						      else //ako je direktor
+						      {
+                            <li class="nav-item">
+									     @Html.ActionLink("Pregled satnica", 
+                                        "PregledSatnica", 
+                                        "Satnica", 
+                                        null, 
+                                        new { @class = "navbar-link" })
+								    </li>
+						      }						  
+                    </ul>					 
+                
+                    <div class="form-inline">
+                        <a id="btnProfil"
+                            class="btn btn-outline-success"
+                            href="@Url.Action("UserProfile", "User")"
+                            style="margin: 0 2vw;">
+                            <i class="fa fa-user"></i>
+                                <b>@UnosSati.Profil</b>
+                        </a>
 
-				 }
-       </div>
+                        <a id="btnLogout"
+                            class="btn btn-outline-danger"
+                            href="@Url.Action("Logout", "Home")"
+                            style="margin: 0 2vw;">
+                            <i class="fa fa-exclamation"></i>
+                                <b>@Common.Odjava</b>
+                        </a>
+	 	                 <div class="dropdown" style="margin: 0 2vw;">
+	 	 	                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	 	 	 	                 @Common.Jezik
+	 	 	                 </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	                             @Html.ActionLink("Hrvatski", "SetLanguage", "Home", 
+                                new { culture = "hr", url = Context.Request.Path }, 
+                                new { @class = "dropdown-item" })
+	                             @Html.ActionLink("English", "SetLanguage", "Home", 
+                                new { culture = "en", url = Context.Request.Path }, 
+                                new { @class = "dropdown-item" })
+                            </div>
+	                    </div>
+                    </div>
+					 }
+					 else //ako je login page
+					 {
+                    <ul class="navbar-nav mr-auto"></ul>
+                    <div class="form-inline">
+	 	                 <div class="dropdown" style="margin: 0 2vw;">
+	 	 	                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	 	 	 	                 @Common.Jezik
+	 	 	                 </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	                             @Html.ActionLink("Hrvatski", "SetLanguage", "Home", 
+                                new { culture = "hr", url = Context.Request.Path }, 
+                                new { @class = "dropdown-item" })
+	                             @Html.ActionLink("English", "SetLanguage", "Home", 
+                                new { culture = "en", url = Context.Request.Path }, 
+                                new { @class = "dropdown-item" })
+                            </div>
+	                    </div>
+                    </div>
+					 }
+            }
+    
+         </div>
+
 	 </nav>
     <div class="container body-content">
         @Scripts.Render("~/bundles/jquery")

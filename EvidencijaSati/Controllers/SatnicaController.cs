@@ -19,6 +19,8 @@ namespace EvidencijaSati.Controllers
 				try
 				{
 					 int id = JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString());
+					 ViewBag.TipDjelatnika = 
+						  JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
 					 return UnosSati(id);
 				}
 				catch (Exception)
@@ -33,6 +35,8 @@ namespace EvidencijaSati.Controllers
 				{
 					 if (JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString()) == id)
 					 {
+						  ViewBag.TipDjelatnika = 
+								JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
 						  UnosSatiVM model = new UnosSatiVM
 						  {
 								Djelatnik = Repo.SelectDjelatnik(id),
@@ -216,6 +220,11 @@ namespace EvidencijaSati.Controllers
 				int r = Repo.UpdateEndSatniceProjekta(satnica.End, s.IDSatnicaProjekta, startEnd);
 
 				return Json("ok");
+		  }
+
+		  public	ActionResult PregledSatnica(int id)
+		  {
+				return View();
 		  }
 	 }
 }

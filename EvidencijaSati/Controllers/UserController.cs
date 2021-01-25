@@ -16,7 +16,9 @@ namespace EvidencijaSati.Controllers
             if (HttpContext.Session["id"] != null)
 				{
                 var id = JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString());
-                return View(Repo.SelectDjelatnik(id));
+					 var djelatnik = Repo.SelectDjelatnik(id);
+					 ViewBag.TipDjelatnika = djelatnik.TipDjelatnikaID;
+                return View(djelatnik);
 				}
 				else  return RedirectToAction("Login", "Home");						
 		  }
@@ -27,10 +29,11 @@ namespace EvidencijaSati.Controllers
         public ActionResult UpdateZaporka(Djelatnik d)
 		  {
             int i = Repo.UpdateZaporka(d.IDDjelatnik, d.Zaporka);
-
+				
 				if (i > 0)
 				{
 					 ViewBag.Id = d.IDDjelatnik;
+					 ViewBag.TipDjelatnika = d.TipDjelatnikaID;
 					 return View("Success");
 				}
 				else
