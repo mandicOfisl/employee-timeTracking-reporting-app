@@ -49,6 +49,23 @@ namespace EvidencijaSati.Models
 				}
 		  }
 
+		  internal static int UpdateZaporka(int iDDjelatnik, string zaporka)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "UpdateZaporka";
+						  cmd.Parameters.AddWithValue("@Id", iDDjelatnik);
+						  cmd.Parameters.AddWithValue("@Pass", zaporka);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
 		  internal static IEnumerable<SatnicaProjekta> GetSatniceProjekata(int iDSatnica)
 		  {
 				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure,
@@ -158,7 +175,7 @@ namespace EvidencijaSati.Models
 					 using (SqlCommand cmd = con.CreateCommand())
 					 {
 						  cmd.CommandType = CommandType.StoredProcedure;
-						  cmd.CommandText = "AddSatnica";
+						  cmd.CommandText = "ChangeSatnicaStatus";
 						  cmd.Parameters.AddWithValue("@IdSatnica", satId);
 						  cmd.Parameters.AddWithValue("@Status", (int)status);
 

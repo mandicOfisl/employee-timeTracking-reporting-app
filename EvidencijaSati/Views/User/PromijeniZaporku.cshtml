@@ -8,11 +8,11 @@
 			  <span aria-hidden="true">&times;</span>
 	 	 </button>
 	 </div>
-	 @using (Html.BeginForm("PromijeniZaporku", "User", FormMethod.Post))
+	 @using (Html.BeginForm("UpdateZaporka", "User", FormMethod.Post))
 		  {
 		  <div class="modal-body">
 	 			<div class="container">
-
+							 @Html.HiddenFor(d => d.IDDjelatnik, new { @value = Model.IDDjelatnik})
 	 	 			 <div class="row">
 	 	 	 			  <div class="col">
 								<span class="lblTxt">@UserProfile.Stara_zaporka</span>

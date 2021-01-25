@@ -203,11 +203,7 @@ namespace EvidencijaSati.Controllers
 		  public ActionResult UpdateUnosSatniceProjekta(SatnicaProjekta satnica)
 		  {
 				int i = Repo.UpdateSatnicaProjekta(satnica);
-
 				
-
-
-
 				return i != 1 ? Json("error") : Json(i);
 		  }
 

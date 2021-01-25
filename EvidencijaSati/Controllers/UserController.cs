@@ -19,5 +19,22 @@ namespace EvidencijaSati.Controllers
 				}
 				else  return RedirectToAction("Login", "Home");						
 		  }
+
+        public ActionResult PromijeniZaporku(int id) => PartialView("PromijeniZaporku", Repo.SelectDjelatnik(id));
+		  
+		  [HttpPost]
+        public ActionResult UpdateZaporka(Djelatnik d)
+		  {
+            int i = Repo.UpdateZaporka(d.IDDjelatnik, d.Zaporka);
+
+				if (i > 0)
+				{
+					 return Json("ok");
+				}
+				else
+				{
+					 return Json("error");
+				}
+		  }
     }
 }
