@@ -167,6 +167,55 @@ namespace EvidencijaSati.Models
 				}
 		  }
 
+		  internal static SatnicaProjekta SelectRadnaSatnicaProjekta(int projektID)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "SelectRadnaSatnicaProjekta";
+						  cmd.Parameters.AddWithValue("@IdProjekt", projektID);
+						  using (SqlDataReader dr = cmd.ExecuteReader())
+						  {
+								if (dr.Read())
+								{
+									 return new SatnicaProjekta
+									 {
+										  IDSatnicaProjekta = (int)dr[nameof(SatnicaProjekta.IDSatnicaProjekta)],
+										  ProjektID = (int)dr[nameof(SatnicaProjekta.ProjektID)],
+										  SatnicaID = (int)dr[nameof(SatnicaProjekta.SatnicaID)],
+										  Start = DateTime.Parse(dr[nameof(SatnicaProjekta.Start)].ToString()),
+										  End = dr[nameof(SatnicaProjekta.End)].GetType().Equals(typeof(DBNull)) ?
+										  new DateTime(0) : DateTime.Parse(dr[nameof(SatnicaProjekta.End)].ToString()),
+										  StartEnd = float.Parse(dr[nameof(SatnicaProjekta.StartEnd)].ToString())
+									 };
+								}
+						  }
+					 }
+					 throw new Exception("No can do!");
+				}
+		  }
+
+		  internal static int UpdateEndSatniceProjekta(DateTime end, int iDSatnicaProjekta, float startEnd)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "UpdateEndSatniceProjekta";
+						  cmd.Parameters.AddWithValue("@Id", iDSatnicaProjekta);
+						  cmd.Parameters.AddWithValue("@End", end);
+						  cmd.Parameters.AddWithValue("@StartEnd", startEnd);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
 		  internal static int UpdateSatnicaProjekta(SatnicaProjekta satnica)
 		  {
 				using (SqlConnection con = new SqlConnection(cs))
@@ -214,7 +263,6 @@ namespace EvidencijaSati.Models
 						  cmd.Parameters.AddWithValue("@SatnicaID", satnicaProjekta.SatnicaID);
 						  cmd.Parameters.AddWithValue("@ProjektID", satnicaProjekta.ProjektID);
 						  cmd.Parameters.AddWithValue("@Start", satnicaProjekta.Start);
-						  cmd.Parameters.AddWithValue("@End", null);
 						  cmd.Parameters.AddWithValue("@StartEnd", satnicaProjekta.StartEnd);
 						  cmd.Parameters.Add("@Id", SqlDbType.Int);
 						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;

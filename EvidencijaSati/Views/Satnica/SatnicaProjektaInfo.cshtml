@@ -3,7 +3,7 @@
 
 <div class="modal-content">
 	 <div class="modal-header">
-	 	 @Model.First().Start.Date.ToString().Split(' ')[0]
+	 	 @(Model.Count > 0 ? Model.First().Start.Date.ToString().Split(' ')[0] : Common.Nema_podataka) 
 		  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="width: auto">
 	 		  <span aria-hidden="true">&times;</span>
 		  </button>

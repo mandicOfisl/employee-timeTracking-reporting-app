@@ -79,6 +79,15 @@ namespace EvidencijaSati.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nema podataka.
+        /// </summary>
+        public static string Nema_podataka {
+            get {
+                return ResourceManager.GetString("Nema_podataka", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Obriši.
         /// </summary>
         public static string Obrisi {

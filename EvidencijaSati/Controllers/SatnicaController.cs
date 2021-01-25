@@ -31,7 +31,8 @@ namespace EvidencijaSati.Controllers
 									 ProjektZabiljezeno = new Dictionary<int, string>(),
 									 Staus = SatnicaStatusEnum.WAITING_SUBMIT
 								},
-								Projekti = Repo.GetProjektiDjelatnika(id).ToList()
+								Projekti = Repo.GetProjektiDjelatnika(id).ToList(),
+								AktivanProjektId = -1
 						  };
 
 						  foreach (var p in model.Projekti)
@@ -47,15 +48,22 @@ namespace EvidencijaSati.Controllers
 						  List<Satnica> satniceDjelatnika = Repo.GetSatniceDjelatnika(id).ToList();
 
 						  if (satniceDjelatnika.Where(s => 
-								DateTime.Parse(s.Datum.ToString()).Date == DateTime.Now.Date).Count() > 0)
+								DateTime.Parse(s.Datum.ToString()).Date == DateTime.Now.Date).Any())
 						  {
 								model.Satnica = satniceDjelatnika.Where(s =>
 									 DateTime.Parse(s.Datum.ToString()).Date == DateTime.Now.Date).First();
 								List<SatnicaProjekta> sps = Repo.GetSatniceProjekata(model.Satnica.IDSatnica).ToList();
+
+								foreach (var s in sps)
+								{
+									 if (s.End == new DateTime(0)) model.AktivanProjektId = s.ProjektID;								 
+								}
+
 								float total = 0;
 								foreach (var p in model.Projekti)
 								{
 									 model.Satnica.Satnice.Add(p.IDProjekt, sps.Where(s => s.ProjektID == p.IDProjekt).ToList());
+
 									 if (model.Satnica.Satnice[p.IDProjekt].Count > 0)
 									 {
 										  float t = Utils.CalculateProjectMinutes(model.Satnica.Satnice[p.IDProjekt]);
@@ -117,8 +125,11 @@ namespace EvidencijaSati.Controllers
 
 				foreach (var s in sat.Satnice)
 				{
-					 sat.ProjektZabiljezeno[s.Value.First().ProjektID] =
+					 if (s.Value.Any())
+					 {
+						  sat.ProjektZabiljezeno[s.Value.First().ProjektID] =
 								Utils.ParseMinutesToString(Utils.CalculateProjectMinutes(s.Value));
+					 }
 				}
 								
             HttpContext.Session.Add(key, JsonConvert.SerializeObject(sat));
@@ -128,7 +139,8 @@ namespace EvidencijaSati.Controllers
 				string[] res =
 				{
 					 row.ToString(),
-					 Utils.ParseMinutesToString(sp.StartEnd)
+					 Utils.ParseMinutesToString(sp.StartEnd),
+					 sp.IDSatnicaProjekta.ToString()
 				};
 
             return Json(res);
@@ -171,7 +183,7 @@ namespace EvidencijaSati.Controllers
 		  public ActionResult PrikaziInfoProjekta(int projId, int satId)
 		  {
 				Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[satId.ToString()].ToString());
-
+				
 				return PartialView("SatnicaProjektaInfo", sat.Satnice[projId]);
 		  }
 
@@ -184,6 +196,17 @@ namespace EvidencijaSati.Controllers
 
 
 				return i != 1 ? Json("error") : Json(i);
+		  }
+
+		  public ActionResult ZabiljeziKraj(SatnicaProjekta satnica)
+		  {
+				SatnicaProjekta s = Repo.SelectRadnaSatnicaProjekta(satnica.ProjektID);
+
+				var startEnd = float.Parse((satnica.End - satnica.Start).TotalMinutes.ToString());
+
+				int r = Repo.UpdateEndSatniceProjekta(satnica.End, s.IDSatnicaProjekta, startEnd);
+
+				return Json("ok");
 		  }
 	 }
 }

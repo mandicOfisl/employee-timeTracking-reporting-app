@@ -19,8 +19,8 @@
 	 	 	 <table id="table" style="width: 100%">
 	 	 	 	 <thead>
 	 	 	 	 	 <tr>
-						  <th>@UnosSati.Projekt</th>
-						  <th>@UnosSati.Zabiljezeno</th>
+						 <th>@UnosSati.Projekt</th>
+						 <th>@UnosSati.Zabiljezeno</th>
 	 	 	 	 	 	 <th>Start / Stop</th>
 						 <th>@UnosSati.Radni_sati</th>
 						 <th>@UnosSati.Prekovremeni_sati</th>
@@ -30,79 +30,88 @@
 	 	 	 	 <tbody>
 	 	 	 	 	 @for (int i = 0; i < Model.Projekti.Count; i++)
 					 {
-	 	 	 	 	 <tr class="@Model.Projekti[i].IDProjekt rowProjekt">
-	 	 	 	 	 	 <td>@Model.Projekti[i].Naziv</td>
-	 	 	 	 <td id="@("txtZab" + Model.Projekti[i].IDProjekt)" class="zabiljezeno">
-	 	 	 	 	 @(Model.Satnica.ProjektZabiljezeno[Model.Projekti[i].IDProjekt])
-	 	 	 	 </td>
-	 	 	 	 <td>
-	 	 	 	 	 <button id="@("btnProjekt" + Model.Projekti[i].IDProjekt)"
-							 class="btn btn-success btnTimer @i"
-							 type="button">
-	 	 	 	 	 	 Start
-	 	 	 	 	 </button>
-	 	 	 	 </td>
-	 	 	 	 <td>
-	 	 	 	 	 <input id="@("txtRadni" + Model.Projekti[i].IDProjekt.ToString())"
-							class="form-control radni"
-							type="text" />
-	 	 	 	 </td>
-	 	 	 	 <td>
-	 	 	 	 	 <input id="@("txtPrekovremeni" + Model.Projekti[i].IDProjekt.ToString())"
-							class="form-control"
-							type="text" />
-	 	 	 	 </td>
-	 	 	 	 <td>
-	 	 	 	 	 <button id="@("btnInfo" + Model.Projekti[i].IDProjekt)"
-							 class="btn btn-outline-dark modal-link"
-							 type="button"
-							 data-targeturl="@Url.Action("PrikaziInfoProjekta", new { @projId = Model.Projekti[i].IDProjekt, @satId = Model.Satnica.IDSatnica })">
-	 	 	 	 	 	 <i class="fa fa-info"></i>
-	 	 	 	 	 </button>
-	 	 	 	 </td>
-	 	 	 </tr>
-	  }
-	 	 	 </tbody>
-	 	 	 <tfoot>
-	 	 	 	 <tr>
-					  <td>@UnosSati.Ukupno</td>
-	 	 	 	 	 <td><b><span id="txtTotal">@Model.Satnica.GetFormatedProperties("total")</span></b></td>
-	 	 	 	 <td></td>
-	 	 	 	 <td><span id="txtTotalRedovni">00:00</span></td>
-	 	 	 	 <td><span id="txtTotalPrekovremeni">00:00</span></td>
-	 	 	 	 <td></td>
-	 	 	 </tr>
-	 	 </tfoot>
-	 </table>
+	 	 	 	 		  <tr class="@Model.Projekti[i].IDProjekt rowProjekt">
+	 	 	 	 	 			<td>@Model.Projekti[i].Naziv</td>
+	 	 	 					<td id="@("txtZab" + Model.Projekti[i].IDProjekt)" class="zabiljezeno">
+	 	 	 	 					 @(Model.Satnica.ProjektZabiljezeno[Model.Projekti[i].IDProjekt])
+	 	 	 					</td>
+	 	 	 					<td>
+	 	 	 	 					 <button id="@("btnProjekt" + Model.Projekti[i].IDProjekt)"
+												class="btn btn-success btnTimer @i"
+												type="button">
+	 	 	 	 	 					  Start
+	 	 	 	 					 </button>
+	 	 	 					</td>
+	 	 	 					<td>
+	 	 	 	 					 <input id="@("txtRadni" + Model.Projekti[i].IDProjekt.ToString())"
+											  class="form-control radni"
+											  type="text" />
+	 	 	 					</td>
+	 	 	 					<td>
+	 	 	 	 					 <input id="@("txtPrekovremeni" + Model.Projekti[i].IDProjekt.ToString())"
+											  class="form-control"
+											  type="text" />
+	 	 	 					</td>
+	 	 	 					<td>
+	 	 	 	 					 <button id="@("btnInfo" + Model.Projekti[i].IDProjekt)"
+												class="btn btn-outline-dark modal-link"
+												type="button"
+												data-targeturl="@Url.Action("PrikaziInfoProjekta", new { @projId = Model.Projekti[i].IDProjekt, @satId = Model.Satnica.IDSatnica })">
+	 	 	 	 	 					  <i class="fa fa-info"></i>
+	 	 	 	 					 </button>
+	 	 	 					</td>
+	 	 				  </tr>
+						  }
+	 	 			 </tbody>
+	 	 			 <tfoot>
+	 	 	 			  <tr>
+								<td>@UnosSati.Ukupno</td>
+	 	 	 	 				<td><b><span id="txtTotal">@Model.Satnica.GetFormatedProperties("total")</span></b></td>
+	 	 	 					<td></td>
+	 	 	 					<td><span id="txtTotalRedovni">00:00</span></td>
+	 	 	 					<td><span id="txtTotalPrekovremeni">00:00</span></td>
+	 	 	 					<td></td>
+	 	 				  </tr>
+	 				 </tfoot>
+				</table>
+		  </div>
+	 </div>
 
-</div>
-</div>
-<div class="row btns justify-content-center">
-	 <div class="col col-3">
-		  <button id="btnOdustani"
-				class="btn btn-outline-danger">
-		  	 @UnosSati.Odustani
-		  </button>
+	 <div class="row">
+	 	 <div class="col-3">
+	 			<p>Komentar</p>
+		 </div>
+	 	 <div class="col">
+	 		  @Html.TextArea("txtKomentar", "",	new { @class = "form-control"	})
+		 </div>
 	 </div>
-	 <div class="col col-3">
-		  <button id="btnUredi"
-				class="btn btn-success">
-		  	 @UnosSati.Uredi
-		  </button>
+
+	 <div class="row btns justify-content-center">
+		  <div class="col col-3">
+				<button id="btnOdustani"
+					 class="btn btn-outline-danger">
+		  		  @UnosSati.Odustani
+				</button>
+		  </div>
+		  <div class="col col-3">
+				<button id="btnUredi"
+					 class="btn btn-success">
+		  		  @UnosSati.Uredi
+				</button>
+		  </div>
+		  <div class="col col-3">
+				<button id="btnSpremi"
+					 class="btn btn-primary">
+		  		  @UnosSati.Spremi
+				</button>
+		  </div>
+		  <div class="col col-3">
+				<button id="btnPredaj"
+					 class="btn btn-warning">
+		  		  @UnosSati.Predaj
+				</button>
+		  </div>
 	 </div>
-	 <div class="col col-3">
-		  <button id="btnSpremi"
-				class="btn btn-primary">
-		  	 @UnosSati.Spremi
-		  </button>
-	 </div>
-	 <div class="col col-3">
-		  <button id="btnPredaj"
-				class="btn btn-warning">
-		  	 @UnosSati.Predaj
-		  </button>
-	 </div>
-</div>
 
 </div>
 
@@ -118,6 +127,24 @@
 	 const regex = new RegExp('^\\d{1,2}[:]\\d{1,2}$');
 
 	 $(document).ready(function () {
+		  var aktivanProjekt = @Model.AktivanProjektId;
+
+		  $('#btnPredaj').prop('disabled', true);
+		  $('#btnOdustani').prop('disabled', true);
+		  $('#btnSpremi').prop('disabled', true);
+
+		  if (aktivanProjekt > -1) {
+				$('button.modal-link').prop('disabled', true);
+				var btnId = "btnProjekt" + aktivanProjekt;
+				$('button.btnTimer').each(function (i) {
+					 if ($(this).attr('id') == btnId) {
+						  $(this).removeClass('btn-success');
+						  $(this).addClass('btn-danger');
+						  $(this).html('Stop');
+						  $('button.btn-success').prop('disabled', true);
+					 }
+				});
+		  }
 
 		  var datum = "@Model.Satnica.Datum.ToString()".split(" ")[0];
 		  $('#txtDatum').html(datum);
@@ -125,11 +152,7 @@
 		  lockTextFields(true);
 		  calculateTotals();
 
-		  $('#btnPredaj').prop('disabled', true);
-		  $('#btnOdustani').prop('disabled', true);
-		  $('#btnSpremi').prop('disabled', true);
-
-		  var projectId, start, end;
+		  var projectId, start, end, activeSatnicaId;
 
 		  var table = $("#table").DataTable({
 				select: true,
@@ -163,15 +186,16 @@
 
 		  $('button.btnTimer').click(function (e) {
 				e.preventDefault();
+				projectId = this.id.split('btnProjekt')[1];
 
 				if ($(this).hasClass('btn-success')) {
 					 start = new Date();
-					 projectId = this.id.split('btnProjekt')[1];
 
 					 $(this).removeClass('btn-success');
 					 $(this).addClass('btn-danger');
 					 $(this).html('Stop');
 
+					 $('button.modal-link').prop('disabled', true);
 					 $('button.btn-success').prop('disabled', true);
 
 					 var model = {
@@ -190,8 +214,10 @@
 						  success: function (res) {
 								//res[0] row
 								//res[1] zabiljezeno
-								table.cell(res[0], 1, 0).data(addHoursMinutes(table.cell(res[0], 1, 0).data(), res[1])).draw();
-								calculateTotals();
+								//res[2] id aktivne satnice projekta 
+								//table.cell(res[0], 1, 0).data(addHoursMinutes(table.cell(res[0], 1, 0).data(), res[1])).draw();
+								//calculateTotals();
+								activeSatnicaId = res[2];
 						  }
 					 });
 
@@ -208,7 +234,7 @@
 					 $('#btnOdustani').prop('disabled', false);
 
 					 var model = {
-						  IDSatnicaProjekta: -1,
+						  IDSatnicaProjekta: activeSatnicaId,
 						  SatnicaID: @Model.Satnica.IDSatnica,
 						  ProjektID: projectId,
 						  Start: start,
@@ -216,15 +242,14 @@
 					 };
 
 					 $.ajax({
-						  url: "@Url.Action("SpremiTempSatnicu")",
+						  url: "@Url.Action("ZabiljeziKraj")",
 						  method: "POST",
 						  data: JSON.stringify(model),
 						  contentType: 'application/json',
 						  success: function (res) {
-								//res[0] row
-								//res[1] zabiljezeno
-								table.cell(res[0], 1, 0).data(addHoursMinutes(table.cell(res[0], 1, 0).data(), res[1])).draw();
-								calculateTotals();
+								//table.cell(res[0], 1, 0).data(addHoursMinutes(table.cell(res[0], 1, 0).data(), res[1])).draw();
+								//calculateTotals();
+								$('button.modal-link').prop('disabled', false);
 						  }
 					 });
 				}
@@ -359,7 +384,6 @@
 				}
 		  });
 
-
 	 });
 
 	 $(function () {
@@ -392,11 +416,15 @@
 	 function lockTextFields(trueFalse) {
 		  if (trueFalse) {
 				$('input').each(function (i) {
-					 $(this).prop('disabled', true);
+					 if ($(this).attr('id') != "txtKomentar") {
+						  $(this).prop('disabled', true);
+					 }
 				});
 		  } else {
 				$('input').each(function (i) {
-					 $(this).prop('disabled', false);
+					 if ($(this).attr('id') != "txtKomentar") {
+						  $(this).prop('disabled', false);
+					 }
 				});
 		  }
 	 }
