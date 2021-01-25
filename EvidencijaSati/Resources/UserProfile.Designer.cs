@@ -22,14 +22,14 @@ namespace EvidencijaSati.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Login {
+    public class UserProfile {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Login() {
+        internal UserProfile() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EvidencijaSati.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EvidencijaSati.Resources.Login", typeof(Login).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EvidencijaSati.Resources.UserProfile", typeof(UserProfile).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,83 @@ namespace EvidencijaSati.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zaporka.
+        ///   Looks up a localized string similar to Datum zaposlenja.
         /// </summary>
-        public static string Lozinka {
+        public static string Datum_zaposlenja {
             get {
-                return ResourceManager.GetString("Lozinka", resourceCulture);
+                return ResourceManager.GetString("Datum_zaposlenja", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prijava.
+        ///   Looks up a localized string similar to Direktor.
         /// </summary>
-        public static string Prijava {
+        public static string Direktor {
             get {
-                return ResourceManager.GetString("Prijava", resourceCulture);
+                return ResourceManager.GetString("Direktor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Honorarni djelatnik.
+        /// </summary>
+        public static string Honorarni_djelatnik {
+            get {
+                return ResourceManager.GetString("Honorarni_djelatnik", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ime.
+        /// </summary>
+        public static string Ime {
+            get {
+                return ResourceManager.GetString("Ime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prezime.
+        /// </summary>
+        public static string Prezime {
+            get {
+                return ResourceManager.GetString("Prezime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promijeni zaporku.
+        /// </summary>
+        public static string Promijeni_zaporku {
+            get {
+                return ResourceManager.GetString("Promijeni_zaporku", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tip djelatnika.
+        /// </summary>
+        public static string Tip_djelatnika {
+            get {
+                return ResourceManager.GetString("Tip djelatnika", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voditelj tima.
+        /// </summary>
+        public static string Voditelj_tima {
+            get {
+                return ResourceManager.GetString("Voditelj_tima", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zaposlenik.
+        /// </summary>
+        public static string Zaposlenik {
+            get {
+                return ResourceManager.GetString("Zaposlenik", resourceCulture);
             }
         }
     }

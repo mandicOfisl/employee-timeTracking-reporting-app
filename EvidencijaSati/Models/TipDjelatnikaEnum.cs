@@ -12,5 +12,5 @@ namespace EvidencijaSati.Models
 		  ZAPOSLENIK = 3,
 		  HONORARNI_DJELATNIK = 4,
 		  STUDENT = 5
-	 }
+	 } 
 }

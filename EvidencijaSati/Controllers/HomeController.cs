@@ -29,6 +29,7 @@ namespace EvidencijaSati.Controllers
 					 Djelatnik djelatnik = Repo.GetDjelatnikByEmail(d.Email);
 					 if (djelatnik.Zaporka == d.Zaporka)
 					 {
+						  ViewBag.Id = djelatnik.IDDjelatnik;
 						  HttpContext.Session.Add("id", JsonConvert.SerializeObject(djelatnik.IDDjelatnik));
 						  return RedirectToAction("UnosSati", "Satnica", new { id = djelatnik.IDDjelatnik });
 					 }

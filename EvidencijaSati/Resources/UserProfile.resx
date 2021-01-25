@@ -117,10 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Lozinka" xml:space="preserve">
-    <value>Zaporka</value>
+  <data name="Datum_zaposlenja" xml:space="preserve">
+    <value>Datum zaposlenja</value>
   </data>
-  <data name="Prijava" xml:space="preserve">
-    <value>Prijava</value>
+  <data name="Direktor" xml:space="preserve">
+    <value>Direktor</value>
+  </data>
+  <data name="Honorarni_djelatnik" xml:space="preserve">
+    <value>Honorarni djelatnik</value>
+  </data>
+  <data name="Ime" xml:space="preserve">
+    <value>Ime</value>
+  </data>
+  <data name="Prezime" xml:space="preserve">
+    <value>Prezime</value>
+  </data>
+  <data name="Promijeni_zaporku" xml:space="preserve">
+    <value>Promijeni zaporku</value>
+  </data>
+  <data name="Tip djelatnika" xml:space="preserve">
+    <value>Tip djelatnika</value>
+  </data>
+  <data name="Voditelj_tima" xml:space="preserve">
+    <value>Voditelj tima</value>
+  </data>
+  <data name="Zaposlenik" xml:space="preserve">
+    <value>Zaposlenik</value>
   </data>
 </root>

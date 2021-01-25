@@ -17,5 +17,6 @@ namespace EvidencijaSati.Models
 		  public int TimID { get; set; }
 
 		  public override string ToString() => Ime + " " + Prezime;
+
 	 }
 }

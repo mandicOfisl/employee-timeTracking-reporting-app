@@ -1,4 +1,5 @@
 ﻿using EvidencijaSati.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,14 @@ namespace EvidencijaSati.Controllers
 {
     public class UserController : Controller
     {
-        public ActionResult UserProfile(int id)
+        public ActionResult UserProfile()
 		  {
-				if (HttpContext.Session["id"] != null) return View(Repo.SelectDjelatnik(id));
-				
-            return RedirectToAction("Login", "Home");
+            if (HttpContext.Session["id"] != null)
+				{
+                var id = JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString());
+                return View(Repo.SelectDjelatnik(id));
+				}
+				else  return RedirectToAction("Login", "Home");						
 		  }
     }
 }
