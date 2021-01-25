@@ -200,15 +200,31 @@ namespace EvidencijaSati.Controllers
 		  public ActionResult PrikaziInfoProjekta(int projId, int satId)
 		  {
 				Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[satId.ToString()].ToString());
-				
-				return PartialView("SatnicaProjektaInfo", sat.Satnice[projId]);
+
+				if (sat.Satnice[projId].Any())
+				{
+					 InfoSatniceProjektaVM model = new InfoSatniceProjektaVM
+					 {
+						  SatniceProjekta = sat.Satnice[projId],
+						  Total = sat.ProjektZabiljezeno[projId]
+					 };
+
+					 return PartialView("SatnicaProjektaInfo", model); 
+				}
+				return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
 		  }
 
 		  public ActionResult UpdateUnosSatniceProjekta(SatnicaProjekta satnica)
 		  {
 				int i = Repo.UpdateSatnicaProjekta(satnica);
-				
-				return i != 1 ? Json("error") : Json(satnica.IDSatnicaProjekta);
+
+				string[] res =
+				{
+					 satnica.IDSatnicaProjekta.ToString(),
+					 satnica.ProjektID.ToString()
+				};
+
+				return i != 1 ? Json("error") : Json(res);
 		  }
 
 		  public ActionResult ZabiljeziKraj(SatnicaProjekta satnica)
@@ -230,7 +246,7 @@ namespace EvidencijaSati.Controllers
 
 				HttpContext.Session.Add(s.SatnicaID.ToString(), JsonConvert.SerializeObject(sat));
 
-				return Json("ok");
+				return Json(Utils.ParseMinutesToString(s.StartEnd));
 		  }
 
 		  public	ActionResult PregledSatnica()

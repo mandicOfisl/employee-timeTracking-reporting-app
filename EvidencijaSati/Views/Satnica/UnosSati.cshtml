@@ -49,7 +49,7 @@
 	 	 	 					</td>
 	 	 	 					<td>
 	 	 	 	 					 <input id="@("txtPrekovremeni" + Model.Projekti[i].IDProjekt.ToString())"
-											  class="form-control"
+											  class="form-control prekovremeni"
 											  type="text" />
 	 	 	 					</td>
 	 	 	 					<td>
@@ -213,11 +213,6 @@
 						  data: JSON.stringify(model),
 						  contentType: 'application/json',
 						  success: function (res) {
-								//res[0] row
-								//res[1] zabiljezeno
-								//res[2] id aktivne satnice projekta 
-								//table.cell(res[0], 1, 0).data(addHoursMinutes(table.cell(res[0], 1, 0).data(), res[1])).draw();
-								//calculateTotals();
 								activeSatnicaId = res[2];
 						  }
 					 });
@@ -249,8 +244,10 @@
 						  data: JSON.stringify(model),
 						  contentType: 'application/json',
 						  success: function (res) {
-								//table.cell(res[0], 1, 0).data(addHoursMinutes(table.cell(res[0], 1, 0).data(), res[1])).draw();
-								//calculateTotals();
+								var id = "txtZab" + projectId;
+								document.getElementById(id).innerHTML =
+									 addHoursMinutes(document.getElementById(id).innerHTML.trim(), res);
+								calculateTotals();
 								$('button.modal-link').prop('disabled', false);
 						  }
 					 });
@@ -304,12 +301,9 @@
 													 calculateTotals();
 													 $('#btnPredaj').prop('disabled', false);
 												}
-										  });
-
+										  }); 
 									 }
-
 								}
-
 						  } else {
 								$(this).focus();
 								alert("krivi unos");
@@ -400,7 +394,7 @@
 		  });
 	 });
 
-	 function addHoursMinutes(first, second) {
+	 function calculateDifference(first, second) {
 		  var f = (first != '' && regex.test(first)) ? first.split(':') : ['00', '00'];
 		  var s = (second != '' && regex.test(second)) ? second.split(':') : ['00', '00'];
 
@@ -411,6 +405,31 @@
 
 		  var newH = sH - fH;
 		  var newM = sM - fM;
+
+		  if (newM < 0) {
+				newH -= 1;
+				newM += 60;
+		  }
+
+		  return newH.toString().padStart(2, '0') + ":" + newM.toString().padStart(2, '0');
+	 }
+
+	 function addHoursMinutes(first, second) {
+		  var f = (first != '' && regex.test(first)) ? first.split(':') : ['00', '00'];
+		  var s = (second != '' && regex.test(second)) ? second.split(':') : ['00', '00'];
+
+		  var fH = parseInt(f[0]);
+		  var sH = parseInt(s[0]);
+		  var fM = parseInt(f[1]);
+		  var sM = parseInt(s[1]);
+
+		  var newH = fH + sH;
+		  var newM = fM + sM;
+
+		  if (newM > 59) {
+				newH += 1;
+				newM -= 60;
+		  }
 
 		  return newH.toString().padStart(2, '0') + ":" + newM.toString().padStart(2, '0');
 	 }
@@ -443,7 +462,7 @@
 		  $('input').each(function (i) {
 				if ($(this).hasClass('radni')) {
 					 newTotalRed = addHoursMinutes(newTotalRed, $(this).val());
-				} else {
+				} else if ($(this).hasClass('prekovremeni')) {				
 					 newTotalPre = addHoursMinutes(newTotalPre, $(this).val());
 				}
 		  });
@@ -529,7 +548,7 @@
 				var model = {
 					 IDSatnicaProjekta: uspId,
 					 SatnicaID: 0,
-					 ProjektID: 0,
+					 ProjektID: $('#projId').val(),
 					 Start: new Date(start),
 					 End: new Date(end),
 					 StartEnd: startEnd,
@@ -542,18 +561,24 @@
 					 data: JSON.stringify(model),
 					 contentType: 'application/json',
 					 success: function (res) {
+						  //res[0] = id satnice projekta
+						  //res[1] = projekt id
 						  if (res != "error") {
 								alert("@UnosSati.Promjene_spremljene");
 
-								var odId = "spTxt-Od-" + res;
-								var doId = "spTxt-Do-" + res;
+								var odId = "spTxt-Od-" + res[0];
+								var doId = "spTxt-Do-" + res[0];
 
 								$('#txtTotalProjekta').html(
 									 addHoursMinutes(
 										  $('#txtTotalProjekta').html(),
-										  addHoursMinutes(
+										  calculateDifference(
 												document.getElementById(odId).value,
 												document.getElementById(doId).value)));
+
+								var mainProjectTotal = "txtZab" + res[1];
+								document.getElementById(mainProjectTotal).innerHTML = $('#txtTotalProjekta').html().trim();
+								calculateTotals();
 						  } else {
 								alert("@Common.Greska")
 						  }

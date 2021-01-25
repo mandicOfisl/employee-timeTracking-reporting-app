@@ -1,9 +1,11 @@
-﻿@model List<EvidencijaSati.Models.SatnicaProjekta>
+﻿@model EvidencijaSati.Models.ViewModels.InfoSatniceProjektaVM
 @using EvidencijaSati.Resources
 
 <div class="modal-content">
 	 <div class="modal-header">
-	 	 @(Model.Count > 0 ? Model.First().Start.Date.ToString().Split(' ')[0] : Common.Nema_podataka) 
+	 	 @(Model.SatniceProjekta.Count > 0 ? 
+			  Model.SatniceProjekta.First().Start.Date.ToString().Split(' ')[0] : 
+					Common.Nema_podataka) 
 		  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="width: auto">
 	 		  <span aria-hidden="true">&times;</span>
 		  </button>
@@ -25,41 +27,47 @@
 						  <b>@Common.Obrisi</b>
 					 </div>
 				</div>
+					 
+					@Html.Hidden("projId", Model.SatniceProjekta.First().ProjektID)
 
-				@foreach (var satnica in Model)
+				@foreach (var satnica in Model.SatniceProjekta)
 				{
-					 <div class="row">
-						  <div class="col">
-								<input id="@("spTxt-Od-" + satnica.IDSatnicaProjekta)"
-										 class="form-control"
-										 type="text"
-										 value="@satnica.GetTimeString("start")"
-										 style="margin: 0 auto;"/>
+					 if (satnica.StartEnd != 0)
+					 {
+						  <div class="row">
+								<div class="col">
+									 <input id="@("spTxt-Od-" + satnica.IDSatnicaProjekta)"
+											  class="form-control"
+											  type="text"
+											  value="@satnica.GetTimeString("start")"
+											  style="margin: 0 auto;"/>
+								</div>
+								<div class="col">
+									 <input id="@("spTxt-Do-" + satnica.IDSatnicaProjekta)"
+											  class="form-control"
+											  type="text"
+											  value="@satnica.GetTimeString("end")"/>
+								</div>
+								<div class="col col-2">
+									 <button id="@("btnEdit-" + satnica.IDSatnicaProjekta)"
+												class="btn btn-warning"
+												type="button"
+												data-targeturl="@Url.Action("UpdateUnosSatniceProjekta", new { @id = satnica.IDSatnicaProjekta })"
+												disabled>
+										  <i class="fa fa-floppy-o"></i>
+									 </button>
+								</div>
+								<div class="col col-2">
+									 <button id="@("btnDelete-" + satnica.IDSatnicaProjekta)"
+												class="btn btn-danger"
+												type="button"
+												data-targeturl="@Url.Action("ObrisiUnosSatniceProjekta", new { @id = satnica.IDSatnicaProjekta })">
+										  <i class="fa fa-minus-circle"></i>
+									 </button>
+								</div>
 						  </div>
-						  <div class="col">
-								<input id="@("spTxt-Do-" + satnica.IDSatnicaProjekta)"
-										 class="form-control"
-										 type="text"
-										 value="@satnica.GetTimeString("end")"/>
-						  </div>
-						  <div class="col col-2">
-								<button id="@("btnEdit-" + satnica.IDSatnicaProjekta)"
-										  class="btn btn-warning"
-										  type="button"
-										  data-targeturl="@Url.Action("UpdateUnosSatniceProjekta", new { @id = satnica.IDSatnicaProjekta })"
-										  disabled>
-									 <i class="fa fa-floppy-o"></i>
-								</button>
-						  </div>
-						  <div class="col col-2">
-								<button id="@("btnDelete-" + satnica.IDSatnicaProjekta)"
-										  class="btn btn-danger"
-										  type="button"
-										  data-targeturl="@Url.Action("ObrisiUnosSatniceProjekta", new { @id = satnica.IDSatnicaProjekta })">
-									 <i class="fa fa-minus-circle"></i>
-								</button>
-						  </div>
-					 </div>
+
+					 }
 				}
 
 		  </div>
@@ -70,7 +78,7 @@
 					<b>@UnosSati.Ukupno</b>
 	 		  </div>
 	 		  <div class="col col-2">
-	 	 		  <b><span id="txtTotalProjekta">00:00</span></b>
+	 	 		  <b><span id="txtTotalProjekta">@Model.Total</span></b>
 	 		  </div>
 
 		 </div>
