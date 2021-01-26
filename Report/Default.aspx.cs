@@ -13,5 +13,10 @@ namespace Report
 		  {
 
 		  }
+
+		  protected void BtnLogin_Click(object sender, EventArgs e)
+		  {
+				
+		  }
 	 }
 }
