@@ -10,7 +10,7 @@
 
 namespace Report
 {
-	 public partial class OdaberiIzvjestaj
+	 public partial class NoviIzvjestaj
 	 {
 	 }
 }

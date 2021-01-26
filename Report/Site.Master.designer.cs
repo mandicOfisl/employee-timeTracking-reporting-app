@@ -15,6 +15,24 @@ namespace Report
 	 {
 
 		  /// <summary>
+		  /// linkAdministracija control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.HtmlControls.HtmlGenericControl linkAdministracija;
+
+		  /// <summary>
+		  /// linkLogout control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.HyperLink linkLogout;
+
+		  /// <summary>
 		  /// MainContent control.
 		  /// </summary>
 		  /// <remarks>

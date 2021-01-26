@@ -37,7 +37,8 @@
         </asp:ScriptManager>
 
         <div class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
-            <a class="navbar-brand" runat="server" href="~/">Application name</a>
+				
+            <a class="navbar-brand" runat="server" href="~/">Izvještavanje</a>
             <button class="navbar-toggler" 
                     type="button" 
                     data-toggle="collapse" 
@@ -49,22 +50,39 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item" style="margin: 1vh 2vw;">
-                        <a class="navbar-link btn btn-warning" runat="server" href="OdaberiIzvjestaj.aspx">
-                            Novi izvještaj
-                        </a>
+                    <li class="nav-item" style="margin: 1vh 2vw;" id="linkNoviIzvjestaj">
+                        <asp:HyperLink 
+                            NavigateUrl="~/NoviIzvjestaj.aspx" 
+                            runat="server" 
+                            CssClass="navbar-link btn btn-warning"
+                            Text="Novi izvještaj"/>
+                    </li>
+                    <li class="nav-item" style="margin: 1vh 2vw;" id="linkAdministracija" runat="server">
+                        <asp:HyperLink 
+                            NavigateUrl="~/Administracija.aspx"
+                            runat="server"
+                            CssClass="navbar-link btn btn-outline-success"
+                            Text="Administracija"/>
                     </li>
                 </ul>
 					 <div class="form-inline">
+                    <asp:HyperLink 
+                            NavigateUrl="~/"
+                            ID="linkLogout"
+                            runat="server"
+                            CssClass="navbar-link btn btn-outline-danger"
+                            Text="Odjava"/>
+                    
                     <div class="dropdown" style="margin: 0 5vw;">
-                        <button class="btn btn-secondary dropdown-toggle" 
-                                type="button" 
-                                id="dropdownMenuButton" 
-                                data-toggle="dropdown" 
-                                aria-haspopup="true" 
-                                aria-expanded="false">
-                                Jezik
-                        </button>
+								<button
+                            class="btn btn-secondary dropdown-toggle"
+                            type="button" 
+                            id="dropdownMenuButton" 
+                            data-toggle="dropdown" 
+                            aria-haspopup="true" 
+                            aria-expanded="false">
+                            Jezik
+								</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 	                         <a href="~/" class="dropdown-item">Hrv</a>
 	                         <a href="~/" class="dropdown-item">Eng</a>
