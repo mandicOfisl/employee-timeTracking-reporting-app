@@ -144,6 +144,9 @@
   <data name="Odjava" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="Pokusaj_ponovo" xml:space="preserve">
+    <value>Please try again.</value>
+  </data>
   <data name="Promjene_spremljene" xml:space="preserve">
     <value>Changes have been saved successfully</value>
   </data>

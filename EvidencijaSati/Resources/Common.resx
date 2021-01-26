@@ -144,6 +144,9 @@
   <data name="Odjava" xml:space="preserve">
     <value>Odjava</value>
   </data>
+  <data name="Pokusaj_ponovo" xml:space="preserve">
+    <value>Dogodila se greška. Molim Vas pokušajte ponovo.</value>
+  </data>
   <data name="Promjene_spremljene" xml:space="preserve">
     <value>Promjene su uspješno spremljene</value>
   </data>

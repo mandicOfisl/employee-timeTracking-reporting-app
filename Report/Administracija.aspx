@@ -6,6 +6,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
+	 <h2>Administracija</h2>
+
 	 <div class="card card-body">
 		  <div class="row justify-content-center">
 				<div class="col col-3 text-center">

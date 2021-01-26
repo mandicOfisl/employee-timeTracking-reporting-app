@@ -24,7 +24,7 @@
 
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             @{ 
-					 if (ViewBag.Site != "Login")
+					 if (ViewBag.Site != "Login" && ViewBag.TipDjelatnika != null)
 					 {
                     <ul class="navbar-nav mr-auto">
                 
@@ -76,19 +76,24 @@
                             <i class="fa fa-exclamation"></i>
                                 <b>@Common.Odjava</b>
                         </a>
-	 	                 <div class="dropdown" style="margin: 1vh 2vw;">
-	 	 	                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	 	 	 	                 @Common.Jezik
-	 	 	                 </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-	                             @Html.ActionLink("Hrvatski", "SetLanguage", "Home", 
-                                new { culture = "hr", url = Context.Request.Path }, 
-                                new { @class = "dropdown-item" })
-	                             @Html.ActionLink("English", "SetLanguage", "Home", 
-                                new { culture = "en", url = Context.Request.Path }, 
-                                new { @class = "dropdown-item" })
-                            </div>
-	                    </div>
+
+                        <div class="btn-group dropleft" style="margin: 1vh 2vw;">
+                            <button type="button" 
+                                    class="btn btn-secondary dropdown-toggle" 
+                                    data-toggle="dropdown" 
+                                    aria-haspopup="true" 
+                                    aria-expanded="false">
+                            @Common.Jezik
+                            </button>
+									 <div class="dropdown-menu">
+						              @Html.ActionLink("Hrvatski", "SetLanguage", "Home",
+						              new { culture = "hr", url = Context.Request.Path },
+						              new { @class = "dropdown-item" })
+						              @Html.ActionLink("English", "SetLanguage", "Home",
+						              new { culture = "en", url = Context.Request.Path },
+						              new { @class = "dropdown-item" })
+									 </div>
+                        </div>
                     </div>
 					 }
 					 else //ako je login page

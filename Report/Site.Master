@@ -54,7 +54,7 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item" style="margin: 1vh 2vw;" id="linkNoviIzvjestaj">
                         <asp:HyperLink 
-                            NavigateUrl="~/NoviIzvjestaj.aspx" 
+                            NavigateUrl="~/NewReport.aspx" 
                             runat="server" 
                             CssClass="navbar-link btn btn-warning"
                             Text="Novi izvještaj"/>
@@ -83,8 +83,7 @@
                             data-toggle="dropdown" 
                             aria-haspopup="true" 
                             aria-expanded="false">
-                            Jezik
-								</button>
+                            Jezik</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 	                         <a href="~/" class="dropdown-item">Hrv</a>
 	                         <a href="~/" class="dropdown-item">Eng</a>

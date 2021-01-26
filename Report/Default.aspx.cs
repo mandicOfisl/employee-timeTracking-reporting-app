@@ -34,7 +34,7 @@ namespace Report
 					 cookie.Expires = DateTime.Now.AddHours(1);
 
 					 Response.Cookies.Add(cookie);
-					 Response.Redirect("NoviIzvjestaj.aspx");
+					 Response.Redirect("NewReport.aspx");
 				}
 		  }
 

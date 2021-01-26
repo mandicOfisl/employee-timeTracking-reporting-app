@@ -142,6 +142,15 @@ namespace EvidencijaSati.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dogodila se greška. Molim Vas pokušajte ponovo..
+        /// </summary>
+        public static string Pokusaj_ponovo {
+            get {
+                return ResourceManager.GetString("Pokusaj_ponovo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Promjene su uspješno spremljene.
         /// </summary>
         public static string Promjene_spremljene {
