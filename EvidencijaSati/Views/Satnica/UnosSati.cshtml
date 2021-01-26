@@ -154,7 +154,7 @@
 
 		  var projectId, start, end, activeSatnicaId;
 
-		  var table = $("#table").DataTable({
+		  $("#table").DataTable({
 				select: true,
 				paging: false,
 				ordering: false,
@@ -258,59 +258,33 @@
 		  $('#btnUredi').on('click', function (e) {
 				e.preventDefault();
 				lockTextFields(false);
+				$('#btnOdustani').prop('disabled', false);
 		  });
 
 		  $('#btnSpremi').on('click', function (e) {
 				e.preventDefault();
 
+				lockTextFields(true);
 
+				var totR = document.getElementById("txtTotalRedovni").innerHTML.trim();
+				var totP = document.getElementById("txtTotalPrekovremeni").innerHTML.trim();;
 
+				var model = {
+					 IDSatnica: @Model.Satnica.IDSatnica,
+					 DjelatnikID: @Model.Djelatnik.IDDjelatnik,
+					 Datum: new Date(),
+					 Total: addHoursMinutes(totR, totP),
+					 TotalRedovni: totR,
+					 TotalPrekovremeni: totP
+				};
 
-				$('input').each(function (i) {
-					 var value = $(this).val();
-					 if (value != "") {
-						  if (regex.test(value)) {
-								lockTextFields(true);
-								$('button.btnTimer').prop('disabled', true);
-								lockTextFields(true);
-								$('#btnSpremi').prop('disabled', true);
-								$('#btnPredaj').prop('disabled', false);
-								$('#btnOdustani').prop('disabled', false);
-
-								if ($(this).attr('id').startsWith('txtRadni')) {
-									 var projId = $(this).attr('id').split('txtRadni')[1];
-									 var txtId = 'txtPrekovremeni' + projId;
-									 if ($(this).val() != "00:00" || document.getElementById(txtId).value != "00:00") {
-
-										  var startEnd = parseStringMinutesToFloat($(this).val(), document.getElementById(txtId).value);
-
-										  var model = {
-												IDSatnicaProjekta: 0,
-												SatnicaID: 0,
-												ProjektID: projId,
-												Start: new Date(),
-												End: new Date(),
-												StartEnd: startEnd,
-												Komentar: $('#txtKomentar').val()
-										  };
-
-										  $.ajax({
-												url: "@Url.Action("SpremiZaPredaju")",
-												method: "POST",
-												data: JSON.stringify(model),
-												contentType: 'application/json',
-												success: function (res) {
-													 calculateTotals();
-													 $('#btnPredaj').prop('disabled', false);
-												}
-										  }); 
-									 }
-								}
-						  } else {
-								$(this).focus();
-								alert("krivi unos");
-								return false;
-						  }
+				$.ajax({
+					 url: "@Url.Action("SpremiZaPredaju")",
+					 method: "POST",
+					 data: JSON.stringify(model),
+					 contentType: 'application/json',
+					 success: function (res) {
+						  $('#btnPredaj').prop('disabled', false);
 					 }
 				});
 		  });
@@ -333,54 +307,27 @@
 				e.preventDefault();
 				if (confirm("Predati unešene podatke?")) {
 					 $('#btnPredaj').prop('disabled', true);
-
+					 $('#btnOdustani').prop('disabled', false);
+					 $('button.btnTimer').prop('disabled', false);
 					 $('input').each(function (i) {
-					 var value = $(this).val();
-					 if (value != "") {
-						  if (regex.test(value)) {
-								if ($(this).attr('id').startsWith('txtRadni')) {
-									 var projId = $(this).attr('id').split('txtRadni')[1];
-									 var txtId = 'txtPrekovremeni' + projId;
-									 if ($(this).val() != "00:00" || document.getElementById(txtId).value != "00:00") {
+						  $(this).val("");
+					 });
+					 lockTextFields(true);
 
-										  var startEnd =
-												parseStringMinutesToFloat($(this).val(), document.getElementById(txtId).value);
+					 var satnicaId = @Model.Satnica.IDSatnica;
 
-										  var model = {
-												IDSatnicaProjekta: 0,
-												SatnicaID: 0,
-												ProjektID: projId,
-												Start: new Date(),
-												End: new Date(),
-												StartEnd: startEnd
-										  };
-
-										  $.ajax({
-												url: "@Url.Action("SpremiZaPredaju")",
-												method: "POST",
-												data: JSON.stringify(model),
-												contentType: 'application/json',
-												success: function (res) {
-													 calculateTotals();
-													 console.log(res);
-													 $('#btnPredaj').prop('disabled', false);
-												}
-										  });
-
-									 }
-
-								}
-
-						  } else {
-								$(this).focus();
-								alert("krivi unos");
-								return false;
-						  }
-					 }
-				});
-
+					 $.ajax({
+						  url: "@Url.Action("PredajNaProvjeru")/" + satnicaId,
+						  method: "POST",
+						  success: function (res) {
+								console.log(res);
+								$('<div id="modal-container" class="modal fade">' +
+									 '<div class="modal-dialog" role="document">' +
+									 res + '</div></div> ').modal();
+								$('#btnPredaj').prop('disabled', false);
+					 }});
 				}
-		  });
+		  });				
 
 	 });
 
@@ -464,7 +411,7 @@
 		  $('input').each(function (i) {
 				if ($(this).hasClass('radni')) {
 					 newTotalRed = addHoursMinutes(newTotalRed, $(this).val());
-				} else if ($(this).hasClass('prekovremeni')) {				
+				} else if ($(this).hasClass('prekovremeni')) {
 					 newTotalPre = addHoursMinutes(newTotalPre, $(this).val());
 				}
 		  });

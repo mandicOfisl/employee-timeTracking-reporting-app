@@ -346,6 +346,7 @@
     <Content Include="Views\User\PromijeniZaporku.cshtml" />
     <Content Include="Views\Shared\Success.cshtml" />
     <Content Include="Views\Satnica\PregledSatnica.cshtml" />
+    <Content Include="Views\Shared\SuccessPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
