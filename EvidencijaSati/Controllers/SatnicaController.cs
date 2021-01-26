@@ -183,12 +183,7 @@ namespace EvidencijaSati.Controllers
 		  }
 
 		  [HttpPost]
-		  public ActionResult ObrisiUnosSatniceProjekta(int id)
-		  {
-				int i = Repo.DeleteUnosSatniceProjekta(id);
-
-				return Json(i);
-		  }
+		  public ActionResult ObrisiUnosSatniceProjekta(int id) => Json(Repo.DeleteUnosSatniceProjekta(id));
 
 		  public ActionResult PrikaziInfoProjekta(int projId, int satId)
 		  {
@@ -242,41 +237,41 @@ namespace EvidencijaSati.Controllers
 				return Json(Utils.ParseMinutesToString(s.StartEnd));
 		  }
 
-		  //[HttpPost]
-		  //public ActionResult PredajNaProvjeru(Satnica satnica)
-		  //{
-				//int i = Repo.ChangeSatnicaStatus(id, SatnicaStatusEnum.WAITING_APPROVAL);
-				//ViewBag.TipDjelatnika =
-				//		  JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
-				//if (i > 0) return PartialView("SuccessPartial");
-				//	 else return View("Error");				
-		  //}
+		  [HttpPost]
+		  public ActionResult PredajNaProvjeru(Satnica satnica)
+		  {
+				int i = Repo.ChangeSatnicaStatus(satnica.IDSatnica, SatnicaStatusEnum.WAITING_APPROVAL);
+				ViewBag.TipDjelatnika =
+						  JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
+				if (i > 0) return PartialView("SuccessPartial");
+				else return View("Error");
+		  }
 
-		  //public	ActionResult PregledSatnica()
-		  //{
-		  ////try
-		  ////{
-		  ////	 int id = JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString());
-		  ////	 int tipDjelatnika = JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
-		  ////	 ViewBag.TipDjelatnika = tipDjelatnika;
+		  public ActionResult PregledSatnica()
+		  {
+				try
+				{
+					 int id = JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString());
+					 int tipDjelatnika = JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
+					 ViewBag.TipDjelatnika = tipDjelatnika;
 
-		  ////	 PregledSatnicaVM model = new PregledSatnicaVM
-		  ////	 {
-		  ////		  Djelatnik = Repo.SelectDjelatnik(id),
-		  ////		  Satnice =
-		  ////				Repo.GetSatniceProjektaZaVoditeljaDirektora(
-		  ////					 id,
-		  ////					 tipDjelatnika,
-		  ////					 (int)SatnicaStatusEnum.WAITING_APPROVAL).ToList(),
-		  ////		  Projekti = Repo.GetProjektiDjelatnika(id).ToList()
-		  ////	 };
+					 PregledSatnicaVM model = new PregledSatnicaVM
+					 {
+						  Djelatnik = Repo.SelectDjelatnik(id),
+						  Satnice =
+								Repo.GetSatniceProjektaZaVoditeljaDirektora(
+									 id,
+									 tipDjelatnika,
+									 (int)SatnicaStatusEnum.WAITING_APPROVAL).ToList(),
+						  Projekti = Repo.GetProjektiDjelatnika(id).ToList()
+					 };
 
-		  ////	 return View(model);
-		  ////}
-		  ////catch (Exception)
-		  ////{
-		  ////	 return RedirectToAction("Login", "Home");
-		  ////}
-		  //}
+					 return View(model);
+				}
+				catch (Exception)
+				{
+					 return RedirectToAction("Login", "Home");
+				}
+		  }
 	 }
 }

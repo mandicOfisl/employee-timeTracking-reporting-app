@@ -164,6 +164,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Login.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\PregledSatnica.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PregledSatnica.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UnosSati.en.Designer.cs">
       <DependentUpon>UnosSati.en.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -376,6 +381,10 @@
     <EmbeddedResource Include="Resources\Login.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Login.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PregledSatnica.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PregledSatnica.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\UnosSati.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -33,6 +33,10 @@ namespace Report
 				// ready for production, use the build tool at https://modernizr.com to pick only the tests you need
 				bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 									 "~/Scripts/modernizr-*"));
+				bundles.Add(new ScriptBundle("~/bundles/bootstrap-bundle").Include(
+									 "~/Scripts/bootstrap.bundle.min.js"));
+				bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+									 "~/Scripts/jquery-3.5.1.min"));
 		  }
 	 }
 }
