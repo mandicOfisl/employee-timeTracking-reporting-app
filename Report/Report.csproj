@@ -117,12 +117,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\manageDjelatnik.css" />
+    <Content Include="Content\manage.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="ManageDjelatnik.aspx" />
+    <Content Include="ManageKlijent.aspx" />
+    <Content Include="ManageProjekt.aspx" />
+    <Content Include="ManageTim.aspx" />
     <Content Include="NoviIzvjestaj.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -282,6 +285,27 @@
     </Compile>
     <Compile Include="ManageDjelatnik.aspx.designer.cs">
       <DependentUpon>ManageDjelatnik.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageKlijent.aspx.cs">
+      <DependentUpon>ManageKlijent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageKlijent.aspx.designer.cs">
+      <DependentUpon>ManageKlijent.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageProjekt.aspx.cs">
+      <DependentUpon>ManageProjekt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageProjekt.aspx.designer.cs">
+      <DependentUpon>ManageProjekt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageTim.aspx.cs">
+      <DependentUpon>ManageTim.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageTim.aspx.designer.cs">
+      <DependentUpon>ManageTim.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Repo.cs" />
     <Compile Include="NoviIzvjestaj.aspx.cs">

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageDjelatnik.aspx.cs" Inherits="Report.ManageDjelatnik" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageKlijent.aspx.cs" Inherits="Report.ManageKlijent" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 	 <link href="Content/manage.css" rel="stylesheet" />
 </asp:Content>
@@ -7,12 +7,12 @@
 	 <div class="card card-body">
 		  <div class="row">
 				<div class="col form-group">
-					 <label>Djelatnici</label>
+					 <label>Klijenti</label>
 					 <asp:ListBox 
 						  runat="server" 
-						  ID="LbDjelatnici"
+						  ID="LbKlijenti"
 						  AutoPostBack="true"
-						  OnSelectedIndexChanged="LbDjelatnici_SelectedIndexChanged"
+						  OnSelectedIndexChanged="LbKlijenti_SelectedIndexChanged"
 						  CssClass="form-control"
 						  Height="250">
 					 </asp:ListBox>
@@ -20,25 +20,20 @@
 				<div class="col col-6 form-group">
 					 <asp:RequiredFieldValidator 
 									 ErrorMessage="Ime obavezno"
-									 ControlToValidate="txtIme"
+									 ControlToValidate="txtNaziv"
 									 Text="*"
 									 runat="server" />
-					 <label>Ime</label>
+					 <label>Naziv</label>
 					 <asp:TextBox 
 						  runat="server"
-						  ID="txtIme"
+						  ID="txtNaziv"
 						  CssClass="form-control"
 						  Enabled="false"/>
 
-					 <asp:RequiredFieldValidator 
-									 ErrorMessage="Prezime obavezno" 
-									 ControlToValidate="txtPrezime"
-									 Text="*"
-									 runat="server" />
-					 <label>Prezime</label>
+					 <label>Telefon</label>
 					 <asp:TextBox 
 						  runat="server"
-						  ID="txtPrezime"
+						  ID="txtTelefon"
 						  CssClass="form-control"
 						  Enabled="false"/>
 
@@ -61,56 +56,6 @@
 						  ID="txtEmail"
 						  CssClass="form-control"
 						  Enabled="false"/>
-
-
-					 <div class="row align-items-center border">
-						  <div class="col form-group">
-								<asp:RequiredFieldValidator 
-												ErrorMessage="Zaporka obavezna" 
-												ControlToValidate="txtZaporka"
-												Text="*"
-												runat="server" />					 
-								<label>Zaporka</label>
-								<asp:TextBox 
-									 runat="server"
-									 ID="txtZaporka"
-									 CssClass="form-control"
-									 TextMode="Password"
-									 Enabled="false"/>
-								<asp:CompareValidator 
-									 ErrorMessage="Ponovno unesite zaporku" 
-									 ControlToValidate="txtZaporka2" 
-									 runat="server"
-									 ControlToCompare="txtZaporka"
-									 Text="*"/>
-								<label>Ponovi zaporku</label>
-								<asp:TextBox 
-									 runat="server"
-									 ID="txtZaporka2"
-									 CssClass="form-control"
-									 TextMode="Password"						  
-									 Enabled="false"/>
-						  </div>
-						  <div class="col col-4 form-group">
-								<asp:Button 
-									 runat="server" 
-									 ID="BtnChangePass"
-									 OnClick="BtnChangePass_Click"
-									 CssClass="btn btn-outline-primary"
-									 Text="Promijeni"
-									 Enabled="false">
-								</asp:Button>
-						  </div>
-					 </div>
-
-					 <label>Tim</label>
-					 <asp:DropDownList
-						  runat="server"
-						  ID="ddlTim"
-						  CssClass="form-control"
-						  Enabled="false">
-					 </asp:DropDownList> 	 
-
 
 					 <div class="form-group btnRow text-center">
 						  <asp:Button 
@@ -150,7 +95,8 @@
 					 </asp:ListBox>
 				</div>
 		  </div>
-
+		 
 	 </div>
+
 
 </asp:Content>

@@ -11,35 +11,35 @@ namespace Report
 {
 
 
-	 public partial class ManageDjelatnik
+	 public partial class ManageKlijent
 	 {
 
 		  /// <summary>
-		  /// LbDjelatnici control.
+		  /// LbKlijenti control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.ListBox LbDjelatnici;
+		  protected global::System.Web.UI.WebControls.ListBox LbKlijenti;
 
 		  /// <summary>
-		  /// txtIme control.
+		  /// txtNaziv control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.TextBox txtIme;
+		  protected global::System.Web.UI.WebControls.TextBox txtNaziv;
 
 		  /// <summary>
-		  /// txtPrezime control.
+		  /// txtTelefon control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.TextBox txtPrezime;
+		  protected global::System.Web.UI.WebControls.TextBox txtTelefon;
 
 		  /// <summary>
 		  /// RegularExpressionValidator control.
@@ -58,42 +58,6 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.TextBox txtEmail;
-
-		  /// <summary>
-		  /// txtZaporka control.
-		  /// </summary>
-		  /// <remarks>
-		  /// Auto-generated field.
-		  /// To modify move field declaration from designer file to code-behind file.
-		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.TextBox txtZaporka;
-
-		  /// <summary>
-		  /// txtZaporka2 control.
-		  /// </summary>
-		  /// <remarks>
-		  /// Auto-generated field.
-		  /// To modify move field declaration from designer file to code-behind file.
-		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.TextBox txtZaporka2;
-
-		  /// <summary>
-		  /// BtnChangePass control.
-		  /// </summary>
-		  /// <remarks>
-		  /// Auto-generated field.
-		  /// To modify move field declaration from designer file to code-behind file.
-		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.Button BtnChangePass;
-
-		  /// <summary>
-		  /// ddlTim control.
-		  /// </summary>
-		  /// <remarks>
-		  /// Auto-generated field.
-		  /// To modify move field declaration from designer file to code-behind file.
-		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.DropDownList ddlTim;
 
 		  /// <summary>
 		  /// BtnEdit control.

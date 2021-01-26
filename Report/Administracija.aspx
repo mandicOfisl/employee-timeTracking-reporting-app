@@ -13,77 +13,41 @@
 						  <asp:HyperLink 
 								NavigateUrl="~/ManageDjelatnik.aspx" 
 								runat="server" 
-								ID="BtnEditDjelatnik"
-								CssClass="btn btn-success"
-								Text="Uredi"/>
+								ID="BtnManageDjelatnik"
+								CssClass="btn btn-primary"
+								Text="Nastavi"/>
 				</div>
 				<div class="col col-3 text-center">
 					 <label>Tim</label>
 					 <div class="btn-group-vertical" role="group">
 						  <asp:HyperLink 
-								NavigateUrl="~/" 
+								NavigateUrl="~/ManageTim.aspx" 
 								runat="server" 
 								ID="BtnEditTim"
-								CssClass="btn btn-success"
-								Text="Uredi"/>
-						  <asp:HyperLink 
-								NavigateUrl="~/" 
-								runat="server" 
-								ID="BtnViewtim"
 								CssClass="btn btn-primary"
-								Text="Pregledaj"/>
-						  <asp:HyperLink 
-								NavigateUrl="~/" 
-								runat="server" 
-								ID="BtnAddTeam"
-								CssClass="btn btn-warning"
-								Text="Dodaj"/>
+								Text="Nastavi"/>
 					 </div>
 				</div>
 				<div class="col col-3 text-center">
 					 <label>Projekt</label>
 					 <div class="btn-group-vertical" role="group">
 						  <asp:HyperLink 
-								NavigateUrl="~/" 
+								NavigateUrl="~/ManageProjekt.aspx" 
 								runat="server" 
 								ID="BtnEditProjekt"
-								CssClass="btn btn-success"
-								Text="Uredi"/>
-						  <asp:HyperLink 
-								NavigateUrl="~/" 
-								runat="server" 
-								ID="BtnViewProjekt"
 								CssClass="btn btn-primary"
-								Text="Pregledaj"/>
-						  <asp:HyperLink 
-								NavigateUrl="~/" 
-								runat="server" 
-								ID="BtnAddProjekt"
-								CssClass="btn btn-warning"
-								Text="Dodaj"/>
+								Text="Nastavi"/>
 					 </div>
 				</div>
 				<div class="col col-3 text-center">
 					 <label>Klijent</label>
 					 <div class="btn-group-vertical" role="group">
 						  <asp:HyperLink 
-								NavigateUrl="~/" 
+								NavigateUrl="~/ManageKlijent" 
 								runat="server" 
 								ID="BtnEditKlijent"
-								CssClass="btn btn-success"
-								Text="Uredi"/>
-						  <asp:HyperLink 
-								NavigateUrl="~/" 
-								runat="server" 
-								ID="BtnViewKlijent"
 								CssClass="btn btn-primary"
-								Text="Pregledaj"/>
-						  <asp:HyperLink 
-								NavigateUrl="~/" 
-								runat="server" 
-								ID="BtnAddKlijent"
-								CssClass="btn btn-warning"
-								Text="Dodaj"/>
+								Text="Nastavi"/>
 					 </div>
 				</div>
 		  </div>

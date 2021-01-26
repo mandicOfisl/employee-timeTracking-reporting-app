@@ -7,14 +7,14 @@ using System.Web.UI.WebControls;
 
 namespace Report
 {
-	 public partial class ManageDjelatnik : System.Web.UI.Page
+	 public partial class ManageKlijent : System.Web.UI.Page
 	 {
 		  protected void Page_Load(object sender, EventArgs e)
 		  {
 
 		  }
 
-		  protected void LbDjelatnici_SelectedIndexChanged(object sender, EventArgs e)
+		  protected void LbKlijenti_SelectedIndexChanged(object sender, EventArgs e)
 		  {
 
 		  }
@@ -24,22 +24,12 @@ namespace Report
 
 		  }
 
-		  protected void BtnSave_Click(object sender, EventArgs e)
-		  {
-
-		  }
-
 		  protected void BtnAdd_Click(object sender, EventArgs e)
 		  {
 
 		  }
 
-		  protected void LbProjekti_SelectedIndexChanged(object sender, EventArgs e)
-		  {
-
-		  }
-
-		  protected void BtnChangePass_Click(object sender, EventArgs e)
+		  protected void BtnSave_Click(object sender, EventArgs e)
 		  {
 
 		  }

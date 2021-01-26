@@ -11,89 +11,53 @@ namespace Report
 {
 
 
-	 public partial class ManageDjelatnik
+	 public partial class ManageProjekt
 	 {
 
 		  /// <summary>
-		  /// LbDjelatnici control.
+		  /// LbProjekti control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.ListBox LbDjelatnici;
+		  protected global::System.Web.UI.WebControls.ListBox LbProjekti;
 
 		  /// <summary>
-		  /// txtIme control.
+		  /// txtNaziv control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.TextBox txtIme;
+		  protected global::System.Web.UI.WebControls.TextBox txtNaziv;
 
 		  /// <summary>
-		  /// txtPrezime control.
+		  /// ddlKlijent control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.TextBox txtPrezime;
+		  protected global::System.Web.UI.WebControls.DropDownList ddlKlijent;
 
 		  /// <summary>
-		  /// RegularExpressionValidator control.
+		  /// txtDatum control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator;
+		  protected global::System.Web.UI.WebControls.TextBox txtDatum;
 
 		  /// <summary>
-		  /// txtEmail control.
+		  /// ddlVoditeljProjekta control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.TextBox txtEmail;
-
-		  /// <summary>
-		  /// txtZaporka control.
-		  /// </summary>
-		  /// <remarks>
-		  /// Auto-generated field.
-		  /// To modify move field declaration from designer file to code-behind file.
-		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.TextBox txtZaporka;
-
-		  /// <summary>
-		  /// txtZaporka2 control.
-		  /// </summary>
-		  /// <remarks>
-		  /// Auto-generated field.
-		  /// To modify move field declaration from designer file to code-behind file.
-		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.TextBox txtZaporka2;
-
-		  /// <summary>
-		  /// BtnChangePass control.
-		  /// </summary>
-		  /// <remarks>
-		  /// Auto-generated field.
-		  /// To modify move field declaration from designer file to code-behind file.
-		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.Button BtnChangePass;
-
-		  /// <summary>
-		  /// ddlTim control.
-		  /// </summary>
-		  /// <remarks>
-		  /// Auto-generated field.
-		  /// To modify move field declaration from designer file to code-behind file.
-		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.DropDownList ddlTim;
+		  protected global::System.Web.UI.WebControls.DropDownList ddlVoditeljProjekta;
 
 		  /// <summary>
 		  /// BtnEdit control.
@@ -132,12 +96,12 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.Button BtnDeaktiviraj;
 
 		  /// <summary>
-		  /// lbProjekti control.
+		  /// lbZaposleniNaProjektu control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.ListBox lbProjekti;
+		  protected global::System.Web.UI.WebControls.ListBox lbZaposleniNaProjektu;
 	 }
 }
