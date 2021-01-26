@@ -10,26 +10,12 @@
 		  <div class="row justify-content-center">
 				<div class="col col-3 text-center">
 					 <label>Djelatnik</label>
-					 <div class="btn-group-vertical" role="group">
 						  <asp:HyperLink 
-								NavigateUrl="~/" 
+								NavigateUrl="~/ManageDjelatnik.aspx" 
 								runat="server" 
 								ID="BtnEditDjelatnik"
 								CssClass="btn btn-success"
 								Text="Uredi"/>
-						  <asp:HyperLink 
-								NavigateUrl="~/" 
-								runat="server" 
-								ID="BtnViewDjelatnik"
-								CssClass="btn btn-primary"
-								Text="Pregledaj"/>
-						  <asp:HyperLink 
-								NavigateUrl="~/" 
-								runat="server" 
-								ID="BtnAddDjelatnik"
-								CssClass="btn btn-warning"
-								Text="Dodaj"/>
-					 </div>
 				</div>
 				<div class="col col-3 text-center">
 					 <label>Tim</label>

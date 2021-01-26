@@ -11,6 +11,14 @@
 									 ControlToValidate="txtEmail"
 									 Text="*"
 									 runat="server" />
+								<asp:RegularExpressionValidator 
+									 ID="RegularExpressionValidator" 
+									 runat="server" 
+									 ControlToValidate="txtEmail"
+									 ForeColor="Red" 
+									 ValidationExpression="^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+									 Display = "Dynamic" 
+									 ErrorMessage = "Pogrešna email adresa"/>
 								<label>Email</label>
 								<asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" />  
 						  </div>

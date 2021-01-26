@@ -11,97 +11,124 @@ namespace Report
 {
 
 
-	 public partial class Administracija
+	 public partial class ManageDjelatnik
 	 {
 
 		  /// <summary>
-		  /// BtnEditDjelatnik control.
+		  /// LbDjelatnici control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.HyperLink BtnEditDjelatnik;
+		  protected global::System.Web.UI.WebControls.ListBox LbDjelatnici;
 
 		  /// <summary>
-		  /// BtnEditTim control.
+		  /// txtIme control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.HyperLink BtnEditTim;
+		  protected global::System.Web.UI.WebControls.TextBox txtIme;
 
 		  /// <summary>
-		  /// BtnViewtim control.
+		  /// txtPrezime control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.HyperLink BtnViewtim;
+		  protected global::System.Web.UI.WebControls.TextBox txtPrezime;
 
 		  /// <summary>
-		  /// BtnAddTeam control.
+		  /// RegularExpressionValidator control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.HyperLink BtnAddTeam;
+		  protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator;
 
 		  /// <summary>
-		  /// BtnEditProjekt control.
+		  /// txtEmail control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.HyperLink BtnEditProjekt;
+		  protected global::System.Web.UI.WebControls.TextBox txtEmail;
 
 		  /// <summary>
-		  /// BtnViewProjekt control.
+		  /// txtZaporka control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.HyperLink BtnViewProjekt;
+		  protected global::System.Web.UI.WebControls.TextBox txtZaporka;
 
 		  /// <summary>
-		  /// BtnAddProjekt control.
+		  /// txtZaporka2 control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.HyperLink BtnAddProjekt;
+		  protected global::System.Web.UI.WebControls.TextBox txtZaporka2;
 
 		  /// <summary>
-		  /// BtnEditKlijent control.
+		  /// BtnChangePass control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.HyperLink BtnEditKlijent;
+		  protected global::System.Web.UI.WebControls.Button BtnChangePass;
 
 		  /// <summary>
-		  /// BtnViewKlijent control.
+		  /// ddlTim control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.HyperLink BtnViewKlijent;
+		  protected global::System.Web.UI.WebControls.DropDownList ddlTim;
 
 		  /// <summary>
-		  /// BtnAddKlijent control.
+		  /// BtnEdit control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.HyperLink BtnAddKlijent;
+		  protected global::System.Web.UI.WebControls.Button BtnEdit;
+
+		  /// <summary>
+		  /// BtnAdd control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Button BtnAdd;
+
+		  /// <summary>
+		  /// BtnSave control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Button BtnSave;
+
+		  /// <summary>
+		  /// lbProjekti control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.ListBox lbProjekti;
 	 }
 }
