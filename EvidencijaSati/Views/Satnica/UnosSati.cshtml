@@ -82,7 +82,11 @@
 	 			<p>Komentar</p>
 		 </div>
 	 	 <div class="col">
-	 		  @Html.TextArea("txtKomentar", "",	new { @class = "form-control"	})
+	 		  @Html.TextAreaFor(d => d.Satnica.Komentar, 
+				 new { 
+					  @class = "form-control",
+					  @id = "txtKomentar"
+				 })
 		 </div>
 	 </div>
 
@@ -273,9 +277,10 @@
 					 IDSatnica: @Model.Satnica.IDSatnica,
 					 DjelatnikID: @Model.Djelatnik.IDDjelatnik,
 					 Datum: new Date(),
-					 Total: addHoursMinutes(totR, totP),
-					 TotalRedovni: totR,
-					 TotalPrekovremeni: totP
+					 Total: parseStringMinutesToFloat(addHoursMinutes(totR, totP)),
+					 TotalRedovni: parseStringMinutesToFloat(totR),
+					 TotalPrekovremeni: parseStringMinutesToFloat(totP),
+					 Komentar: document.getElementById("txtKomentar").value
 				};
 
 				$.ajax({
@@ -284,7 +289,12 @@
 					 data: JSON.stringify(model),
 					 contentType: 'application/json',
 					 success: function (res) {
-						  $('#btnPredaj').prop('disabled', false);
+						  if (res > 0) {
+								$('#btnPredaj').prop('disabled', false);
+								$('input').each(function (i) {
+									 $(this).val("");
+								});
+						  }
 					 }
 				});
 		  });
@@ -426,16 +436,7 @@
 		  var s = (str != '' && regex.test(str)) ? str.split(':') : ['00', '00'];
 
 		  var h = parseInt(s[0]);
-		  var m = parseInt(s[0]);
-
-		  return (h * 60) + m;
-	 }
-
-	 function parseStringToMinutes(str) {
-		  var p = str.split(':');
-
-		  var h = parseInt(p[0]);
-		  var m = parseInt(p[1]);
+		  var m = parseInt(s[1]);
 
 		  return (h * 60) + m;
 	 }

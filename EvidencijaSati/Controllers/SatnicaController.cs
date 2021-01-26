@@ -46,7 +46,8 @@ namespace EvidencijaSati.Controllers
 									 DjelatnikID = id,
 									 Satnice = new Dictionary<int, List<SatnicaProjekta>>(),
 									 ProjektZabiljezeno = new Dictionary<int, string>(),
-									 Staus = SatnicaStatusEnum.WAITING_SUBMIT
+									 Staus = SatnicaStatusEnum.WAITING_SUBMIT,
+									 Komentar = ""
 								},
 								Projekti = Repo.GetProjektiDjelatnika(id).ToList(),
 								AktivanProjektId = -1
@@ -171,19 +172,14 @@ namespace EvidencijaSati.Controllers
 				string key = satId.ToString();
 				Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[key].ToString());
 
-				//SatnicaProjekta sp = new SatnicaProjekta
-				//{
-				//	 IDSatnicaProjekta = sps.IDSatnicaProjekta,
-				//	 SatnicaID = satId,
-				//	 ProjektID = sps.ProjektID,
-				//	 Start = sps.Start,
-				//	 End = sps.End,
-				//	 StartEnd = sps.StartEnd					 
-				//};
+				sat.Komentar = sps.Komentar;
+				sat.Total = sps.Total;
+				sat.TotalRedovni = sps.TotalRedovni;
+				sat.TotalPrekovremeni = sps.TotalPrekovremeni;
 
-				//Repo.SpremiSatnicuProjekta(sp);
+				int i = Repo.SpremiSatnicu(sat);
 				
-				return Json("ok");
+				return i > 0 ? Json("ok") : Json("error");
 		  }
 
 		  [HttpPost]
@@ -191,7 +187,7 @@ namespace EvidencijaSati.Controllers
 		  {
 				int i = Repo.DeleteUnosSatniceProjekta(id);
 
-				return i != 1 ? Json("error") : Json(i);
+				return Json(i);
 		  }
 
 		  public ActionResult PrikaziInfoProjekta(int projId, int satId)
@@ -246,15 +242,15 @@ namespace EvidencijaSati.Controllers
 				return Json(Utils.ParseMinutesToString(s.StartEnd));
 		  }
 
-		  [HttpPost]
-		  public ActionResult PredajNaProvjeru(int id)
-		  {
-				int i = Repo.ChangeSatnicaStatus(id, SatnicaStatusEnum.WAITING_APPROVAL);
-				ViewBag.TipDjelatnika =
-						  JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
-				if (i > 0) return PartialView("SuccessPartial");
-					 else return View("Error");				
-		  }
+		  //[HttpPost]
+		  //public ActionResult PredajNaProvjeru(Satnica satnica)
+		  //{
+				//int i = Repo.ChangeSatnicaStatus(id, SatnicaStatusEnum.WAITING_APPROVAL);
+				//ViewBag.TipDjelatnika =
+				//		  JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
+				//if (i > 0) return PartialView("SuccessPartial");
+				//	 else return View("Error");				
+		  //}
 
 		  //public	ActionResult PregledSatnica()
 		  //{

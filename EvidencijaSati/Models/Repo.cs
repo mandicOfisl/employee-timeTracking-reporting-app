@@ -128,6 +128,7 @@ namespace EvidencijaSati.Models
 						  cmd.Parameters.AddWithValue("@TotalPrekovremeni", satnica.TotalPrekovremeni);
 						  cmd.Parameters.AddWithValue("@Total", satnica.Total);
 						  cmd.Parameters.AddWithValue("@Status", (int)satnica.Staus);
+						  cmd.Parameters.AddWithValue("@Komentar", satnica.Komentar?? "");
 						  cmd.Parameters.Add("@Id", SqlDbType.Int);
 						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
 
@@ -163,6 +164,26 @@ namespace EvidencijaSati.Models
 						  }
 					 }
 					 throw new Exception("No can do!");
+				}
+		  }
+
+		  internal static int SpremiSatnicu(Satnica satnica)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "UpdateSatnica";
+						  cmd.Parameters.AddWithValue("@DjelatnikId", satnica.DjelatnikID);
+						  cmd.Parameters.AddWithValue("@TotalRedovni", satnica.TotalRedovni);
+						  cmd.Parameters.AddWithValue("@TotalPrekovremeni", satnica.TotalPrekovremeni);
+						  cmd.Parameters.AddWithValue("@Total", satnica.Total);
+						  cmd.Parameters.AddWithValue("@Komentar", satnica.Komentar?? "");
+
+						  return cmd.ExecuteNonQuery();
+					 }
 				}
 		  }
 

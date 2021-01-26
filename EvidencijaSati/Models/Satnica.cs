@@ -15,6 +15,7 @@ namespace EvidencijaSati.Models
 		  public double Total { get; set; }
 		  public double TotalRedovni { get; set; }
 		  public double TotalPrekovremeni { get; set; }
+		  public string Komentar { get; set; }
 		  public SatnicaStatusEnum Staus { get; set; }
 
 		  public string GetFormatedProperties(string prop)
