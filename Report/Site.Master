@@ -12,6 +12,8 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
 
+    <asp:ContentPlaceHolder runat="server" ID="HeaderContent"></asp:ContentPlaceHolder>
+
     <webopt:bundlereference runat="server" path="~/Content/css" />
 </head>
 <body>
