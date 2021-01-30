@@ -16,6 +16,7 @@ namespace ModelsLibrary
 		  public string Zaporka { get; set; }
 		  public TipDjelatnikaEnum TipDjelatnikaID { get; set; }
 		  public int TimID { get; set; }
+		  public string FullName { get { return Ime + " " + Prezime; } }
 
 		  public override string ToString() => Ime + " " + Prezime;
 	 }

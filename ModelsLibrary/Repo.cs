@@ -1,14 +1,14 @@
 ﻿using Microsoft.ApplicationBlocks.Data;
-using ModelsLibrary;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Report.Models
+namespace ModelsLibrary
 {
 	 public class Repo
 	 {

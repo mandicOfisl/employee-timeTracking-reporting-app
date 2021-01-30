@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Report.Models;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,7 +13,18 @@ namespace Report
 	 {
 		  protected void Page_Load(object sender, EventArgs e)
 		  {
+				if (!IsPostBack)
+				{
+					 FillDjelatniciListBox();
+				}
+		  }
 
+		  private void FillDjelatniciListBox()
+		  {
+				LbDjelatnici.DataSource = Repo.GetDjelatnici();
+				LbDjelatnici.DataTextField = "FullName";
+				LbDjelatnici.DataValueField = "IDDjelatnik";
+				LbDjelatnici.DataBind();
 		  }
 
 		  protected void LbDjelatnici_SelectedIndexChanged(object sender, EventArgs e)
