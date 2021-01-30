@@ -60,6 +60,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.TextBox txtEmail;
 
 		  /// <summary>
+		  /// txtDatum control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.TextBox txtDatum;
+
+		  /// <summary>
 		  /// txtZaporka control.
 		  /// </summary>
 		  /// <remarks>
@@ -69,24 +78,6 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.TextBox txtZaporka;
 
 		  /// <summary>
-		  /// txtZaporka2 control.
-		  /// </summary>
-		  /// <remarks>
-		  /// Auto-generated field.
-		  /// To modify move field declaration from designer file to code-behind file.
-		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.TextBox txtZaporka2;
-
-		  /// <summary>
-		  /// BtnChangePass control.
-		  /// </summary>
-		  /// <remarks>
-		  /// Auto-generated field.
-		  /// To modify move field declaration from designer file to code-behind file.
-		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.Button BtnChangePass;
-
-		  /// <summary>
 		  /// ddlTim control.
 		  /// </summary>
 		  /// <remarks>
@@ -94,6 +85,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.DropDownList ddlTim;
+
+		  /// <summary>
+		  /// ddlTipDjelatnika control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.DropDownList ddlTipDjelatnika;
 
 		  /// <summary>
 		  /// BtnEdit control.
@@ -114,13 +114,13 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.Button BtnAdd;
 
 		  /// <summary>
-		  /// BtnSave control.
+		  /// BtnAktiviraj control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.Button BtnSave;
+		  protected global::System.Web.UI.WebControls.Button BtnAktiviraj;
 
 		  /// <summary>
 		  /// BtnDeaktiviraj control.
@@ -130,6 +130,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.Button BtnDeaktiviraj;
+
+		  /// <summary>
+		  /// BtnSave control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Button BtnSave;
 
 		  /// <summary>
 		  /// lbProjekti control.

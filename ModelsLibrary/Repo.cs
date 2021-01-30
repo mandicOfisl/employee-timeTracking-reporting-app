@@ -40,7 +40,8 @@ namespace ModelsLibrary
 										  Zaporka = dr[nameof(Djelatnik.Zaporka)].ToString(),
 										  TipDjelatnikaID = (TipDjelatnikaEnum)(int)dr[nameof(Djelatnik.TipDjelatnikaID)],
 										  TimID = int.TryParse(dr[nameof(Djelatnik.TimID)].ToString(), out _) ?
-														  (int)dr[nameof(Djelatnik.TimID)] : 0
+														  (int)dr[nameof(Djelatnik.TimID)] : 0,
+										  IsActive = (int)dr[nameof(Djelatnik.IsActive)] == 1
 									 };
 								}
 						  }
@@ -82,7 +83,8 @@ namespace ModelsLibrary
 								Zaporka = row[nameof(Djelatnik.Zaporka)].ToString(),
 								TipDjelatnikaID = (TipDjelatnikaEnum)(int)row[nameof(Djelatnik.TipDjelatnikaID)],
 								TimID = int.TryParse(row[nameof(Djelatnik.TimID)].ToString(), out _) ?
-														  (int)row[nameof(Djelatnik.TimID)] : 0
+														  (int)row[nameof(Djelatnik.TimID)] : 0,
+								IsActive = (int)row[nameof(Djelatnik.IsActive)] == 1
 						  };
 					 }
 				}
@@ -127,6 +129,84 @@ namespace ModelsLibrary
 
 				}
 
+		  }
+
+		  public static int DodajDjelatnika(Djelatnik d)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "DodajDjelatnika";
+						  cmd.Parameters.AddWithValue("@Id", d.IDDjelatnik);
+						  cmd.Parameters.AddWithValue("@Ime", d.Ime);
+						  cmd.Parameters.AddWithValue("@Prezime", d.Prezime);
+						  cmd.Parameters.AddWithValue("@Email", d.Email);
+						  cmd.Parameters.AddWithValue("@Zaporka", d.Zaporka);
+						  cmd.Parameters.AddWithValue("@DatumZaposlenja", d.DatumZaposlenja);
+						  cmd.Parameters.AddWithValue("@TipDjelatnika", (int)d.TipDjelatnikaID);
+						  cmd.Parameters.AddWithValue("@TimId", d.TimID);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
+		  public static int DeaktivirajDjelatnika(int iDDjelatnik)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "DeaktivirajDjelatnika";
+						  cmd.Parameters.AddWithValue("@Id", iDDjelatnik);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
+		  public static int AktivirarDjelatnika(int iDDjelatnik)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "AktivirajDjelatnika";
+						  cmd.Parameters.AddWithValue("@Id", iDDjelatnik);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
+		  public static int UpdateDjelatnik(Djelatnik d)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "UpdateDjelatnik";
+						  cmd.Parameters.AddWithValue("@Id", d.IDDjelatnik);
+						  cmd.Parameters.AddWithValue("@Ime", d.Ime);
+						  cmd.Parameters.AddWithValue("@Prezime", d.Prezime);
+						  cmd.Parameters.AddWithValue("@Email", d.Email);
+						  cmd.Parameters.AddWithValue("@Zaporka", d.Zaporka);
+						  cmd.Parameters.AddWithValue("@DatumZaposlenja", d.DatumZaposlenja);
+						  cmd.Parameters.AddWithValue("@TipDjelatnika", (int)d.TipDjelatnikaID);
+						  cmd.Parameters.AddWithValue("@TimID", d.TimID);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
 		  }
 
 		  public static IEnumerable<Satnica> GetSatniceDjelatnika(int id)
@@ -406,7 +486,8 @@ namespace ModelsLibrary
 										  Zaporka = dr[nameof(Djelatnik.Zaporka)].ToString(),
 										  TipDjelatnikaID = (TipDjelatnikaEnum)(int)dr[nameof(Djelatnik.TipDjelatnikaID)],
 										  TimID = int.TryParse(dr[nameof(Djelatnik.TimID)].ToString(), out _) ?
-														  (int)dr[nameof(Djelatnik.TimID)] : 0
+														  (int)dr[nameof(Djelatnik.TimID)] : 0,
+										  IsActive = (int)dr[nameof(Djelatnik.IsActive)] == 1
 									 };
 								}
 						  }

@@ -62,51 +62,39 @@
 						  CssClass="form-control"
 						  Enabled="false"/>
 
-
-					 <div class="row align-items-center border">
-						  <div class="col form-group">
-								<asp:RequiredFieldValidator 
-												ErrorMessage="Zaporka obavezna" 
-												ControlToValidate="txtZaporka"
-												Text="*"
-												runat="server" />					 
-								<label>Zaporka</label>
-								<asp:TextBox 
-									 runat="server"
-									 ID="txtZaporka"
-									 CssClass="form-control"
-									 TextMode="Password"
-									 Enabled="false"/>
-								<asp:CompareValidator 
-									 ErrorMessage="Ponovno unesite zaporku" 
-									 ControlToValidate="txtZaporka2" 
-									 runat="server"
-									 ControlToCompare="txtZaporka"
-									 Text="*"/>
-								<label>Ponovi zaporku</label>
-								<asp:TextBox 
-									 runat="server"
-									 ID="txtZaporka2"
-									 CssClass="form-control"
-									 TextMode="Password"						  
-									 Enabled="false"/>
-						  </div>
-						  <div class="col col-4 form-group">
-								<asp:Button 
-									 runat="server" 
-									 ID="BtnChangePass"
-									 OnClick="BtnChangePass_Click"
-									 CssClass="btn btn-outline-primary"
-									 Text="Promijeni"
-									 Enabled="false">
-								</asp:Button>
-						  </div>
-					 </div>
-
+					 <asp:RequiredFieldValidator 
+									 ErrorMessage="Datum obavezno" 
+									 ControlToValidate="txtDatum"
+									 Text="*"
+									 runat="server" />
+					 <label>Datum zaposlenja</label>
+					 <asp:TextBox 
+						  runat="server"
+						  ID="txtDatum"
+						  CssClass="form-control"
+						  TextMode="Date"
+						  Enabled="false"/>
+				 
+					 <label>Zaporka</label>
+					 <asp:TextBox 
+						  runat="server"
+						  ID="txtZaporka"
+						  CssClass="form-control"
+						  TextMode="Password"
+						  Enabled="false"/>
+					 
 					 <label>Tim</label>
 					 <asp:DropDownList
 						  runat="server"
 						  ID="ddlTim"
+						  CssClass="form-control"
+						  Enabled="false">
+					 </asp:DropDownList> 	 
+
+					 <label>Tip djelatnika</label>
+					 <asp:DropDownList
+						  runat="server"
+						  ID="ddlTipDjelatnika"
 						  CssClass="form-control"
 						  Enabled="false">
 					 </asp:DropDownList> 	 
@@ -117,26 +105,40 @@
 								Text="Uredi" 
 								runat="server"
 								ID="BtnEdit"
+								Enabled="false"
 								OnClick="BtnEdit_Click"
+								CausesValidation="false"
 								CssClass="btn btn-primary"/>
 						  <asp:Button 
 								Text="Dodaj" 
 								runat="server"
 								ID="BtnAdd"
+								CausesValidation="false"
 								OnClick="BtnAdd_Click"
 								CssClass="btn btn-warning"/>
 						  <asp:Button 
-								Text="Spremi" 
+								Text="Aktiviraj" 
 								runat="server"
-								ID="BtnSave"
-								OnClick="BtnSave_Click"
-								CssClass="btn btn-success"/>
+								ID="BtnAktiviraj"
+								Enabled="false"
+								CausesValidation="false"
+								OnClick="BtnAktiviraj_Click"
+								CssClass="btn btn-outline-success"/>
 						  <asp:Button 
 								Text="Deaktiviraj" 
 								runat="server"
 								ID="BtnDeaktiviraj"
+								Enabled="false"
+								CausesValidation="false"
 								OnClick="BtnDeaktiviraj_Click"
-								CssClass="btn btn-danger"/>
+								CssClass="btn btn-outline-danger"/>
+						  <asp:Button 
+								Text="Spremi" 
+								runat="server"
+								ID="BtnSave"
+								Enabled="false"
+								OnClick="BtnSave_Click"
+								CssClass="btn btn-success"/>
 					 </div>
 				</div>
 
