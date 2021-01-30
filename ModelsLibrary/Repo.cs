@@ -50,6 +50,127 @@ namespace ModelsLibrary
 				}
 		  }
 
+		  public static int DeaktivirajTim(int id)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "DeaktivirajTim";
+						  cmd.Parameters.AddWithValue("@Id", id);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
+		  public static object UpdateTim(Tim tim)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "UpdateTim";
+						  cmd.Parameters.AddWithValue("@Id", tim.IDTim);
+						  cmd.Parameters.AddWithValue("@Naziv", tim.Naziv);
+						  cmd.Parameters.AddWithValue("@DatumKreiranja", tim.DatumKreiranja);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
+		  public static object AddTim(Tim tim)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "AddTim";
+						  cmd.Parameters.AddWithValue("@Naziv", tim.Naziv);
+						  cmd.Parameters.AddWithValue("@DatumKreiranja", tim.DatumKreiranja);
+						  cmd.Parameters.Add("@Id", SqlDbType.Int);
+						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
+
+						  _ = cmd.ExecuteNonQuery();
+						  return int.Parse(cmd.Parameters["@Id"].Value.ToString());
+					 }
+				}
+		  }
+
+		  public static IEnumerable<Djelatnik> GetClanoviTima(int iDTim)
+		  {
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure, "GetClanoviTima", new SqlParameter("@IdTim", iDTim)))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {
+						  yield return new Djelatnik
+						  {
+								IDDjelatnik = (int)row[nameof(Djelatnik.IDDjelatnik)],
+								Ime = row[nameof(Djelatnik.Ime)].ToString(),
+								Prezime = row[nameof(Djelatnik.Prezime)].ToString(),
+								Email = row[nameof(Djelatnik.Email)].ToString(),
+								DatumZaposlenja = DateTime.Parse(row[nameof(Djelatnik.DatumZaposlenja)].ToString()),
+								Zaporka = row[nameof(Djelatnik.Zaporka)].ToString(),
+								TipDjelatnikaID = (TipDjelatnikaEnum)(int)row[nameof(Djelatnik.TipDjelatnikaID)],
+								TimID = int.TryParse(row[nameof(Djelatnik.TimID)].ToString(), out _) ?
+														  (int)row[nameof(Djelatnik.TimID)] : 0,
+								IsActive = (int)row[nameof(Djelatnik.IsActive)] == 1
+						  };
+					 }
+				}
+		  }
+
+		  public static int AktivirajTim(int id)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "AktivirajTim";
+						  cmd.Parameters.AddWithValue("@Id", id);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
+		  public static Tim SelectTim(int id)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "SelectTim";
+						  cmd.Parameters.AddWithValue("@Id", id);
+						  using (SqlDataReader dr = cmd.ExecuteReader())
+						  {
+								if (dr.Read())
+								{
+									 return new Tim
+									 {
+										  IDTim = (int)dr[nameof(Tim.IDTim)],
+										  Naziv = dr[nameof(Tim.Naziv)].ToString(),
+										  DatumKreiranja = DateTime.Parse(dr[nameof(Tim.DatumKreiranja)].ToString()),
+										  IsActive = (int)dr[nameof(Djelatnik.IsActive)] == 1
+									 };
+								}
+						  }
+					 }
+					 throw new Exception("No can do!");
+				}
+		  }
+
 		  public static IEnumerable<Tim> GetTimovi()
 		  {
 				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure, "GetTimovi"))
@@ -60,7 +181,8 @@ namespace ModelsLibrary
 						  {
 								IDTim = (int)row[nameof(Tim.IDTim)],
 								Naziv = row[nameof(Tim.Naziv)].ToString(),
-								DatumKreiranja	= DateTime.Parse(row[nameof(Tim.DatumKreiranja)].ToString())
+								DatumKreiranja	= DateTime.Parse(row[nameof(Tim.DatumKreiranja)].ToString()),
+								IsActive = (int)row[nameof(Tim.IsActive)] == 1
 						  };
 					 }
 				}

@@ -18,6 +18,10 @@
 					 </asp:ListBox>
 				</div>
 				<div class="col col-6 form-group">
+					 <asp:HiddenField
+						  runat="server"
+						  ID="hiddenIdDjelatnik"
+						  value=""/>
 					 <asp:RequiredFieldValidator 
 									 ErrorMessage="Ime obavezno"
 									 ControlToValidate="txtIme"
