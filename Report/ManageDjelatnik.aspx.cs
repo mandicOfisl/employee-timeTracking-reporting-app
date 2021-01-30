@@ -11,6 +11,7 @@ namespace Report
 {
 	 public partial class ManageDjelatnik : System.Web.UI.Page
 	 {
+		  public List<Tim> Timovi { get; set; }
 		  protected void Page_Load(object sender, EventArgs e)
 		  {
 				if (!IsPostBack)
@@ -22,7 +23,11 @@ namespace Report
 
 		  private void FillTimoviDdl()
 		  {
-				ddlTim.DataSource = Repo.GetTimovi();
+				Timovi = Repo.GetTimovi().ToList();
+				ddlTim.DataSource = Timovi;
+				ddlTim.DataTextField = "Naziv";
+				ddlTim.DataValueField = "IDTim";
+				ddlTim.DataBind();
 		  }
 
 		  private void FillDjelatniciListBox()
@@ -35,7 +40,32 @@ namespace Report
 
 		  protected void LbDjelatnici_SelectedIndexChanged(object sender, EventArgs e)
 		  {
+				if (LbDjelatnici.SelectedIndex > -1)
+				{
+					 Djelatnik d = Repo.SelectDjelatnik(int.Parse(LbDjelatnici.SelectedValue));
+					 txtIme.Text = d.Ime;
+					 txtPrezime.Text = d.Prezime;
+					 txtEmail.Text = d.Email;
 
+					 ChangeDdlTimSelection(d.TimID);
+
+					 FillProjektiListBox(d.IDDjelatnik);
+				}
+		  }
+
+		  private void ChangeDdlTimSelection(int timID)
+		  {
+				ddlTim.SelectedValue = null;
+				ListItem li = ddlTim.Items.FindByValue(timID.ToString());
+				if (li != null) li.Selected = true;
+		  }
+
+		  private void FillProjektiListBox(int djelatnikId)
+		  {
+				lbProjekti.DataSource = Repo.GetProjektiDjelatnika(djelatnikId);
+				lbProjekti.DataTextField = "Naziv";
+				lbProjekti.DataValueField = "IDProjekt";
+				lbProjekti.DataBind();
 		  }
 
 		  protected void BtnEdit_Click(object sender, EventArgs e)
