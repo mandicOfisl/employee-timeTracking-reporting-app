@@ -16,7 +16,13 @@ namespace Report
 				if (!IsPostBack)
 				{
 					 FillDjelatniciListBox();
+					 FillTimoviDdl();
 				}
+		  }
+
+		  private void FillTimoviDdl()
+		  {
+				ddlTim.DataSource = Repo.GetTimovi();
 		  }
 
 		  private void FillDjelatniciListBox()

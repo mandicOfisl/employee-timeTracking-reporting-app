@@ -71,6 +71,7 @@
     <Compile Include="Satnica.cs" />
     <Compile Include="SatnicaProjekta.cs" />
     <Compile Include="SatnicaStatusEnum.cs" />
+    <Compile Include="Tim.cs" />
     <Compile Include="TipDjelatnikaEnum.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>

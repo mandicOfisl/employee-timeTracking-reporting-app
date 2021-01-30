@@ -49,6 +49,23 @@ namespace ModelsLibrary
 				}
 		  }
 
+		  public static IEnumerable<Tim> GetTimovi()
+		  {
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure, "GetTimovi"))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {
+						  yield return new Tim
+						  {
+								IDTim = (int)row[nameof(Tim.IDTim)],
+								Naziv = row[nameof(Tim.Naziv)].ToString(),
+								DatumKreiranja	= DateTime.Parse(row[nameof(Tim.DatumKreiranja)].ToString())
+						  };
+					 }
+				}
+
+		  }
+
 		  public static IEnumerable<Djelatnik> GetDjelatnici()
 		  {
 				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure, "GetDjelatnici"))
