@@ -16,5 +16,13 @@ namespace ModelsLibrary
 		  public float StartEnd { get; set; }
 		  public string Komentar { get; set; }
 
+		  public string GetTimeString(string key)
+		  {
+				string s = key == "start" ? Start.TimeOfDay.ToString() : End.TimeOfDay.ToString();
+
+				var hourMin = s.Split(':');
+
+				return hourMin[0].ToString().PadLeft(2, '0') + ":" + hourMin[1].ToString().PadLeft(2, '0');
+		  }
 	 }
 }

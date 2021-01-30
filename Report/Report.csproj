@@ -307,7 +307,6 @@
     <Compile Include="ManageTim.aspx.designer.cs">
       <DependentUpon>ManageTim.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repo.cs" />
     <Compile Include="NewReport.aspx.cs">
       <DependentUpon>NewReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -340,6 +339,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

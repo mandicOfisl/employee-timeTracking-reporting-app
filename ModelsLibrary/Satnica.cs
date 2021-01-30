@@ -19,5 +19,19 @@ namespace ModelsLibrary
 		  public string Komentar { get; set; }
 		  public SatnicaStatusEnum Staus { get; set; }
 
+		  public string GetFormatedProperties(string prop)
+		  {
+				switch (prop)
+				{
+					 case "total":
+						  return Utils.ParseMinutesToString(float.Parse(Total.ToString()));
+					 case "redovni":
+						  return Utils.ParseMinutesToString(float.Parse(TotalRedovni.ToString()));
+					 case "prekovremeni":
+						  return Utils.ParseMinutesToString(float.Parse(TotalPrekovremeni.ToString()));
+					 default:
+						  return "";
+				}
+		  }
 	 }
 }

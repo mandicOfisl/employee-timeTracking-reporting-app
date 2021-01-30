@@ -131,14 +131,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Djelatnik.cs" />
-    <Compile Include="Models\Projekt.cs" />
-    <Compile Include="Models\Repo.cs" />
-    <Compile Include="Models\Satnica.cs" />
-    <Compile Include="Models\SatnicaProjekta.cs" />
-    <Compile Include="Models\SatnicaStatusEnum.cs" />
-    <Compile Include="Models\TipDjelatnikaEnum.cs" />
-    <Compile Include="Models\Utils.cs" />
     <Compile Include="Models\ViewModels\ErrorVM.cs" />
     <Compile Include="Models\ViewModels\InfoSatniceProjektaVM.cs" />
     <Compile Include="Models\ViewModels\PregledSatnicaVM.cs" />
@@ -402,6 +394,12 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UserProfile.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelsLibrary\ModelsLibrary.csproj">
+      <Project>{c9daf744-091a-4d85-a7ab-adc246926a3c}</Project>
+      <Name>ModelsLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

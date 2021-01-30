@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace EvidencijaSati.Models
+namespace ModelsLibrary
 {
 	 public class Utils
 	 {
-		  internal static string ParseMinutesToString(float zabiljezeno)
+		  public static string ParseMinutesToString(float zabiljezeno)
 		  {
 				double num = Math.Floor(zabiljezeno);
 				int h = (int)(num / 60);
@@ -15,7 +16,7 @@ namespace EvidencijaSati.Models
 				return h.ToString().PadLeft(2, '0') + ":" + m.ToString().PadLeft(2, '0');
 		  }
 
-		  internal static float CalculateProjectMinutes(List<SatnicaProjekta> lists)
+		  public static float CalculateProjectMinutes(List<SatnicaProjekta> lists)
 		  {
 				float total = 0;
 
