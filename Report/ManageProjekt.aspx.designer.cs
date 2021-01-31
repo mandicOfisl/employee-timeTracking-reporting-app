@@ -24,6 +24,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.ListBox LbProjekti;
 
 		  /// <summary>
+		  /// hiddenIdProjekt control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.HiddenField hiddenIdProjekt;
+
+		  /// <summary>
 		  /// txtNaziv control.
 		  /// </summary>
 		  /// <remarks>
@@ -42,13 +51,22 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.DropDownList ddlKlijent;
 
 		  /// <summary>
-		  /// txtDatum control.
+		  /// txtDatumOtvaranja control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.TextBox txtDatum;
+		  protected global::System.Web.UI.WebControls.TextBox txtDatumOtvaranja;
+
+		  /// <summary>
+		  /// txtDatumZatvaranja control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.TextBox txtDatumZatvaranja;
 
 		  /// <summary>
 		  /// ddlVoditeljProjekta control.
@@ -78,13 +96,13 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.Button BtnAdd;
 
 		  /// <summary>
-		  /// BtnSave control.
+		  /// BtnAktiviraj control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.Button BtnSave;
+		  protected global::System.Web.UI.WebControls.Button BtnAktiviraj;
 
 		  /// <summary>
 		  /// BtnDeaktiviraj control.
@@ -96,12 +114,48 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.Button BtnDeaktiviraj;
 
 		  /// <summary>
-		  /// lbZaposleniNaProjektu control.
+		  /// BtnSave control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.ListBox lbZaposleniNaProjektu;
+		  protected global::System.Web.UI.WebControls.Button BtnSave;
+
+		  /// <summary>
+		  /// LbZaposleniNaProjektu control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.ListBox LbZaposleniNaProjektu;
+
+		  /// <summary>
+		  /// BtnUkloniDjelatnika control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Button BtnUkloniDjelatnika;
+
+		  /// <summary>
+		  /// DdlDjelatnik control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.DropDownList DdlDjelatnik;
+
+		  /// <summary>
+		  /// BtnDodajDjelatnika control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Button BtnDodajDjelatnika;
 	 }
 }

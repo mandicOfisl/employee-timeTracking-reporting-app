@@ -13,7 +13,7 @@ namespace ModelsLibrary
 		  public int KlijentID { get; set; }
 		  public DateTime DatumOtvaranja { get; set; }
 		  public int VoditeljProjektaID { get; set; }
-		  //public DateTime DatumZatvaranja { get; set; }
+		  public DateTime DatumZatvaranja { get; set; }
 		  public bool IsActive { get; set; }
 	 }
 }

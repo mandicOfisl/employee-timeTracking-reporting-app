@@ -50,6 +50,220 @@ namespace ModelsLibrary
 				}
 		  }
 
+		  public static IEnumerable<Djelatnik> GetVoditeljiProjekta()
+		  {
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure, "GetVoditeljiProjekata"))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {
+						  yield return new Djelatnik
+						  {
+								IDDjelatnik = (int)row[nameof(Djelatnik.IDDjelatnik)],
+								Ime = row[nameof(Djelatnik.Ime)].ToString(),
+								Prezime = row[nameof(Djelatnik.Prezime)].ToString(),
+								Email = row[nameof(Djelatnik.Email)].ToString(),
+								DatumZaposlenja = DateTime.Parse(row[nameof(Djelatnik.DatumZaposlenja)].ToString()),
+								Zaporka = row[nameof(Djelatnik.Zaporka)].ToString(),
+								TipDjelatnikaID = (TipDjelatnikaEnum)(int)row[nameof(Djelatnik.TipDjelatnikaID)],
+								TimID = int.TryParse(row[nameof(Djelatnik.TimID)].ToString(), out _) ?
+														  (int)row[nameof(Djelatnik.TimID)] : 0,
+								IsActive = (int)row[nameof(Djelatnik.IsActive)] == 1
+						  };
+					 }
+				}
+		  }
+
+		  public static IEnumerable<Djelatnik> GetZaposleniNaProjektu(int iDProjekt)
+		  {
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure, "GetZaposleniNaProjektu", new SqlParameter("@IdProjekt", iDProjekt)))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {
+						  yield return new Djelatnik
+						  {
+								IDDjelatnik = (int)row[nameof(Djelatnik.IDDjelatnik)],
+								Ime = row[nameof(Djelatnik.Ime)].ToString(),
+								Prezime = row[nameof(Djelatnik.Prezime)].ToString(),
+								Email = row[nameof(Djelatnik.Email)].ToString(),
+								DatumZaposlenja = DateTime.Parse(row[nameof(Djelatnik.DatumZaposlenja)].ToString()),
+								Zaporka = row[nameof(Djelatnik.Zaporka)].ToString(),
+								TipDjelatnikaID = (TipDjelatnikaEnum)(int)row[nameof(Djelatnik.TipDjelatnikaID)],
+								TimID = int.TryParse(row[nameof(Djelatnik.TimID)].ToString(), out _) ?
+														  (int)row[nameof(Djelatnik.TimID)] : 0,
+								IsActive = (int)row[nameof(Djelatnik.IsActive)] == 1
+						  };
+					 }
+				}
+		  }
+
+		  public static IEnumerable<Klijent> GetKlijenti()
+		  {
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure, "GetKlijenti"))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {
+						  yield return new Klijent
+						  {
+								IDKlijent = (int)row[nameof(Klijent.IDKlijent)],
+								Naziv = row[nameof(Klijent.Naziv)].ToString(),
+								Email = row[nameof(Klijent.Email)].ToString(),
+								Telefon = row[nameof(Klijent.Telefon)].ToString(),
+								IsActive = (int)row[nameof(Djelatnik.IsActive)] == 1
+						  };
+					 }
+				}
+		  }
+
+		  public static IEnumerable<Projekt> GetProjekti()
+		  {
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure, "GetProjekti"))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {						  
+						  DateTime dz;
+						  
+						  yield return new Projekt
+						  {
+								IDProjekt = (int)row[nameof(Projekt.IDProjekt)],
+								Naziv = row[nameof(Projekt.Naziv)].ToString(),
+								KlijentID = (int)row[nameof(Projekt.KlijentID)],
+								DatumOtvaranja = DateTime.Parse(row[nameof(Projekt.DatumOtvaranja)].ToString()),
+								VoditeljProjektaID = (int)row[nameof(Projekt.VoditeljProjektaID)],
+								DatumZatvaranja = DateTime.TryParse(row[nameof(Projekt.DatumZatvaranja)].ToString(), out dz) ?
+									 dz : DateTime.Parse(row[nameof(Projekt.DatumOtvaranja)].ToString()),
+								IsActive = (int)row[nameof(Projekt.IsActive)] == 1
+						  };
+					 }
+
+				}
+		  }
+
+		  public static int UpdateProjekt(Projekt p)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "UpdateProjekt";
+						  cmd.Parameters.AddWithValue("@Id", p.IDProjekt);
+						  cmd.Parameters.AddWithValue("@Naziv", p.Naziv);
+						  cmd.Parameters.AddWithValue("@KlijentId", p.KlijentID);
+						  cmd.Parameters.AddWithValue("@DatumOtvaranja", p.DatumOtvaranja);
+						  cmd.Parameters.AddWithValue("@VoditeljProjektaId", p.VoditeljProjektaID);
+						  if (p.DatumOtvaranja == p.DatumZatvaranja)
+						  {
+								cmd.Parameters.AddWithValue("@DatumZatvaranja", DBNull.Value);
+						  }
+						  else
+						  {
+								cmd.Parameters.AddWithValue("@DatumZatvaranja", p.DatumZatvaranja);
+						  }
+
+						  return cmd.ExecuteNonQuery();						  
+					 }
+				}
+		  }
+
+		  public static int DodajProjekt(Projekt p)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "AddProjekt";
+						  cmd.Parameters.AddWithValue("@Naziv", p.Naziv);
+						  cmd.Parameters.AddWithValue("@KlijentId", p.KlijentID);
+						  cmd.Parameters.AddWithValue("@DatumOtvaranja", p.DatumOtvaranja);
+						  cmd.Parameters.AddWithValue("@voditeljProjektaId", p.VoditeljProjektaID);
+						  if (p.DatumOtvaranja == p.DatumZatvaranja)
+						  {
+								cmd.Parameters.AddWithValue("@DatumZatvaranja", null);
+						  }
+						  else
+						  {
+								cmd.Parameters.AddWithValue("@DatumZatvaranja", p.DatumZatvaranja);
+						  }
+						  cmd.Parameters.Add("@Id", SqlDbType.Int);
+						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
+
+						  _ = cmd.ExecuteNonQuery();
+						  return int.Parse(cmd.Parameters["@Id"].Value.ToString());
+					 }
+				}
+		  }
+
+		  public static int DodajDjelatnikaNaProjekt(int projektId, int djelatnikId)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "AddProjektDjelatnik";
+						  cmd.Parameters.AddWithValue("@IdProjekt", projektId);
+						  cmd.Parameters.AddWithValue("@IdDjelatnik", djelatnikId);
+						  cmd.Parameters.Add("@Id", SqlDbType.Int);
+						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
+		  public static int UkloniDjelatnikaSProjekta(int projId, int djelatnikId)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "DeleteProjektDjelatnik";
+						  cmd.Parameters.AddWithValue("@IdProjekt", projId);
+						  cmd.Parameters.AddWithValue("@IdDjelatnik", djelatnikId);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
+		  public static int AktivirajProjekt(int id)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "AktivirajProjekt";
+						  cmd.Parameters.AddWithValue("@Id", id);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
+		  public static int DeaktivirajProjekt(int id)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "DeaktivirajProjekt";
+						  cmd.Parameters.AddWithValue("@Id", id);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
 		  public static int DeaktivirajTim(int id)
 		  {
 				using (SqlConnection con = new SqlConnection(cs))
@@ -393,13 +607,18 @@ namespace ModelsLibrary
 						  {
 								if (dr.Read())
 								{
+									 DateTime dz;
+
 									 return new Projekt
 									 {
 										  IDProjekt = (int)dr[nameof(Projekt.IDProjekt)],
 										  Naziv = dr[nameof(Projekt.Naziv)].ToString(),
 										  KlijentID = (int)dr[nameof(Projekt.KlijentID)],
 										  DatumOtvaranja = DateTime.Parse(dr[nameof(Projekt.DatumOtvaranja)].ToString()),
-										  VoditeljProjektaID = (int)dr[nameof(Projekt.VoditeljProjektaID)]
+										  VoditeljProjektaID = (int)dr[nameof(Projekt.VoditeljProjektaID)],
+										  DatumZatvaranja = DateTime.TryParse(dr[nameof(Projekt.DatumZatvaranja)].ToString(), out dz) ?
+												dz : DateTime.Parse(dr[nameof(Projekt.DatumOtvaranja)].ToString()),
+										  IsActive = (int)dr[nameof(Projekt.IsActive)] == 1
 									 };
 								}
 						  }
@@ -625,13 +844,18 @@ namespace ModelsLibrary
 				{
 					 foreach (DataRow row in Ds.Tables[0].Rows)
 					 {
+						  DateTime dz;
+
 						  yield return new Projekt
 						  {
 								IDProjekt = (int)row[nameof(Projekt.IDProjekt)],
 								Naziv = row[nameof(Projekt.Naziv)].ToString(),
 								KlijentID = (int)row[nameof(Projekt.KlijentID)],
 								DatumOtvaranja = DateTime.Parse(row[nameof(Projekt.DatumOtvaranja)].ToString()),
-								VoditeljProjektaID = (int)row[nameof(Projekt.VoditeljProjektaID)]
+								VoditeljProjektaID = (int)row[nameof(Projekt.VoditeljProjektaID)],
+								DatumZatvaranja = DateTime.TryParse(row[nameof(Projekt.DatumZatvaranja)].ToString(), out dz) ?
+									 dz : DateTime.Parse(row[nameof(Projekt.DatumOtvaranja)].ToString()),
+								IsActive = (int)row[nameof(Projekt.IsActive)] == 1
 						  };
 					 }
 

@@ -30,7 +30,7 @@ namespace Report
 
 		  private void FillTimoviDdl()
 		  {
-				ddlTim.DataSource = Repo.GetTimovi().ToList();
+				ddlTim.DataSource = Repo.GetTimovi();
 				ddlTim.DataTextField = "Naziv";
 				ddlTim.DataValueField = "IDTim";
 				ddlTim.DataBind();
@@ -112,7 +112,6 @@ namespace Report
 
 				BtnEdit.Enabled = false;
 				BtnSave.Enabled = true;
-
 		  }
 
 		  protected void BtnSave_Click(object sender, EventArgs e)

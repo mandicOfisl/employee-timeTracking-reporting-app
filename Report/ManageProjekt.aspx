@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageProjekt.aspx.cs" Inherits="Report.ManageProjekt" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
-	 <link href="Content/manage.css" rel="stylesheet" />
+	 <link href="Content/manageProjekt.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -17,7 +17,11 @@
 						  Height="250">
 					 </asp:ListBox>
 				</div>
-				<div class="col col-6 form-group">
+				<div class="col col-5 form-group">
+					 <asp:HiddenField
+						  runat="server"
+						  ID="hiddenIdProjekt"
+						  value=""/>
 					 <asp:RequiredFieldValidator 
 									 ErrorMessage="Ime obavezno"
 									 ControlToValidate="txtNaziv"
@@ -40,13 +44,22 @@
 
 					 <asp:RequiredFieldValidator 
 									 ErrorMessage="Prezime obavezno" 
-									 ControlToValidate="txtDatum"
+									 ControlToValidate="txtDatumotvaranja"
 									 Text="*"
 									 runat="server" />
 					 <label>Datum otvaranja</label>
 					 <asp:TextBox 
 						  runat="server"
-						  ID="txtDatum"
+						  ID="txtDatumOtvaranja"
+						  TextMode="Date"
+						  CssClass="form-control"
+						  Enabled="false"/>
+
+					 <label>Datum zatvaranja</label>
+					 <asp:TextBox 
+						  runat="server"
+						  ID="txtDatumZatvaranja"
+						  TextMode="Date"
 						  CssClass="form-control"
 						  Enabled="false"/>
 
@@ -63,26 +76,40 @@
 								Text="Uredi" 
 								runat="server"
 								ID="BtnEdit"
+								Enabled="false"
 								OnClick="BtnEdit_Click"
+								CausesValidation="false"
 								CssClass="btn btn-primary"/>
 						  <asp:Button 
 								Text="Dodaj" 
 								runat="server"
 								ID="BtnAdd"
+								CausesValidation="false"
 								OnClick="BtnAdd_Click"
 								CssClass="btn btn-warning"/>
 						  <asp:Button 
-								Text="Spremi" 
+								Text="Aktiviraj" 
 								runat="server"
-								ID="BtnSave"
-								OnClick="BtnSave_Click"
-								CssClass="btn btn-success"/>
+								ID="BtnAktiviraj"
+								Enabled="false"
+								CausesValidation="false"
+								OnClick="BtnAktiviraj_Click"
+								CssClass="btn btn-outline-success"/>
 						  <asp:Button 
 								Text="Deaktiviraj" 
 								runat="server"
 								ID="BtnDeaktiviraj"
+								Enabled="false"
+								CausesValidation="false"
 								OnClick="BtnDeaktiviraj_Click"
-								CssClass="btn btn-danger"/>
+								CssClass="btn btn-outline-danger"/>
+						  <asp:Button 
+								Text="Spremi" 
+								runat="server"
+								ID="BtnSave"
+								Enabled="false"
+								OnClick="BtnSave_Click"
+								CssClass="btn btn-success"/>
 					 </div>
 				</div>
 
@@ -90,10 +117,38 @@
 					 <label>Zaposleni na projektu</label>
 					 <asp:ListBox 
 						  runat="server"
-						  ID="lbZaposleniNaProjektu"
+						  ID="LbZaposleniNaProjektu"
 						  CssClass="form-control"
+						  AutoPostBack="true"
+						  OnSelectedIndexChanged="LbZaposleniNaProjektu_SelectedIndexChanged"
 						  Height="250">
 					 </asp:ListBox>
+					 <asp:Button 
+						  Text="Ukloni djelatnika" 
+						  runat="server"
+						  ID="BtnUkloniDjelatnika"
+						  CssClass="btn btn-danger btnDjelatnici"
+						  OnClick="BtnUkloniDjelatnika_Click"
+						  CausesValidation="false"
+						  Enabled="false"/>
+					 <div class="form-group-d-flex">
+						  <label>Djelatnik</label>
+						  <asp:DropDownList 
+								runat="server"
+								ID="DdlDjelatnik"
+								CssClass="form-control"
+								AutoPostBack="true"
+								OnSelectedIndexChanged="DdlDjelatnik_SelectedIndexChanged">
+						  </asp:DropDownList>
+					 </div>
+					 <asp:Button 
+						  Text="Dodaj djelatnika" 
+						  runat="server"
+						  ID="BtnDodajDjelatnika"
+						  CssClass="btn btn-warning btnDjelatnici"
+						  OnClick="BtnDodajDjelatnika_Click"
+						  CausesValidation="false"
+						  Enabled="false"/>
 				</div>
 		  </div>
 		 

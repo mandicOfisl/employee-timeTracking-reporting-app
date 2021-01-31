@@ -9,3 +9,7 @@
 .card {
 	 margin-top: 10vh;
 }
+
+.btnRow > input {
+	margin-top: 5vh;
+}
