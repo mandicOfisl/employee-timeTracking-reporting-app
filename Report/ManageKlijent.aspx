@@ -7,6 +7,10 @@
 	 <div class="card card-body">
 		  <div class="row">
 				<div class="col form-group">
+					 <asp:HiddenField
+						  runat="server"
+						  ID="hiddenIdKlijent"
+						  value=""/>
 					 <label>Klijenti</label>
 					 <asp:ListBox 
 						  runat="server" 
@@ -62,26 +66,40 @@
 								Text="Uredi" 
 								runat="server"
 								ID="BtnEdit"
+								Enabled="false"
 								OnClick="BtnEdit_Click"
+								CausesValidation="false"
 								CssClass="btn btn-primary"/>
 						  <asp:Button 
 								Text="Dodaj" 
 								runat="server"
 								ID="BtnAdd"
+								CausesValidation="false"
 								OnClick="BtnAdd_Click"
 								CssClass="btn btn-warning"/>
 						  <asp:Button 
-								Text="Spremi" 
+								Text="Aktiviraj" 
 								runat="server"
-								ID="BtnSave"
-								OnClick="BtnSave_Click"
-								CssClass="btn btn-success"/>
+								ID="BtnAktiviraj"
+								OnClick="BtnAktiviraj_Click"
+								CausesValidation="false"
+								Enabled="false"
+								CssClass="btn btn-outline-success"/>
 						  <asp:Button 
 								Text="Deaktiviraj" 
 								runat="server"
 								ID="BtnDeaktiviraj"
 								OnClick="BtnDeaktiviraj_Click"
-								CssClass="btn btn-danger"/>
+								CausesValidation="false"
+								Enabled="false"
+								CssClass="btn btn-outline-danger"/>
+						  <asp:Button 
+								Text="Spremi" 
+								runat="server"
+								ID="BtnSave"
+								Enabled="false"
+								OnClick="BtnSave_Click"
+								CssClass="btn btn-success"/>
 					 </div>
 				</div>
 

@@ -168,9 +168,8 @@ namespace Report
 				}
 				else
 				{
-					 Projekt stari = Repo.SelectProjekt(int.Parse(hiddenIdProjekt.Value));
-					 p.IDProjekt = stari.IDProjekt;
-					 int i = Repo.UpdateProjekt(p);
+					 p.IDProjekt = int.Parse(hiddenIdProjekt.Value);
+					 _ = Repo.UpdateProjekt(p);
 				}
 
 				FillProjektiListBox();

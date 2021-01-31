@@ -30,6 +30,7 @@ namespace Report
 		  {
 				if (LbTimovi.SelectedIndex > -1)
 				{
+					 hiddenIdTim.Value = null;
 					 Tim t = Repo.SelectTim(int.Parse(LbTimovi.SelectedValue));
 					 txtIme.Text = t.Naziv;
 					 txtDatum.Text = t.DatumKreiranja.ToString("yyyy-MM-dd");
@@ -97,6 +98,7 @@ namespace Report
 
 		  protected void BtnAdd_Click(object sender, EventArgs e)
 		  {
+				hiddenIdTim.Value = null;
 				ToggleInputFieldsEnabled(true);
 				ClearAllFields();
 				BtnAktiviraj.Enabled = false;
@@ -111,6 +113,8 @@ namespace Report
 
 		  protected void BtnEdit_Click(object sender, EventArgs e)
 		  {
+				hiddenIdTim.Value = int.Parse(LbTimovi.SelectedValue).ToString();
+
 				ToggleInputFieldsEnabled(true);
 
 				BtnEdit.Enabled = false;

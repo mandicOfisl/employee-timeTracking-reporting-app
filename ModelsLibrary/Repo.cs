@@ -50,6 +50,132 @@ namespace ModelsLibrary
 				}
 		  }
 
+		  public static IEnumerable<Projekt> GetProjektiKlijenta(int iDKlijent)
+		  {
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure,
+					 "GetProjektiKlijenta", new SqlParameter("@IdKlijent", iDKlijent)))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {
+						  DateTime dz;
+
+						  yield return new Projekt
+						  {
+								IDProjekt = (int)row[nameof(Projekt.IDProjekt)],
+								Naziv = row[nameof(Projekt.Naziv)].ToString(),
+								KlijentID = (int)row[nameof(Projekt.KlijentID)],
+								DatumOtvaranja = DateTime.Parse(row[nameof(Projekt.DatumOtvaranja)].ToString()),
+								VoditeljProjektaID = (int)row[nameof(Projekt.VoditeljProjektaID)],
+								DatumZatvaranja = DateTime.TryParse(row[nameof(Projekt.DatumZatvaranja)].ToString(), out dz) ?
+									 dz : DateTime.Parse(row[nameof(Projekt.DatumOtvaranja)].ToString()),
+								IsActive = (int)row[nameof(Projekt.IsActive)] == 1
+						  };
+					 }
+
+				}
+		  }
+
+		  public static int UpdateKlijent(Klijent k)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "UpdateKlijent";
+						  cmd.Parameters.AddWithValue("@Id", k.IDKlijent);
+						  cmd.Parameters.AddWithValue("@Naziv", k.Naziv);
+						  cmd.Parameters.AddWithValue("@Telefon", k.Telefon);
+						  cmd.Parameters.AddWithValue("@Email", k.Email);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
+		  public static int DodajKlijenta(Klijent k)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "AddKlijent";
+						  cmd.Parameters.AddWithValue("@Naziv", k.Naziv);
+						  cmd.Parameters.AddWithValue("@Telefon", k.Telefon);
+						  cmd.Parameters.AddWithValue("@Email", k.Email);
+						  cmd.Parameters.Add("@Id", SqlDbType.Int);
+						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
+
+						  _ = cmd.ExecuteNonQuery();
+						  return int.Parse(cmd.Parameters["@Id"].Value.ToString());
+					 }
+				}
+		  }
+
+		  public static int AktivirajKlijenta(int id)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "AktivirajKlijenta";
+						  cmd.Parameters.AddWithValue("@Id", id);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
+		  public static int DeaktivirajKlijenta(int id)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "DeaktivirajKlijenta";
+						  cmd.Parameters.AddWithValue("@Id", id);
+
+						  return cmd.ExecuteNonQuery();
+					 }
+				}
+		  }
+
+		  public static Klijent SelectKlijent(int klijentId)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "SelectKlijent";
+						  cmd.Parameters.AddWithValue("@Id", klijentId);
+						  using (SqlDataReader dr = cmd.ExecuteReader())
+						  {
+								if (dr.Read())
+								{
+									 return new Klijent
+									 {
+										  IDKlijent = (int)dr[nameof(Klijent.IDKlijent)],
+										  Naziv = dr[nameof(Klijent.Naziv)].ToString(),
+										  Email = dr[nameof(Klijent.Email)].ToString(),
+										  Telefon = dr[nameof(Klijent.Telefon)].ToString(),
+										  IsActive = (int)dr[nameof(Klijent.IsActive)] == 1
+									 };
+								}
+						  }
+					 }
+					 throw new Exception("No can do!");
+				}
+		  }
+
 		  public static IEnumerable<Djelatnik> GetVoditeljiProjekta()
 		  {
 				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure, "GetVoditeljiProjekata"))
@@ -108,7 +234,7 @@ namespace ModelsLibrary
 								Naziv = row[nameof(Klijent.Naziv)].ToString(),
 								Email = row[nameof(Klijent.Email)].ToString(),
 								Telefon = row[nameof(Klijent.Telefon)].ToString(),
-								IsActive = (int)row[nameof(Djelatnik.IsActive)] == 1
+								IsActive = (int)row[nameof(Klijent.IsActive)] == 1
 						  };
 					 }
 				}
@@ -280,7 +406,7 @@ namespace ModelsLibrary
 				}
 		  }
 
-		  public static object UpdateTim(Tim tim)
+		  public static int UpdateTim(Tim tim)
 		  {
 				using (SqlConnection con = new SqlConnection(cs))
 				{
@@ -298,7 +424,7 @@ namespace ModelsLibrary
 				}
 		  }
 
-		  public static object AddTim(Tim tim)
+		  public static int AddTim(Tim tim)
 		  {
 				using (SqlConnection con = new SqlConnection(cs))
 				{
@@ -376,7 +502,7 @@ namespace ModelsLibrary
 										  IDTim = (int)dr[nameof(Tim.IDTim)],
 										  Naziv = dr[nameof(Tim.Naziv)].ToString(),
 										  DatumKreiranja = DateTime.Parse(dr[nameof(Tim.DatumKreiranja)].ToString()),
-										  IsActive = (int)dr[nameof(Djelatnik.IsActive)] == 1
+										  IsActive = (int)dr[nameof(Tim.IsActive)] == 1
 									 };
 								}
 						  }
