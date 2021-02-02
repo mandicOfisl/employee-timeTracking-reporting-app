@@ -33,7 +33,7 @@
 	 	 	 	 		  <tr class="@Model.Projekti[i].IDProjekt rowProjekt">
 	 	 	 	 	 			<td>@Model.Projekti[i].Naziv</td>
 	 	 	 					<td id="@("txtZab" + Model.Projekti[i].IDProjekt)" class="zabiljezeno">
-	 	 	 	 					 @(Model.Satnica.ProjektZabiljezeno[Model.Projekti[i].IDProjekt])
+	 	 	 	 					 @(Model.Satnica.ProjektZabiljezeno[i].RedovniPrekovremeni[0])
 	 	 	 					</td>
 	 	 	 					<td>
 	 	 	 	 					 <button id="@("btnProjekt" + Model.Projekti[i].IDProjekt)"
@@ -207,8 +207,7 @@
 						  SatnicaID: @Model.Satnica.IDSatnica,
 						  ProjektID: projectId,
 						  Start: start,
-						  End: null,
-						  Komentar: $('#txtKomentar').val()
+						  End: null
 					 };
 
 					 $.ajax({
@@ -238,8 +237,7 @@
 						  SatnicaID: @Model.Satnica.IDSatnica,
 						  ProjektID: projectId,
 						  Start: start,
-						  End: end,
-						  Komentar: $('#txtKomentar').val()
+						  End: end
 					 };
 
 					 $.ajax({
@@ -277,6 +275,7 @@
 					 IDSatnica: @Model.Satnica.IDSatnica,
 					 DjelatnikID: @Model.Djelatnik.IDDjelatnik,
 					 Datum: new Date(),
+					 ProjektZabiljezeno: getProjektZabiljezeno(),
 					 Total: parseStringMinutesToFloat(addHoursMinutes(totR, totP)),
 					 TotalRedovni: parseStringMinutesToFloat(totR),
 					 TotalPrekovremeni: parseStringMinutesToFloat(totP),
@@ -291,9 +290,6 @@
 					 success: function (res) {
 						  if (res > 0) {
 								$('#btnPredaj').prop('disabled', false);
-								$('input').each(function (i) {
-									 $(this).val("");
-								});
 						  }
 					 }
 				});
@@ -432,6 +428,46 @@
 
 	 }
 
+	 function calculateProjectTotals() {
+		  var id, newTotal;
+
+		  $('.zabiljezeno').each(function (i) {
+				id = $(this).attr('id').split('txtZab')[1];
+				var redovni = '#txtRadni' + id;
+				var prekovremeni = '#txtPrekovremeni' + id;
+
+				newTotal = addHoursMinutes($(redovni).val(), $(prekovremeni).val());
+
+				$(this).html(newTotal);
+		  });
+	 }
+
+	 function getProjektZabiljezeno() {
+		  var zapisi = new Array();
+		  
+		  var id;
+
+		  $('.zabiljezeno').each(function (i) {
+				id = $(this).attr('id').split('txtZab')[1];
+				var redovni = '#txtRadni' + id;
+				var prekovremeni = '#txtPrekovremeni' + id;
+								
+				zapis = {
+					 ProjectId: parseInt(id),
+					 RedovniPrekovremeni: [
+						  $(redovni).val(),
+						  $(prekovremeni).val()
+					 ]
+				};
+
+				zapisi[i] = zapis;
+
+		  });
+
+		  return zapisi;
+
+	 }
+
 	 function parseStringMinutesToFloat(str) {
 		  var s = (str != '' && regex.test(str)) ? str.split(':') : ['00', '00'];
 
@@ -560,6 +596,7 @@
 						  input.css('border', '3px solid red');
 					 } else {
 						  document.getElementById("txtTotalRedovni").innerHTML = time;
+						  calculateProjectTotals();
 						  input.css('border', '1px solid #ced4da');
 						  if (h == 8 && m == 0) {
 								$('#btnSpremi').prop('disabled', false);
@@ -578,6 +615,7 @@
 						  document.getElementById("txtTotalPrekovremeni").innerHTML = addHoursMinutes(
 								document.getElementById("txtTotalPrekovremeni").innerHTML.trim(),
 								input.val());
+						  calculateProjectTotals();
 						  input.css('border', '1px solid #ced4da');
 					 }
 				}

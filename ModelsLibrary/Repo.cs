@@ -176,6 +176,28 @@ namespace ModelsLibrary
 				}
 		  }
 
+		  public static void UpdateSatnicaProjektaZaPredaju(int iDSatnica, List<Zapis> projektZabiljezeno)
+		  {
+				foreach (var proj in projektZabiljezeno)
+				{
+					 using (SqlConnection con = new SqlConnection(cs))
+					 {
+						  con.Open();
+						  using (SqlCommand cmd = con.CreateCommand())
+						  {
+								cmd.CommandType = CommandType.StoredProcedure;
+								cmd.CommandText = "UpdateSatnicaProjektaZaPredaju";
+								cmd.Parameters.AddWithValue("@SatnicaId", iDSatnica);
+								cmd.Parameters.AddWithValue("@ProjektId", proj.ProjectId);
+								cmd.Parameters.AddWithValue("@Redovni", Utils.ParseStingToMinutes(proj.RedovniPrekovremeni[0]));
+								cmd.Parameters.AddWithValue("@Prekovremeni", Utils.ParseStingToMinutes(proj.RedovniPrekovremeni[1]));
+
+								_ = cmd.ExecuteNonQuery();
+						  }
+					 }
+				}
+		  }
+
 		  public static IEnumerable<Djelatnik> GetVoditeljiProjekta()
 		  {
 				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure, "GetVoditeljiProjekata"))
@@ -584,8 +606,8 @@ namespace ModelsLibrary
 								Start = DateTime.Parse(row[nameof(SatnicaProjekta.Start)].ToString()),
 								End = row[nameof(SatnicaProjekta.End)].GetType().Equals(typeof(DBNull)) ?
 										  new DateTime(0) : DateTime.Parse(row[nameof(SatnicaProjekta.End)].ToString()),
-								StartEnd = float.Parse(row[nameof(SatnicaProjekta.StartEnd)].ToString()),
-								Komentar = row[nameof(SatnicaProjekta.Komentar)].ToString()
+								TotalMin = float.Parse(row[nameof(SatnicaProjekta.TotalMin)].ToString()),
+								Prekovremeni = float.Parse(row[nameof(SatnicaProjekta.Prekovremeni)].ToString())
 						  };
 					 }
 
@@ -684,7 +706,7 @@ namespace ModelsLibrary
 								DjelatnikID = (int)row[nameof(Satnica.DjelatnikID)],
 								Datum = DateTime.Parse(row[nameof(Satnica.Datum)].ToString()),
 								Satnice = new Dictionary<int, List<SatnicaProjekta>>(),
-								ProjektZabiljezeno = new Dictionary<int, string>(),
+								ProjektZabiljezeno = new List<Zapis>(),
 								Total = double.Parse(row[nameof(Satnica.Total)].ToString()),
 								TotalPrekovremeni = double.Parse(row[nameof(Satnica.TotalPrekovremeni)].ToString()),
 								TotalRedovni = double.Parse(row[nameof(Satnica.TotalRedovni)].ToString())
@@ -763,9 +785,9 @@ namespace ModelsLibrary
 						  cmd.CommandType = CommandType.StoredProcedure;
 						  cmd.CommandText = "UpdateSatnica";
 						  cmd.Parameters.AddWithValue("@DjelatnikId", satnica.DjelatnikID);
+						  cmd.Parameters.AddWithValue("@Total", satnica.Total);
 						  cmd.Parameters.AddWithValue("@TotalRedovni", satnica.TotalRedovni);
 						  cmd.Parameters.AddWithValue("@TotalPrekovremeni", satnica.TotalPrekovremeni);
-						  cmd.Parameters.AddWithValue("@Total", satnica.Total);
 						  cmd.Parameters.AddWithValue("@Komentar", satnica.Komentar ?? "");
 
 						  return cmd.ExecuteNonQuery();
@@ -812,8 +834,8 @@ namespace ModelsLibrary
 										  Start = DateTime.Parse(dr[nameof(SatnicaProjekta.Start)].ToString()),
 										  End = dr[nameof(SatnicaProjekta.End)].GetType().Equals(typeof(DBNull)) ?
 										  new DateTime(0) : DateTime.Parse(dr[nameof(SatnicaProjekta.End)].ToString()),
-										  StartEnd = float.Parse(dr[nameof(SatnicaProjekta.StartEnd)].ToString()),
-										  Komentar = dr[nameof(SatnicaProjekta.Komentar)].ToString()
+										  TotalMin = float.Parse(dr[nameof(SatnicaProjekta.TotalMin)].ToString()),
+										  Prekovremeni = float.Parse(dr[nameof(SatnicaProjekta.Prekovremeni)].ToString())
 									 };
 								}
 						  }
@@ -828,6 +850,7 @@ namespace ModelsLibrary
 					 "GetSatniceProjektaZaVoditelja",
 						  new SqlParameter[]{
 								new SqlParameter("@IdVoditelj", idVoditeljDirektor),
+
 								new SqlParameter("@IdTip", tipDjelatnika),
 								new SqlParameter("@IdStatus", status)
 						  }))
@@ -840,7 +863,7 @@ namespace ModelsLibrary
 								DjelatnikID = (int)row[nameof(Satnica.DjelatnikID)],
 								Datum = DateTime.Parse(row[nameof(Satnica.Datum)].ToString()),
 								Satnice = new Dictionary<int, List<SatnicaProjekta>>(),
-								ProjektZabiljezeno = new Dictionary<int, string>(),
+								ProjektZabiljezeno = new List<Zapis>(),
 								Total = double.Parse(row[nameof(Satnica.Total)].ToString()),
 								TotalPrekovremeni = double.Parse(row[nameof(Satnica.TotalPrekovremeni)].ToString()),
 								TotalRedovni = double.Parse(row[nameof(Satnica.TotalRedovni)].ToString()),
@@ -851,7 +874,7 @@ namespace ModelsLibrary
 				}
 		  }
 
-		  public static int UpdateEndSatniceProjekta(DateTime end, int iDSatnicaProjekta, float startEnd, string komentar)
+		  public static int UpdateEndSatniceProjekta(DateTime end, int iDSatnicaProjekta, float startEnd)
 		  {
 				using (SqlConnection con = new SqlConnection(cs))
 				{
@@ -862,8 +885,7 @@ namespace ModelsLibrary
 						  cmd.CommandText = "UpdateEndSatniceProjekta";
 						  cmd.Parameters.AddWithValue("@Id", iDSatnicaProjekta);
 						  cmd.Parameters.AddWithValue("@End", end);
-						  cmd.Parameters.AddWithValue("@StartEnd", startEnd);
-						  cmd.Parameters.AddWithValue("@Komentar", komentar ?? "");
+						  cmd.Parameters.AddWithValue("@TotalMin", startEnd);
 
 						  return cmd.ExecuteNonQuery();
 					 }
@@ -882,8 +904,7 @@ namespace ModelsLibrary
 						  cmd.Parameters.AddWithValue("@Id", satnica.IDSatnicaProjekta);
 						  cmd.Parameters.AddWithValue("@Start", satnica.Start);
 						  cmd.Parameters.AddWithValue("@End", satnica.End);
-						  cmd.Parameters.AddWithValue("@StartEnd", satnica.StartEnd);
-						  cmd.Parameters.AddWithValue("@Komentar", satnica.Komentar ?? "");
+						  cmd.Parameters.AddWithValue("@TotalMin", satnica.TotalMin);
 
 						  return cmd.ExecuteNonQuery();
 					 }
@@ -918,8 +939,7 @@ namespace ModelsLibrary
 						  cmd.Parameters.AddWithValue("@SatnicaID", satnicaProjekta.SatnicaID);
 						  cmd.Parameters.AddWithValue("@ProjektID", satnicaProjekta.ProjektID);
 						  cmd.Parameters.AddWithValue("@Start", satnicaProjekta.Start);
-						  cmd.Parameters.AddWithValue("@StartEnd", satnicaProjekta.StartEnd);
-						  cmd.Parameters.AddWithValue("@Komentar", satnicaProjekta.Komentar ?? "");
+						  cmd.Parameters.AddWithValue("@TotalMin", satnicaProjekta.TotalMin);
 						  cmd.Parameters.Add("@Id", SqlDbType.Int);
 						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
 

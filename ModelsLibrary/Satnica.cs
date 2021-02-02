@@ -12,7 +12,7 @@ namespace ModelsLibrary
 		  public int DjelatnikID { get; set; }
 		  public DateTime Datum { get; set; }
 		  public Dictionary<int, List<SatnicaProjekta>> Satnice { get; set; }
-		  public Dictionary<int, string> ProjektZabiljezeno { get; set; }
+		  public List<Zapis> ProjektZabiljezeno { get; set; }
 		  public double Total { get; set; }
 		  public double TotalRedovni { get; set; }
 		  public double TotalPrekovremeni { get; set; }

@@ -75,6 +75,7 @@
     <Compile Include="Tim.cs" />
     <Compile Include="TipDjelatnikaEnum.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="Zapis.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -13,8 +13,8 @@ namespace ModelsLibrary
 		  public int ProjektID { get; set; }
 		  public DateTime Start { get; set; }
 		  public DateTime End { get; set; }
-		  public float StartEnd { get; set; }
-		  public string Komentar { get; set; }
+		  public float TotalMin { get; set; }
+		  public float Prekovremeni { get; set; }
 
 		  public string GetTimeString(string key)
 		  {
