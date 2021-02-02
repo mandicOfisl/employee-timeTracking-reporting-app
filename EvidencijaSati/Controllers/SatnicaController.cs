@@ -47,7 +47,7 @@ namespace EvidencijaSati.Controllers
 									 DjelatnikID = id,
 									 Satnice = new Dictionary<int, List<SatnicaProjekta>>(),
 									 ProjektZabiljezeno = new List<Zapis>(),
-									 Staus = SatnicaStatusEnum.WAITING_SUBMIT,
+									 Status = SatnicaStatusEnum.WAITING_SUBMIT,
 									 Komentar = ""
 								},
 								Projekti = Repo.GetProjektiDjelatnika(id).ToList(),
@@ -72,9 +72,9 @@ namespace EvidencijaSati.Controllers
 								model.Satnica = satniceDjelatnika.Where(s =>
 									 DateTime.Parse(s.Datum.ToString()).Date == DateTime.Now.Date).First();
 
-								if (model.Satnica.Staus == SatnicaStatusEnum.WAITING_SUBMIT)
+								if (model.Satnica.Status == SatnicaStatusEnum.WAITING_APPROVAL)
 								{
-									 RedirectToAction("", "User");
+									 return RedirectToAction("UserProfile", "User");
 								}
 
 								List<SatnicaProjekta> sps = Repo.GetSatniceProjekata(model.Satnica.IDSatnica).ToList();
@@ -288,11 +288,32 @@ namespace EvidencijaSati.Controllers
 									 id,
 									 tipDjelatnika,
 									 (int)SatnicaStatusEnum.WAITING_APPROVAL).ToList(),
-						  Projekti = Repo.GetProjektiDjelatnika(id).ToList()
+						  TimoviClanovi = new List<TimClanovi>()
 					 };
 
 					 if (model.Satnice.Count() > 0)
 					 {
+						  if (tipDjelatnika == (int) TipDjelatnikaEnum.DIREKTOR)
+						  {
+								var timovi = Repo.GetTimovi().ToList();
+
+								foreach (Tim tim in timovi)
+								{
+									 model.TimoviClanovi.Add(new TimClanovi
+									 {
+										  Tim = tim,
+										  Djelatnici = Repo.GetClanoviTima(tim.IDTim).ToList()
+									 });
+								}
+						  }
+						  else
+						  {
+								model.TimoviClanovi.Add(new TimClanovi
+								{
+									 Tim = Repo.SelectTim(model.Djelatnik.TimID),
+									 Djelatnici = Repo.GetClanoviTima(model.Djelatnik.TimID).ToList()
+								}); 
+						  }
 						  return View(model);
 					 }
 					 else

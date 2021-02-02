@@ -710,7 +710,9 @@ namespace ModelsLibrary
 								ProjektZabiljezeno = new List<Zapis>(),
 								Total = double.Parse(row[nameof(Satnica.Total)].ToString()),
 								TotalPrekovremeni = double.Parse(row[nameof(Satnica.TotalPrekovremeni)].ToString()),
-								TotalRedovni = double.Parse(row[nameof(Satnica.TotalRedovni)].ToString())
+								TotalRedovni = double.Parse(row[nameof(Satnica.TotalRedovni)].ToString()),
+								Status = (SatnicaStatusEnum)(int)row[nameof(Satnica.Status)],
+								Komentar = row[nameof(Satnica.Komentar)].ToString()
 						  };
 					 }
 
@@ -731,7 +733,7 @@ namespace ModelsLibrary
 						  cmd.Parameters.AddWithValue("@TotalRedovni", satnica.TotalRedovni);
 						  cmd.Parameters.AddWithValue("@TotalPrekovremeni", satnica.TotalPrekovremeni);
 						  cmd.Parameters.AddWithValue("@Total", satnica.Total);
-						  cmd.Parameters.AddWithValue("@Status", (int)satnica.Staus);
+						  cmd.Parameters.AddWithValue("@Status", (int)satnica.Status);
 						  cmd.Parameters.AddWithValue("@Komentar", satnica.Komentar ?? "");
 						  cmd.Parameters.Add("@Id", SqlDbType.Int);
 						  cmd.Parameters["@Id"].Direction = ParameterDirection.Output;
@@ -868,6 +870,7 @@ namespace ModelsLibrary
 								Total = double.Parse(row[nameof(Satnica.Total)].ToString()),
 								TotalPrekovremeni = double.Parse(row[nameof(Satnica.TotalPrekovremeni)].ToString()),
 								TotalRedovni = double.Parse(row[nameof(Satnica.TotalRedovni)].ToString()),
+								Status = (SatnicaStatusEnum)(int)row[nameof(Satnica.Status)],
 								Komentar = row[nameof(Satnica.Komentar)].ToString()
 						  };
 					 }
