@@ -123,6 +123,9 @@
   <data name="Detalji" xml:space="preserve">
     <value>Detalji</value>
   </data>
+  <data name="Komentar" xml:space="preserve">
+    <value>Komentar</value>
+  </data>
   <data name="Odustani" xml:space="preserve">
     <value>Odustani</value>
   </data>

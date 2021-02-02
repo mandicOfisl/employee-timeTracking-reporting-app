@@ -1,4 +1,4 @@
-﻿@model EvidencijaSati.Models.Djelatnik
+﻿@model ModelsLibrary.Djelatnik
 @using EvidencijaSati.Resources
 
 <div class="card card-body">
@@ -40,19 +40,19 @@
 				@{ 
 					 switch (Model.TipDjelatnikaID)
 					 {
-						  case EvidencijaSati.Models.TipDjelatnikaEnum.DIREKTOR:
+						  case ModelsLibrary.TipDjelatnikaEnum.DIREKTOR:
 								<span>@UserProfile.Direktor</span>
 								break;
-						  case EvidencijaSati.Models.TipDjelatnikaEnum.VODITELJ_TIMA:
+						  case ModelsLibrary.TipDjelatnikaEnum.VODITELJ_TIMA:
 								<span>@UserProfile.Voditelj_tima</span>
 								break;
-						  case EvidencijaSati.Models.TipDjelatnikaEnum.ZAPOSLENIK:
+						  case ModelsLibrary.TipDjelatnikaEnum.ZAPOSLENIK:
 								<span>@UserProfile.Zaposlenik</span>
 								break;
-						  case EvidencijaSati.Models.TipDjelatnikaEnum.HONORARNI_DJELATNIK:
+						  case ModelsLibrary.TipDjelatnikaEnum.HONORARNI_DJELATNIK:
 								<span>@UserProfile.Honorarni_djelatnik</span>
 								break;
-						  case EvidencijaSati.Models.TipDjelatnikaEnum.STUDENT:
+						  case ModelsLibrary.TipDjelatnikaEnum.STUDENT:
 								<span>Student</span>
 								break;
 						  default:

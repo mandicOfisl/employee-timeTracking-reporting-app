@@ -1,12 +1,7 @@
-﻿using EvidencijaSati.Models;
-using EvidencijaSati.Models.ViewModels;
-using ModelsLibrary;
+﻿using ModelsLibrary;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;

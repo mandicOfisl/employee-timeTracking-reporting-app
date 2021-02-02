@@ -79,6 +79,15 @@ namespace EvidencijaSati.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Komentar.
+        /// </summary>
+        public static string Komentar {
+            get {
+                return ResourceManager.GetString("Komentar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Odustani.
         /// </summary>
         public static string Odustani {

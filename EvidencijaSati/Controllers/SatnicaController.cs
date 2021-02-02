@@ -1,5 +1,4 @@
-﻿using EvidencijaSati.Models;
-using EvidencijaSati.Models.ViewModels;
+﻿using EvidencijaSati.Models.ViewModels;
 using ModelsLibrary;
 using Newtonsoft.Json;
 using System;
