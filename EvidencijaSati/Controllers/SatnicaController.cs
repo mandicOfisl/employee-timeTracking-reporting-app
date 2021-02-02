@@ -1,4 +1,5 @@
 ﻿using EvidencijaSati.Models.ViewModels;
+using EvidencijaSati.Resources;
 using ModelsLibrary;
 using Newtonsoft.Json;
 using System;
@@ -56,11 +57,11 @@ namespace EvidencijaSati.Controllers
 						  foreach (var p in model.Projekti)
 						  {
 								model.Satnica.Satnice.Add(p.IDProjekt, new List<SatnicaProjekta>
-									 {
-										  new SatnicaProjekta {
-												ProjektID = p.IDProjekt,
-										  }
-									 });
+								{
+									 new SatnicaProjekta {
+										  ProjektID = p.IDProjekt,
+									 }
+								});
 						  }
 
 						  List<Satnica> satniceDjelatnika = Repo.GetSatniceDjelatnika(id).ToList();
@@ -70,6 +71,12 @@ namespace EvidencijaSati.Controllers
 						  {
 								model.Satnica = satniceDjelatnika.Where(s =>
 									 DateTime.Parse(s.Datum.ToString()).Date == DateTime.Now.Date).First();
+
+								if (model.Satnica.Staus == SatnicaStatusEnum.WAITING_SUBMIT)
+								{
+									 RedirectToAction("", "User");
+								}
+
 								List<SatnicaProjekta> sps = Repo.GetSatniceProjekata(model.Satnica.IDSatnica).ToList();
 
 								foreach (var s in sps)
@@ -142,8 +149,7 @@ namespace EvidencijaSati.Controllers
 					 SatnicaID = sat.IDSatnica,
 					 ProjektID = satProj.ProjektID,
 					 Start = satProj.Start,
-					 End = satProj.End,
-					 TotalMin = 0
+					 End = satProj.End
 				};
 
 				sp.IDSatnicaProjekta = Repo.SpremiSatnicuProjekta(sp);
@@ -153,20 +159,22 @@ namespace EvidencijaSati.Controllers
 
 
 
-				//foreach (var s in sat.Satnice)
-				//{
-				//	 if (s.Value.Any())
-				//	 {
-				//		  var v = sat.ProjektZabiljezeno. Single(z => z.ProjectId == s.Value.First().ProjektID)
-				//		  sat.ProjektZabiljezeno[s.Value.First().ProjektID][0] =
-				//				Utils.ParseMinutesToString(Utils.CalculateProjectMinutes(s.Value));
-				//	 }
-				//}
-					
-				
+				foreach (var s in sat.Satnice)
+				{
+					 if (s.Value.Any())
+					 {
+						  sat.ProjektZabiljezeno
+								.Single(z => z.ProjectId == s.Value.First().ProjektID)
+								.RedovniPrekovremeni[0] = 
+									 Utils.ParseMinutesToString(Utils.CalculateProjectMinutes(s.Value));
+
+					 }
+				}
 
 
-            HttpContext.Session.Add(key, JsonConvert.SerializeObject(sat));
+
+
+				HttpContext.Session.Add(key, JsonConvert.SerializeObject(sat));
 
 				int row = sat.Satnice.Keys.ToList().IndexOf(satProj.ProjektID);
 								
@@ -283,7 +291,18 @@ namespace EvidencijaSati.Controllers
 						  Projekti = Repo.GetProjektiDjelatnika(id).ToList()
 					 };
 
-					 return View(model);
+					 if (model.Satnice.Count() > 0)
+					 {
+						  return View(model);
+					 }
+					 else
+					 {
+						  return View("Error", new ErrorVM
+						  {
+								Msg = Common.Nema_satnica
+						  });
+					 }
+
 				}
 				catch (Exception)
 				{

@@ -37,7 +37,7 @@ namespace ModelsLibrary
 
 				foreach (var sp in lists)
 				{
-					 total += sp.TotalMin;
+					 total += sp.TotalMin + sp.Prekovremeni;
 				}
 
 				return total;

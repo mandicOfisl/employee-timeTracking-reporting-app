@@ -135,6 +135,9 @@
   <data name="Nema_podataka" xml:space="preserve">
     <value>Nema podataka</value>
   </data>
+  <data name="Nema_satnica" xml:space="preserve">
+    <value>Trenutno nema satnica za prikaz.</value>
+  </data>
   <data name="Obrisi" xml:space="preserve">
     <value>Obriši</value>
   </data>

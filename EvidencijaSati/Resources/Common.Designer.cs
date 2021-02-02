@@ -115,6 +115,15 @@ namespace EvidencijaSati.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Trenutno nema satnica za prikaz..
+        /// </summary>
+        public static string Nema_satnica {
+            get {
+                return ResourceManager.GetString("Nema_satnica", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Obriši.
         /// </summary>
         public static string Obrisi {

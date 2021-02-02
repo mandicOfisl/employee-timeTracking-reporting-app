@@ -603,7 +603,8 @@ namespace ModelsLibrary
 								IDSatnicaProjekta = (int)row[nameof(SatnicaProjekta.IDSatnicaProjekta)],
 								ProjektID = (int)row[nameof(SatnicaProjekta.ProjektID)],
 								SatnicaID = (int)row[nameof(SatnicaProjekta.SatnicaID)],
-								Start = DateTime.Parse(row[nameof(SatnicaProjekta.Start)].ToString()),
+								Start = row[nameof(SatnicaProjekta.End)].GetType().Equals(typeof(DBNull)) ?
+										  new DateTime(0) : DateTime.Parse(row[nameof(SatnicaProjekta.Start)].ToString()),
 								End = row[nameof(SatnicaProjekta.End)].GetType().Equals(typeof(DBNull)) ?
 										  new DateTime(0) : DateTime.Parse(row[nameof(SatnicaProjekta.End)].ToString()),
 								TotalMin = float.Parse(row[nameof(SatnicaProjekta.TotalMin)].ToString()),
