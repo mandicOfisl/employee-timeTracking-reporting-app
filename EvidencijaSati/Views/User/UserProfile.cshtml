@@ -14,7 +14,15 @@
 						 data-targeturl="@Url.Action("PromijeniZaporku", "User", new { @id = Model.IDDjelatnik })">
 					 @UserProfile.Promijeni_zaporku
 			  </button>
-		 </div>
+		 </div>			 
+		  <div class="col col-4">
+				<a id="btnSatniceZaDoradu"
+					class="btn btn-outline-dark"
+					href="@Url.Action("PregledajSatniceZaDoradu", "Satnica", new { @id = Model.IDDjelatnik })">
+					 <i class="fa fa-bell"></i>
+							@UnosSati.Satnice_dorada
+				</a>
+		</div>
 	 </div>
 	 <div class="row justify-content-center">
 		  @{

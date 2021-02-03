@@ -18,14 +18,6 @@
 	 	 <div class="col col-4 dateCol">
 	 	 	 <p>@UnosSati.Bilježe_se_sati__za <b><span id="txtDatum">@Model.Satnica.Datum.ToString().Split(' ')[0]</span></b></p>
 	 	 </div>
-		  <div class="col col-4">
-				<a id="btnSatniceZaDoradu"
-					class="btn btn-outline-dark"
-					href="@Url.Action("PregledajSatniceZaDoradu", "Satnica", new { @id = Model.Djelatnik.IDDjelatnik })">
-					 <i class="fa fa-bell"></i>
-							@UnosSati.Satnice_dorada
-				</a>
-		</div>
 	 </div>
 	 <div class="row">
 	 	 <div class="card card-body">

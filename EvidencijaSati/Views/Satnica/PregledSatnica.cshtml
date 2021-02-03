@@ -137,6 +137,18 @@
 		  });
 	 });
 
+	 $('body').delegate('#btnVratiNaDoradu', 'click', function (e) {
+		  e.preventDefault();
+
+		  $.ajax({
+				url: "/Satnica/VratiSatnicu/" + $('#satnicaId').val(),
+				method: 'POST',
+				success: function (res) {
+					 console.log(res);
+				}
+		  });
+	 });
+
 
 	 function lockTextFields(trueFalse) {
 		  $('input').each(function (i) {

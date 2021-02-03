@@ -72,7 +72,7 @@ namespace EvidencijaSati.Controllers
 								model.Satnica = satniceDjelatnika.Where(s =>
 									 DateTime.Parse(s.Datum.ToString()).Date == DateTime.Now.Date).First();
 
-								if (model.Satnica.Status == SatnicaStatusEnum.WAITING_APPROVAL)
+								if (model.Satnica.Status != SatnicaStatusEnum.WAITING_SUBMIT)
 								{
 									 return RedirectToAction("UserProfile", "User");
 								}
@@ -153,11 +153,7 @@ namespace EvidencijaSati.Controllers
 				};
 
 				sp.IDSatnicaProjekta = Repo.SpremiSatnicuProjekta(sp);
-
 				sat.Satnice[satProj.ProjektID].Add(sp);
-
-
-
 
 				foreach (var s in sat.Satnice)
 				{
@@ -167,15 +163,10 @@ namespace EvidencijaSati.Controllers
 								.Single(z => z.ProjectId == s.Value.First().ProjektID)
 								.RedovniPrekovremeni[0] = 
 									 Utils.ParseMinutesToString(Utils.CalculateProjectMinutes(s.Value));
-
 					 }
 				}
 
-
-
-
 				HttpContext.Session.Add(key, JsonConvert.SerializeObject(sat));
-
 				int row = sat.Satnice.Keys.ToList().IndexOf(satProj.ProjektID);
 								
 				string[] res =
@@ -363,6 +354,9 @@ namespace EvidencijaSati.Controllers
 		  [HttpGet]
 		  public ActionResult PrikaziInfoSatnice(int satId)
 		  {
+				int tipDjelatnika = JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
+				ViewBag.TipDjelatnika = tipDjelatnika;
+
 				var satnice = Repo.GetSatniceProjekata(satId);
 
 				Satnica satnica = Repo.SelectSatnica(satId);
@@ -400,6 +394,12 @@ namespace EvidencijaSati.Controllers
 		  {
 
 				return Json(Repo.ChangeSatnicaStatus(id, SatnicaStatusEnum.APPROVED));
+		  }
+
+		  public ActionResult VratiSatnicu(int id)
+		  {
+
+				return Json(Repo.ChangeSatnicaStatus(id, SatnicaStatusEnum.REVISION_NEEDED));
 		  }
 	 }
 }

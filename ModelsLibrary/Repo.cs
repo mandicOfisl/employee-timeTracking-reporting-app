@@ -1046,7 +1046,7 @@ namespace ModelsLibrary
 		  public static IEnumerable<Satnica> SelectSatniceZaDoradu(int id)
 		  {
 				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure,
-					 "GetSatniceProjektaZaVoditelja", new SqlParameter("@Id", id)))
+					 "SelectSatniceZaDoradu", new SqlParameter("@Id", id)))
 				{
 					 foreach (DataRow row in Ds.Tables[0].Rows)
 					 {
