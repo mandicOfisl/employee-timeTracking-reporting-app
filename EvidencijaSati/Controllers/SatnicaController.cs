@@ -208,13 +208,13 @@ namespace EvidencijaSati.Controllers
 
 				if (sat.Satnice[projId].Any())
 				{
-					 //InfoSatniceProjektaVM model = new InfoSatniceProjektaVM
-					 //{
-						//  SatniceProjekta = sat.Satnice[projId],
-						//  Total = sat.ProjektZabiljezeno[projId][0]
-					 //};
+					 InfoSatniceProjektaVM model = new InfoSatniceProjektaVM
+					 {
+						  SatniceProjekta = sat.Satnice[projId],
+						  Total = "00:00"
+					 };
 
-					 //return PartialView("SatnicaProjektaInfo", model); 
+					 return PartialView("SatnicaProjektaInfo", model); 
 				}
 				return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
 		  }
