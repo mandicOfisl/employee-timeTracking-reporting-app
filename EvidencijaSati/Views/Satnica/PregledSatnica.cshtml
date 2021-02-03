@@ -7,7 +7,6 @@
 			 </div>
 	 </div>
 
-
 	  @foreach (var timClan in Model.TimoviClanovi)
 	  {
 			<div class="row">
@@ -34,15 +33,25 @@
 						  	 		 <div class="row">
 						  	 	 		  <div class="card card-body">
 						  	 	 	 			<div class="row">
-						  	 	 	 	 	 		 <div class="col text-center">@s.Datum.ToString().Split(' ')[0]</div>
-						  	 	 	 				 <div class="col text-center">@timClan.Djelatnici.Single(d => d.IDDjelatnik == s.DjelatnikID)</div>
-						  	 	 	 				 <div class="col text-center">@s.TotalRedovni</div>
-						  	 	 	 				 <div class="col text-center">@s.TotalPrekovremeni</div>
+						  	 	 	 	 	 		 <div class="col text-center">
+														  @s.Datum.ToString().Split(' ')[0]
+													 </div>
 						  	 	 	 				 <div class="col text-center">
-														  <a href="#"
-															  class="btn btn-secondary">
+														  @timClan.Djelatnici.Single(d => d.IDDjelatnik == s.DjelatnikID)
+													 </div>
+						  	 	 	 				 <div class="col text-center">
+														  @s.TotalRedovni
+													 </div>
+						  	 	 	 				 <div class="col text-center">
+														  @s.TotalPrekovremeni
+													 </div>
+						  	 	 	 				 <div class="col text-center">
+														  <button id="@("btnSatnica" + s.IDSatnica)"
+																	 class="btn btn-secondary modal-link"
+																	 type="button"
+																	 data-targeturl="@Url.Action("PrikaziInfoSatnice", new { @satId = s.IDSatnica })">
 																<i class="fa fa-info"></i>
-														  </a>
+														  </button>
 													 </div>
 						  	 	 				</div>
 						  	 			  </div>
@@ -57,3 +66,135 @@
 	  }
 
 </div>
+
+<div id="modal-container" class="modal" tabindex="-1" role="dialog">
+	 <a href="#close" title="Close" class="modal-close-btn">X</a>
+	 <div class="modal-content">
+	 	 <div class="modal-body"></div>
+	 </div>
+</div>
+
+<script type="text/javascript">
+	 const regex = new RegExp('^\\d{1,2}[:]\\d{1,2}$');
+
+	 $(function () {
+		  $('body').on('click', '.modal-link', function (e) {
+				e.preventDefault();
+				$("#modal-container").remove();
+				$.get($(this).data("targeturl"), function (data) {
+					 $('<div id="modal-container" class="modal fade">' +
+						  '<div class="modal-dialog modal-xl modal-dialog-centered" role="document">' +
+						  data + '</div></div> ').modal();
+				});
+		  });
+	 });
+
+	 $('body').delegate('input', 'change', function (e) {
+		  e.preventDefault;
+		  $('#btnSpremi').prop('disabled', false);
+		  $('#btnPotvrdi').prop('disabled', true);
+	 });
+
+	 $('body').delegate('#btnSpremi', 'click', function (e) {
+		  e.preventDefault();
+
+		  var totR = document.getElementById("txtTotalRedovni").innerHTML.trim();
+		  var totP = document.getElementById("txtTotalPrekovremeni").innerHTML.trim();;
+
+		  var model = {
+				IDSatnica: $('#satnicaId').val(),
+				DjelatnikID: 0,
+				Datum: new Date(),
+				ProjektZabiljezeno: getProjektZabiljezeno(),
+				Total: parseStringMinutesToFloat(addHoursMinutes(totR, totP)),
+				TotalRedovni: parseStringMinutesToFloat(totR),
+				TotalPrekovremeni: parseStringMinutesToFloat(totP),
+				Komentar: document.getElementById("txtKomentar").value
+		  };
+
+		  $.ajax({
+				url: "/Satnica/SpremiZaPredaju",
+				method: "POST",
+				data: JSON.stringify(model),
+				contentType: 'application/json',
+				success: function (res) {
+					 if (res > 0) {
+						  $('#btnPotvrdi').prop('disabled', false);
+					 }
+				}
+		  });
+	 });
+
+	 $('body').delegate('#btnPotvrdi', 'click', function (e) {
+		  e.preventDefault();
+
+		  $.ajax({
+				url: "/Satnica/PotvrdiSatnicu/" + $('#satnicaId').val(),
+				method: 'POST',
+				success: function (res) {
+					 console.log(res);
+				}
+		  });
+	 });
+
+
+	 function lockTextFields(trueFalse) {
+		  $('input').each(function (i) {
+				if ($(this).attr('id') != "txtKomentar") {
+					 $(this).prop('disabled', trueFalse);
+				}
+		  });		   
+	 }
+
+	 function getProjektZabiljezeno() {
+		  var zapisi = new Array();
+		  var id;
+
+		  $('.zabiljezeno').each(function (i) {
+				id = $(this).attr('id').split('txtZab')[1];
+				var redovni = '#txtRadni' + id;
+				var prekovremeni = '#txtPrekovremeni' + id;
+
+				zapis = {
+					 ProjectId: parseInt(id),
+					 RedovniPrekovremeni: [
+						  $(redovni).val(),
+						  $(prekovremeni).val()
+					 ]
+				};
+				zapisi[i] = zapis;
+		  });
+		  return zapisi;
+	 }
+
+	 function parseStringMinutesToFloat(str) {
+		  var s = (str != '' && regex.test(str)) ? str.split(':') : ['00', '00'];
+
+		  var h = parseInt(s[0]);
+		  var m = parseInt(s[1]);
+
+		  return (h * 60) + m;
+	 }
+
+	 function addHoursMinutes(first, second) {
+		  var f = (first != '' && regex.test(first)) ? first.split(':') : ['00', '00'];
+		  var s = (second != '' && regex.test(second)) ? second.split(':') : ['00', '00'];
+
+		  var fH = parseInt(f[0]);
+		  var sH = parseInt(s[0]);
+		  var fM = parseInt(f[1]);
+		  var sM = parseInt(s[1]);
+
+		  var newH = fH + sH;
+		  var newM = fM + sM;
+
+		  if (newM > 59) {
+				newH += 1;
+				newM -= 60;
+		  }
+
+		  return newH.toString().padStart(2, '0') + ":" + newM.toString().padStart(2, '0');
+	 }
+
+
+</script>

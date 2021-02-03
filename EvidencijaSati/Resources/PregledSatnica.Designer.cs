@@ -22,7 +22,7 @@ namespace EvidencijaSati.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class PregledSatnica {
+    public class PregledSatnica {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace EvidencijaSati.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EvidencijaSati.Resources.PregledSatnica", typeof(PregledSatnica).Assembly);
@@ -51,7 +51,7 @@ namespace EvidencijaSati.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,11 +61,47 @@ namespace EvidencijaSati.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Detalji.
         /// </summary>
-        internal static string Odaberi_datum {
+        public static string Detalji {
             get {
-                return ResourceManager.GetString("Odaberi_datum", resourceCulture);
+                return ResourceManager.GetString("Detalji", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Potvrdi.
+        /// </summary>
+        public static string Potvrdi {
+            get {
+                return ResourceManager.GetString("Potvrdi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Predaj.
+        /// </summary>
+        public static string Predaj {
+            get {
+                return ResourceManager.GetString("Predaj", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spremi.
+        /// </summary>
+        public static string Şpremi {
+            get {
+                return ResourceManager.GetString("Şpremi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vrati na doradu.
+        /// </summary>
+        public static string Vrati_na_doradu {
+            get {
+                return ResourceManager.GetString("Vrati_na_doradu", resourceCulture);
             }
         }
     }

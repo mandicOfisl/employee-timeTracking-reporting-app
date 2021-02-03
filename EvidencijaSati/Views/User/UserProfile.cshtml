@@ -15,19 +15,6 @@
 					 @UserProfile.Promijeni_zaporku
 			  </button>
 		 </div>
-		  @{ 
-				if ((int)Model.TipDjelatnikaID == 1 || (int)Model.TipDjelatnikaID == 2)
-				{
-					 <div class="col">
-						  <a id="btnPregledajSatnice"
-							  class="btn btn-secondary"
-							  href="@Url.Action("PregledajSatnice", "Satnica")">
-								<i class="fa fa-search"></i>
-									 @UserProfile.Pregledaj_satnice
-						  </a>
-					 </div>
-				}
-		  }
 	 </div>
 	 <div class="row justify-content-center">
 		  @{

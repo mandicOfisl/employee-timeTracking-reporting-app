@@ -272,6 +272,35 @@ namespace EvidencijaSati.Controllers
 				else return View("Error");
 		  }
 
+		  public ActionResult PregledajSatniceZaDoradu(int id)
+		  {
+				try
+				{
+					 int tipDjelatnika = 
+						  JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
+					 ViewBag.TipDjelatnika = tipDjelatnika;
+
+					 PregledSatnicaVM model = new PregledSatnicaVM
+					 {
+						  Djelatnik = Repo.SelectDjelatnik(id),
+						  Satnice = Repo.SelectSatniceZaDoradu(id).ToList(),
+						  TimoviClanovi = new List<TimClanovi>()
+					 };
+
+					 model.TimoviClanovi.Add(new TimClanovi
+					 {
+						  Tim = Repo.SelectTim(model.Djelatnik.TimID),
+						  Djelatnici = new List<Djelatnik> { model.Djelatnik }
+					 });
+
+					 return View("PregledSatnica", model);
+				}
+				catch (Exception)
+				{
+					 return RedirectToAction("Login", "Home");
+				}
+		  }
+
 		  public ActionResult PregledSatnica()
 		  {
 				try
@@ -329,6 +358,48 @@ namespace EvidencijaSati.Controllers
 				{
 					 return RedirectToAction("Login", "Home");
 				}
+		  }
+
+		  [HttpGet]
+		  public ActionResult PrikaziInfoSatnice(int satId)
+		  {
+				var satnice = Repo.GetSatniceProjekata(satId);
+
+				Satnica satnica = Repo.SelectSatnica(satId);
+
+				TablePartialVM model = new TablePartialVM
+				{
+					 SatnicaId = satId,
+					 Projekti = new Dictionary<Projekt, List<string>>(),
+					 Totals = new List<string>
+					 {
+						  Utils.ParseMinutesToString(float.Parse(satnica.TotalRedovni.ToString())),
+						  Utils.ParseMinutesToString(float.Parse(satnica.TotalPrekovremeni.ToString())),
+						  Utils.ParseMinutesToString(float.Parse(satnica.Total.ToString()))
+					 },
+					 Komentar = satnica.Komentar
+				};
+
+				foreach (var s in satnice)
+				{
+					 model.Projekti.Add(
+						  Repo.SelectProjekt(s.ProjektID),
+						  new List<string>
+						  {
+								Utils.ParseMinutesToString(s.TotalMin),
+								Utils.ParseMinutesToString(s.Prekovremeni),
+								Utils.ParseMinutesToString(s.TotalMin + s.Prekovremeni)
+						  }
+					 );
+				}
+
+				return PartialView("SatnicaTablePartial", model);
+		  }
+
+		  public ActionResult PotvrdiSatnicu(int id)
+		  {
+
+				return Json(Repo.ChangeSatnicaStatus(id, SatnicaStatusEnum.APPROVED));
 		  }
 	 }
 }

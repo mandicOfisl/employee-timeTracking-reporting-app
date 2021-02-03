@@ -758,8 +758,6 @@ namespace ModelsLibrary
 						  {
 								if (dr.Read())
 								{
-									 DateTime dz;
-
 									 return new Projekt
 									 {
 										  IDProjekt = (int)dr[nameof(Projekt.IDProjekt)],
@@ -767,7 +765,7 @@ namespace ModelsLibrary
 										  KlijentID = (int)dr[nameof(Projekt.KlijentID)],
 										  DatumOtvaranja = DateTime.Parse(dr[nameof(Projekt.DatumOtvaranja)].ToString()),
 										  VoditeljProjektaID = (int)dr[nameof(Projekt.VoditeljProjektaID)],
-										  DatumZatvaranja = DateTime.TryParse(dr[nameof(Projekt.DatumZatvaranja)].ToString(), out dz) ?
+										  DatumZatvaranja = DateTime.TryParse(dr[nameof(Projekt.DatumZatvaranja)].ToString(), out DateTime dz) ?
 												dz : DateTime.Parse(dr[nameof(Projekt.DatumOtvaranja)].ToString()),
 										  IsActive = (int)dr[nameof(Projekt.IsActive)] == 1
 									 };
@@ -853,7 +851,6 @@ namespace ModelsLibrary
 					 "GetSatniceProjektaZaVoditelja",
 						  new SqlParameter[]{
 								new SqlParameter("@IdVoditelj", idVoditeljDirektor),
-
 								new SqlParameter("@IdTip", tipDjelatnika),
 								new SqlParameter("@IdStatus", status)
 						  }))
@@ -1006,6 +1003,65 @@ namespace ModelsLibrary
 								DatumZatvaranja = DateTime.TryParse(row[nameof(Projekt.DatumZatvaranja)].ToString(), out dz) ?
 									 dz : DateTime.Parse(row[nameof(Projekt.DatumOtvaranja)].ToString()),
 								IsActive = (int)row[nameof(Projekt.IsActive)] == 1
+						  };
+					 }
+
+				}
+		  }
+
+		  public static Satnica SelectSatnica(int idSatnica)
+		  {
+				using (SqlConnection con = new SqlConnection(cs))
+				{
+					 con.Open();
+					 using (SqlCommand cmd = con.CreateCommand())
+					 {
+						  cmd.CommandType = CommandType.StoredProcedure;
+						  cmd.CommandText = "SelectSatnica";
+						  cmd.Parameters.AddWithValue("@Id", idSatnica);
+						  using (SqlDataReader dr = cmd.ExecuteReader())
+						  {
+								if (dr.Read())
+								{
+									 return new Satnica
+									 {
+										  IDSatnica = (int)dr[nameof(Satnica.IDSatnica)],
+										  DjelatnikID = (int)dr[nameof(Satnica.DjelatnikID)],
+										  Datum = DateTime.Parse(dr[nameof(Satnica.Datum)].ToString()),
+										  Satnice = new Dictionary<int, List<SatnicaProjekta>>(),
+										  ProjektZabiljezeno = new List<Zapis>(),
+										  Total = double.Parse(dr[nameof(Satnica.Total)].ToString()),
+										  TotalPrekovremeni = double.Parse(dr[nameof(Satnica.TotalPrekovremeni)].ToString()),
+										  TotalRedovni = double.Parse(dr[nameof(Satnica.TotalRedovni)].ToString()),
+										  Status = (SatnicaStatusEnum)(int)dr[nameof(Satnica.Status)],
+										  Komentar = dr[nameof(Satnica.Komentar)].ToString()
+									 };
+								}
+						  }
+					 }
+					 throw new Exception("No can do!");
+				}
+		  }
+
+		  public static IEnumerable<Satnica> SelectSatniceZaDoradu(int id)
+		  {
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure,
+					 "GetSatniceProjektaZaVoditelja", new SqlParameter("@Id", id)))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {
+						  yield return new Satnica
+						  {
+								IDSatnica = (int)row[nameof(Satnica.IDSatnica)],
+								DjelatnikID = (int)row[nameof(Satnica.DjelatnikID)],
+								Datum = DateTime.Parse(row[nameof(Satnica.Datum)].ToString()),
+								Satnice = new Dictionary<int, List<SatnicaProjekta>>(),
+								ProjektZabiljezeno = new List<Zapis>(),
+								Total = double.Parse(row[nameof(Satnica.Total)].ToString()),
+								TotalPrekovremeni = double.Parse(row[nameof(Satnica.TotalPrekovremeni)].ToString()),
+								TotalRedovni = double.Parse(row[nameof(Satnica.TotalRedovni)].ToString()),
+								Status = (SatnicaStatusEnum)(int)row[nameof(Satnica.Status)],
+								Komentar = row[nameof(Satnica.Komentar)].ToString()
 						  };
 					 }
 

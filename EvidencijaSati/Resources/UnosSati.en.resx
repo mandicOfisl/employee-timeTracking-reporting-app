@@ -150,6 +150,9 @@
   <data name="Radni_sati" xml:space="preserve">
     <value>Work hours</value>
   </data>
+  <data name="Satnice_dorada" xml:space="preserve">
+    <value>View revision-needed timetables</value>
+  </data>
   <data name="Spremi" xml:space="preserve">
     <value>Save</value>
   </data>

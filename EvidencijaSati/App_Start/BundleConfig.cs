@@ -16,6 +16,9 @@ namespace EvidencijaSati
 
 				bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
 								"~/Scripts/jquery.dataTables.min.js"));
+				
+				bundles.Add(new ScriptBundle("~/bundles/unosSati").Include(
+								"~/Scripts/unosSati.js"));
 
 				// Use the development version of Modernizr to develop with and learn from. Then, when you're
 				// ready for production, use the build tool at https://modernizr.com to pick only the tests you need.

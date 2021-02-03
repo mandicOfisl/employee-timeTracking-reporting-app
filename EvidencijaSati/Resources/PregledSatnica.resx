@@ -117,7 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Odaberi_datum" xml:space="preserve">
-    <value />
+  <data name="Detalji" xml:space="preserve">
+    <value>Detalji</value>
+  </data>
+  <data name="Potvrdi" xml:space="preserve">
+    <value>Potvrdi</value>
+  </data>
+  <data name="Predaj" xml:space="preserve">
+    <value>Predaj</value>
+  </data>
+  <data name="Vrati_na_doradu" xml:space="preserve">
+    <value>Vrati na doradu</value>
+  </data>
+  <data name="Şpremi" xml:space="preserve">
+    <value>Spremi</value>
   </data>
 </root>

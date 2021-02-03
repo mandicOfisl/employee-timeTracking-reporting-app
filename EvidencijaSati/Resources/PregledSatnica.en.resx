@@ -117,52 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Bilježe_se_sati_ za" xml:space="preserve">
-    <value>Bilježe se sati za</value>
-  </data>
   <data name="Detalji" xml:space="preserve">
-    <value>Detalji</value>
+    <value>Details</value>
   </data>
-  <data name="Komentar" xml:space="preserve">
-    <value>Komentar</value>
-  </data>
-  <data name="Odustani" xml:space="preserve">
-    <value>Odustani</value>
-  </data>
-  <data name="Pozdrav" xml:space="preserve">
-    <value>Pozdrav</value>
+  <data name="Potvrdi" xml:space="preserve">
+    <value>Approve</value>
   </data>
   <data name="Predaj" xml:space="preserve">
-    <value>Predaj</value>
+    <value>Submit</value>
   </data>
-  <data name="Prekovremeni_sati" xml:space="preserve">
-    <value>Prekovremeni sati</value>
+  <data name="Vrati_na_doradu" xml:space="preserve">
+    <value>Send back</value>
   </data>
-  <data name="Profil" xml:space="preserve">
-    <value>Profil</value>
-  </data>
-  <data name="Projekt" xml:space="preserve">
-    <value>Projekt</value>
-  </data>
-  <data name="Promjene_spremljene" xml:space="preserve">
-    <value>Promjene spremljene!</value>
-  </data>
-  <data name="Radni_sati" xml:space="preserve">
-    <value>Radni sati</value>
-  </data>
-  <data name="Satnice_dorada" xml:space="preserve">
-    <value>Pregledaj satnice za doradu</value>
-  </data>
-  <data name="Spremi" xml:space="preserve">
-    <value>Spremi</value>
-  </data>
-  <data name="Ukupno" xml:space="preserve">
-    <value>Ukupno</value>
-  </data>
-  <data name="Uredi" xml:space="preserve">
-    <value>Uredi</value>
-  </data>
-  <data name="Zabiljezeno" xml:space="preserve">
-    <value>Zabilježeno</value>
+  <data name="Şpremi" xml:space="preserve">
+    <value>Save</value>
   </data>
 </root>

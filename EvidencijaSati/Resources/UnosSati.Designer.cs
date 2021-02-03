@@ -160,6 +160,15 @@ namespace EvidencijaSati.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pregledaj satnice za doradu.
+        /// </summary>
+        public static string Satnice_dorada {
+            get {
+                return ResourceManager.GetString("Satnice_dorada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spremi.
         /// </summary>
         public static string Spremi {

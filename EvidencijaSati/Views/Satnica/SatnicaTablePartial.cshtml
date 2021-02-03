@@ -1,0 +1,129 @@
+﻿@model EvidencijaSati.Models.ViewModels.TablePartialVM
+@using EvidencijaSati.Resources
+
+<div class="modal-content">
+    <div class="modal-header">
+        @PregledSatnica.Detalji
+        <button type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+			@Html.HiddenFor(m => m.SatnicaId, new { @id = "satnicaId" })
+		  <div class="container">
+				<div class="row">
+	 				<div class="card card-body">
+
+	 	 				<table id="table" style="width: 100%">
+	 	 	 				<thead>
+	 	 	 	 				<tr>
+									<th>@UnosSati.Projekt</th>
+									<th>@UnosSati.Ukupno</th>
+									<th>@UnosSati.Radni_sati</th>
+									<th>@UnosSati.Prekovremeni_sati</th>
+	 	 	 	 				</tr>
+	 	 	 				</thead>
+	 	 	 				<tbody>
+	 	 	 	 				@foreach (var p in Model.Projekti)
+								{
+	 	 	 	 					 <tr class="rowProjekt">
+	 	 	 	 	 					  <td>@p.Key.Naziv</td>
+	 	 	 							  <td id="@("txtZab" + p.Key.IDProjekt.ToString())" class="zabiljezeno">
+	 	 	 	 								@p.Value[2]
+	 	 	 							  </td>
+	 	 	 							  <td>
+												@Html.TextBoxFor(m => m.Projekti[p.Key][0], 
+														  new { @class = "form-control",
+																	 @type = "text",
+																	 @id = "txtRadni" + p.Key.IDProjekt.ToString()})
+	 	 	 							  </td>
+	 	 	 							  <td>
+												@Html.TextBoxFor(m => m.Projekti[p.Key][1], 
+														  new { @class = "form-control",
+																	 @type = "text",
+																	 @id = "txtPrekovremeni" + p.Key.IDProjekt.ToString()})
+	 	 	 	 					 
+	 	 	 							  </td>
+	 	 							 </tr>
+								}
+	 	 						</tbody>
+	 	 						<tfoot>
+	 	 	 						 <tr>
+										  <td>@UnosSati.Ukupno</td>
+	 	 	 							  <td>@Html.DisplayFor(m => m.Totals[2])</td>
+	 	 	 							  <td><b><span id="txtTotalRedovni">@Html.DisplayFor(m => m.Totals[0])</span></b></td>
+										  <td><b><span id="txtTotalPrekovremeni">@Html.DisplayFor(m => m.Totals[1])</span></b></td>
+	 	 							 </tr>
+	 							</tfoot>
+						  </table>
+					 </div>
+				</div>
+
+				<div class="row">
+	 				<div class="col-3">
+	 					  <p>@UnosSati.Komentar</p>
+					</div>
+	 				<div class="col">
+	 					 @Html.TextAreaFor(m => m.Komentar, 
+							new { 
+								 @class = "form-control",
+								 @id = "txtKomentar"
+							})
+					</div>
+				</div>
+
+				@if (ViewBag.TipDjelatnika < 3)
+				{
+					 <div class="row">
+						  <div class="col">
+								<button id="btnVratiNaDoradu"
+										  class="btn btn-outline-danger"
+										  type="button">
+									@PregledSatnica.Vrati_na_doradu
+								</button>
+						  </div>
+						  <div class="col">
+					 		  <button id="btnSpremi"
+										  class="btn btn-success"
+										 type="button"
+										disabled>
+					 	 			 @PregledSatnica.Şpremi
+					 		  </button>
+						  </div>
+						  <div class="col">
+					 		  <button id="btnPotvrdi"
+									 class="btn btn-warning"
+										 type="button">
+					 	 			 @PregledSatnica.Potvrdi
+					 		  </button>
+						  </div>
+					 </div>
+				}
+				else
+				{
+					 <div class="row">
+						  <div class="col">
+								<button id="btnSpremi"
+										  class="btn btn-success"
+										  type="button"
+										  disabled>
+									 @PregledSatnica.Şpremi
+								</button>
+						  </div>
+						  <div class="col">
+					 		  <button id="btnPotvrdi"
+									 class="btn btn-warning"
+										 type="button">
+					 	 			 @PregledSatnica.Predaj
+					 		  </button>
+						  </div>
+					 </div>
+				}
+
+		  </div>
+
+	 </div>
+</div>
