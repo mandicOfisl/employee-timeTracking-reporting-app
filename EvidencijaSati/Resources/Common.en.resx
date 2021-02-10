@@ -126,6 +126,9 @@
   <data name="Jezik" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="Kriva_zaporka" xml:space="preserve">
+    <value>Incorrect email or password!</value>
+  </data>
   <data name="Krivi_unos" xml:space="preserve">
     <value>Invalid input</value>
   </data>

@@ -88,6 +88,15 @@ namespace EvidencijaSati.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pogrešan email ili zaporka.
+        /// </summary>
+        public static string Kriva_zaporka {
+            get {
+                return ResourceManager.GetString("Kriva_zaporka", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Krivi unos.
         /// </summary>
         public static string Krivi_unos {

@@ -150,14 +150,12 @@ namespace Report
 
 		  protected void BtnSave_Click(object sender, EventArgs e)
 		  {
-				DateTime dz;
-
 				Projekt p = new Projekt
 				{
 					 Naziv = txtNaziv.Text,
 					 KlijentID = int.Parse(ddlKlijent.SelectedValue),
 					 DatumOtvaranja = DateTime.Parse(txtDatumOtvaranja.Text),
-					 DatumZatvaranja = DateTime.TryParse(txtDatumZatvaranja.Text, out dz) ?
+					 DatumZatvaranja = DateTime.TryParse(txtDatumZatvaranja.Text, out DateTime dz) ?
 						  dz : DateTime.Parse(txtDatumOtvaranja.Text),
 					 VoditeljProjektaID = int.Parse(ddlVoditeljProjekta.SelectedValue)
 				};

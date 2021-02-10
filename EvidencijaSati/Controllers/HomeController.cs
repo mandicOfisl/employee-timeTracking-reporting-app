@@ -1,4 +1,6 @@
-﻿using ModelsLibrary;
+﻿using EvidencijaSati.Models.ViewModels;
+using EvidencijaSati.Resources;
+using ModelsLibrary;
 using Newtonsoft.Json;
 using System;
 using System.Globalization;
@@ -33,12 +35,17 @@ namespace EvidencijaSati.Controllers
 					 }
 					 else
 					 {						  
-						  return View("Error");
+						  return View("Error", new ErrorVM { 
+								Msg = Common.Kriva_zaporka
+						  });
 					 }
 				}
 				catch (Exception)
 				{
-					 return View("Error");
+					 return View("Error", new ErrorVM
+					 {
+						  Msg = Common.Kriva_zaporka
+					 });
 				}
 		  }
 

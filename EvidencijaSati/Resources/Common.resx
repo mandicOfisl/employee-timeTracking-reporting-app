@@ -126,6 +126,9 @@
   <data name="Jezik" xml:space="preserve">
     <value>Jezik</value>
   </data>
+  <data name="Kriva_zaporka" xml:space="preserve">
+    <value>Pogrešan email ili zaporka</value>
+  </data>
   <data name="Krivi_unos" xml:space="preserve">
     <value>Krivi unos</value>
   </data>
