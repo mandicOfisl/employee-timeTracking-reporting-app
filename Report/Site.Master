@@ -40,7 +40,12 @@
 
         <div class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
 				
-            <a class="navbar-brand" runat="server" href="~/">Izvještavanje</a>
+				<asp:HyperLink 
+                NavigateUrl="~/" 
+                runat="server"
+                ID="navBrand"
+                CssClass="navbar-brand"
+                Text="Izvještavanje" meta:resourcekey="navBrandResource1"/>
             <button class="navbar-toggler" 
                     type="button" 
                     data-toggle="collapse" 
@@ -57,14 +62,14 @@
                             NavigateUrl="~/NewReport.aspx" 
                             runat="server" 
                             CssClass="navbar-link btn btn-warning"
-                            Text="Novi izvještaj"/>
+                            Text="Novi izvještaj" meta:resourcekey="HyperLinkResource1"/>
                     </li>
                     <li class="nav-item" style="margin: 1vh 2vw;" id="linkAdministracija" runat="server">
                         <asp:HyperLink 
                             NavigateUrl="~/Administracija.aspx"
                             runat="server"
                             CssClass="navbar-link btn btn-outline-success"
-                            Text="Administracija"/>
+                            Text="Administracija" meta:resourcekey="HyperLinkResource2"/>
                     </li>
                 </ul>
 					 <div class="form-inline">
@@ -73,8 +78,8 @@
                         runat="server"
                         ID="BtnOdjava"
                         CssClass="btn btn-outline-danger navbar-link"
-                        CausesValidation="false"
-                        OnClick="BtnOdjava_Click"/>
+                        CausesValidation="False"
+                        OnClick="BtnOdjava_Click" meta:resourcekey="BtnOdjavaResource1"/>
                     
                     <div class="dropdown" style="margin: 0 5vw;">
 								<button
@@ -92,14 +97,14 @@
                                 ID="BtnHrv"
                                 OnClick="BtnHrv_Click"
                                 CssClass="dropdown-item"
-                                CausesValidation="false"/>
+                                CausesValidation="False" meta:resourcekey="BtnHrvResource1"/>
                             <asp:Button 
                                 Text="Eng" 
                                 runat="server"
                                 ID="BtnEng"
                                 OnClick="BtnEng_Click"
                                 CssClass="dropdown-item"
-                                CausesValidation="false"/>
+                                CausesValidation="False" meta:resourcekey="BtnEngResource1"/>
 <%--	                         <a href="~/" class="dropdown-item">Hrv</a>
 	                         <a href="~/" class="dropdown-item">Eng</a>--%>
                         </div>
