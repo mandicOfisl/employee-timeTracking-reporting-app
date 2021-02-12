@@ -42,5 +42,24 @@ namespace ModelsLibrary
 
 				return total;
 		  }
+
+		  public static string AddStringHoursMinutes(string first, string second)
+		  {
+				int fH = int.Parse(first.Split(':')[0]);
+				int fM = int.Parse(first.Split(':')[1]);
+				int sH = int.Parse(second.Split(':')[0]);
+				int sM = int.Parse(second.Split(':')[1]);
+
+				int h = fH + sH;
+				int m = fM + sM;
+
+				if (m > 59)
+				{
+					 h += 1;
+					 m -= 60;
+				}
+
+				return h.ToString().PadLeft(2, '0') + ":" + m.ToString().PadLeft(2, '0');
+		  }
 	 }
 }

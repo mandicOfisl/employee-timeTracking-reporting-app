@@ -15,6 +15,15 @@ namespace Report
 	 {
 
 		  /// <summary>
+		  /// lblProjekti control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblProjekti;
+
+		  /// <summary>
 		  /// LbProjekti control.
 		  /// </summary>
 		  /// <remarks>
@@ -33,6 +42,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.HiddenField hiddenIdProjekt;
 
 		  /// <summary>
+		  /// lblNaziv control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblNaziv;
+
+		  /// <summary>
 		  /// txtNaziv control.
 		  /// </summary>
 		  /// <remarks>
@@ -40,6 +58,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.TextBox txtNaziv;
+
+		  /// <summary>
+		  /// lblKlijent control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblKlijent;
 
 		  /// <summary>
 		  /// ddlKlijent control.
@@ -51,6 +78,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.DropDownList ddlKlijent;
 
 		  /// <summary>
+		  /// lblDatumOtvaranja control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblDatumOtvaranja;
+
+		  /// <summary>
 		  /// txtDatumOtvaranja control.
 		  /// </summary>
 		  /// <remarks>
@@ -60,6 +96,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.TextBox txtDatumOtvaranja;
 
 		  /// <summary>
+		  /// lblDatumZatvaranja control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblDatumZatvaranja;
+
+		  /// <summary>
 		  /// txtDatumZatvaranja control.
 		  /// </summary>
 		  /// <remarks>
@@ -67,6 +112,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.TextBox txtDatumZatvaranja;
+
+		  /// <summary>
+		  /// lblVoditeljProjekta control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblVoditeljProjekta;
 
 		  /// <summary>
 		  /// ddlVoditeljProjekta control.
@@ -123,6 +177,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.Button BtnSave;
 
 		  /// <summary>
+		  /// lblZaposleniNaProjektu control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblZaposleniNaProjektu;
+
+		  /// <summary>
 		  /// LbZaposleniNaProjektu control.
 		  /// </summary>
 		  /// <remarks>
@@ -139,6 +202,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.Button BtnUkloniDjelatnika;
+
+		  /// <summary>
+		  /// lblDjelatnik control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblDjelatnik;
 
 		  /// <summary>
 		  /// DdlDjelatnik control.

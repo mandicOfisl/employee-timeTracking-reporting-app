@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageTim.aspx.cs" Inherits="Report.ManageTim" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageTim.aspx.cs" Inherits="Report.ManageTim" meta:resourcekey="PageResource1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 	 <link href="Content/manage.css" rel="stylesheet" />
 </asp:Content>
@@ -10,93 +10,108 @@
 				<div class="col form-group">
 					 <asp:HiddenField
 						  runat="server"
-						  ID="hiddenIdTim"
-						  value=""/>
-					 <label>Timovi</label>
+						  ID="hiddenIdTim"/>
+					 <asp:Label 
+						  Text="Timovi" 
+						  runat="server"
+						  ID="lblTimovi" 
+						  Font-Bold="True" meta:resourcekey="lblTimoviResource1" />
 					 <asp:ListBox 
 						  runat="server" 
 						  ID="LbTimovi"
-						  AutoPostBack="true"
+						  AutoPostBack="True"
 						  OnSelectedIndexChanged="LbTimovi_SelectedIndexChanged"
 						  CssClass="form-control"
-						  Height="250">
+						  Height="250px" meta:resourcekey="LbTimoviResource1">
 					 </asp:ListBox>
 				</div>
 				<div class="col col-6 form-group">
+					 <asp:Label 
+						  Text="Ime" 
+						  runat="server"
+						  ID="lblIme" 
+						  Font-Bold="True" meta:resourcekey="lblImeResource1" />
 					 <asp:RequiredFieldValidator 
 									 ErrorMessage="Ime obavezno"
 									 ControlToValidate="txtIme"
 									 Text="*"
-									 runat="server" />
-					 <label>Ime</label>
+									 runat="server" meta:resourcekey="RequiredFieldValidatorResource1" />
 					 <asp:TextBox 
 						  runat="server"
 						  ID="txtIme"
 						  CssClass="form-control"
-						  Enabled="false"/>
+						  Enabled="False" meta:resourcekey="txtImeResource1"/>
 
+					 <asp:Label 
+						  Text="Datum kreiranja" 
+						  runat="server"
+						  ID="lblDatumKreiranja" 
+						  Font-Bold="True" meta:resourcekey="lblDatumKreiranjaResource1" />
 					 <asp:RequiredFieldValidator 
 									 ErrorMessage="Datum obavezan" 
 									 ControlToValidate="txtDatum"
 									 Text="*"
-									 runat="server" />
-					 <label>Datum kreiranja</label>
+									 runat="server" meta:resourcekey="RequiredFieldValidatorResource2" />
 					 <asp:TextBox 
 						  runat="server"
 						  ID="txtDatum"
 						  CssClass="form-control"
 						  TextMode="Date"
-						  Enabled="false"/>
+						  Enabled="False" meta:resourcekey="txtDatumResource1"/>
 
 					 <div class="form-group btnRow text-center">
 						  <asp:Button 
 								Text="Uredi" 
 								runat="server"
 								ID="BtnEdit"
-								Enabled="false"
+								Enabled="False"
 								OnClick="BtnEdit_Click"
-								CausesValidation="false"
-								CssClass="btn btn-primary"/>
+								CausesValidation="False"
+								CssClass="btn btn-primary" meta:resourcekey="BtnEditResource1"/>
 						  <asp:Button 
 								Text="Dodaj" 
 								runat="server"
 								ID="BtnAdd"
-								CausesValidation="false"
+								CausesValidation="False"
 								OnClick="BtnAdd_Click"
-								CssClass="btn btn-warning"/>
+								CssClass="btn btn-warning" meta:resourcekey="BtnAddResource1"/>
 						  <asp:Button 
 								Text="Aktiviraj" 
 								runat="server"
 								ID="BtnAktiviraj"
 								OnClick="BtnAktiviraj_Click"
-								CausesValidation="false"
-								Enabled="false"
-								CssClass="btn btn-outline-success"/>
+								CausesValidation="False"
+								Enabled="False"
+								CssClass="btn btn-outline-success" meta:resourcekey="BtnAktivirajResource1"/>
 						  <asp:Button 
 								Text="Deaktiviraj" 
 								runat="server"
 								ID="BtnDeaktiviraj"
 								OnClick="BtnDeaktiviraj_Click"
-								CausesValidation="false"
-								Enabled="false"
-								CssClass="btn btn-outline-danger"/>
+								CausesValidation="False"
+								Enabled="False"
+								CssClass="btn btn-outline-danger" meta:resourcekey="BtnDeaktivirajResource1"/>
 						  <asp:Button 
 								Text="Spremi" 
 								runat="server"
 								ID="BtnSave"
-								Enabled="false"
+								Enabled="False"
 								OnClick="BtnSave_Click"
-								CssClass="btn btn-success"/>
+								CssClass="btn btn-success" meta:resourcekey="BtnSaveResource1"/>
 					 </div>
 				</div>
 
 				<div class="col form-group">
-					 <label>Članovi tima</label>
+					 <asp:Label 
+						  Text="Članovi tima" 
+						  runat="server"
+						  ID="lblClanovi" 
+						  Font-Bold="True" meta:resourcekey="lblClanoviResource1" />
 					 <asp:ListBox 
 						  runat="server"
 						  ID="lbClanoviTima"
 						  CssClass="form-control"
-						  Height="250">
+						  Height="250px" meta:resourcekey="lbClanoviTimaResource1">
 					 </asp:ListBox>
 				</div>
 		  </div>

@@ -68,26 +68,27 @@ $(document).ready(function () {
 				$(this).addClass('btn-danger');
 				$(this).html('Stop');
 
+				$('#btnOdustani').prop('disabled', true);
 				$('button.modal-link').prop('disabled', true);
 				$('button.btn-success').prop('disabled', true);
 
 				var model = {
 					 IDSatnicaProjekta: -1,
 					 SatnicaID: satnicaId,
-				ProjektID: projectId,
+					 ProjektID: projectId,
 					 Start: start,
-						  End: null
-		  };
+					 End: null
+				};
 
-		  $.ajax({
-				url: "/Satnica/SpremiTempSatnicu",
-				method: "POST",
-				data: JSON.stringify(model),
-				contentType: 'application/json',
-				success: function (res) {
-					 activeSatnicaId = res[2];
-				}
-		  });
+				$.ajax({
+					 url: "/Satnica/SpremiTempSatnicu",
+					 method: "POST",
+					 data: JSON.stringify(model),
+					 contentType: 'application/json',
+					 success: function (res) {
+						  activeSatnicaId = res[2];
+					 }
+				});
 
 		  } else {
 				end = new Date();
@@ -99,7 +100,7 @@ $(document).ready(function () {
 				$(this).html('Start');
 
 				calculateTotals();
-						  $('#btnOdustani').prop('disabled', false);
+				$('#btnOdustani').prop('disabled', false);
 
 				var model = {
 					 IDSatnicaProjekta: activeSatnicaId,
@@ -171,6 +172,11 @@ $(document).ready(function () {
 				$('input').each(function (i) {
 					 $(this).val("");
 				});
+				$('.zabiljezeno').each(function (i) {
+					 $(this).html('00:00');
+				});
+				document.getElementById("txtTotalRedovni").innerHTML = '00:00';
+				document.getElementById("txtTotalPrekovremeni").innerHTML = '00:00';
 				lockTextFields(true);
 				$('#btnSpremi').prop('disabled', true);
 				$('#btnPredaj').prop('disabled', true);
@@ -187,6 +193,7 @@ $(document).ready(function () {
 				$('input').each(function (i) {
 					 $(this).val("");
 				});
+
 				lockTextFields(true);
 
 				$.ajax({
@@ -380,8 +387,8 @@ $('body').delegate("button[id|='btnEdit']", "click", function (e) {
 	 var editId = "btnEdit-" + uspId;
 	 document.getElementById(editId).disabled = true;
 
-	 var odMin = parseStringToMinutes(document.getElementById(odId).value);
-	 var doMin = parseStringToMinutes(document.getElementById(doId).value);
+	 var odMin = parseStringMinutesToFloat(document.getElementById(odId).value);
+	 var doMin = parseStringMinutesToFloat(document.getElementById(doId).value);
 
 	 if (odMin < doMin) {
 		  var startEnd = doMin - odMin;
@@ -396,8 +403,7 @@ $('body').delegate("button[id|='btnEdit']", "click", function (e) {
 				ProjektID: $('#projId').val(),
 				Start: new Date(start),
 				End: new Date(end),
-				StartEnd: startEnd,
-				Komentar: $('#txtKomentar').val()
+				TotalMin: startEnd
 		  };
 
 		  $.ajax({
@@ -462,11 +468,11 @@ $('body').delegate("input", "change", function (e) {
 					 }
 				}
 		  } else if ($(this).attr('id').startsWith('txtPrekovremeni')) {
-				time =
-					 addHoursMinutes(document.getElementById("txtTotalPrekovremeni").innerHTML.trim(), input.val());
-				var totalTime = addHoursMinutes(time, document.getElementById("txtTotalRedovni").innerHTML.trim());
-				var h = parseInt(totalTime.split(':')[0]);
-				var m = parseInt(totalTime.split(':')[1]);
+
+		  time = addHoursMinutes(document.getElementById("txtTotalPrekovremeni").innerHTML.trim(), input.val());
+		  var totalTime = addHoursMinutes(time, document.getElementById("txtTotalRedovni").innerHTML.trim());
+		  var h = parseInt(totalTime.split(':')[0]);
+		  var m = parseInt(totalTime.split(':')[1]);
 
 				if ((h > 12) || (h == 12 && m != 0)) {
 					 input.css('border', '3px solid red');

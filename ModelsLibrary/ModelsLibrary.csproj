@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Djelatnik.cs" />
     <Compile Include="Klijent.cs" />
+    <Compile Include="KlijentReportModel.cs" />
     <Compile Include="Projekt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repo.cs" />

@@ -3,9 +3,7 @@
 
 <div class="modal-content">
 	 <div class="modal-header">
-	 	 @(Model.SatniceProjekta.Count > 0 ? 
-			  Model.SatniceProjekta.First().Start.Date.ToString().Split(' ')[0] : 
-					Common.Nema_podataka) 
+	 	 @(Model.ProjectName) 
 		  <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="width: auto">
 	 		  <span aria-hidden="true">&times;</span>
 		  </button>

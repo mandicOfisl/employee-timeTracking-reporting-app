@@ -42,13 +42,31 @@ namespace Report
 		  protected global::System.Web.UI.HtmlControls.HtmlGenericControl linkAdministracija;
 
 		  /// <summary>
-		  /// linkLogout control.
+		  /// BtnOdjava control.
 		  /// </summary>
 		  /// <remarks>
 		  /// Auto-generated field.
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
-		  protected global::System.Web.UI.WebControls.HyperLink linkLogout;
+		  protected global::System.Web.UI.WebControls.Button BtnOdjava;
+
+		  /// <summary>
+		  /// BtnHrv control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Button BtnHrv;
+
+		  /// <summary>
+		  /// BtnEng control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Button BtnEng;
 
 		  /// <summary>
 		  /// MainContent control.

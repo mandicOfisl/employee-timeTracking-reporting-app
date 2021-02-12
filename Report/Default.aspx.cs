@@ -1,7 +1,9 @@
 ﻿using ModelsLibrary;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,9 +12,23 @@ namespace Report
 {
 	 public partial class _Default : Page
 	 {
+		  protected override void InitializeCulture()
+		  {
+				if (Request.Cookies["CultureInfo"] != null)
+				{
+					 string culture = Request.Cookies["CultureInfo"].Value;
+					 Page.Culture = culture;
+					 Page.UICulture = culture;
+					 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(culture);
+					 Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
+				}
+
+				base.InitializeCulture();
+		  }
 		  protected void Page_Load(object sender, EventArgs e)
 		  {
-				if (Request.Cookies["djelatnik"] != null) Response.Redirect("NoviIzvjestaj.aspx");
+				if (Session["djelatnik"] != null) Response.Redirect("NewReport.aspx");
+
 				txtEmail.Focus();
 		  }
 
@@ -22,18 +38,22 @@ namespace Report
 
 				if (d != null)
 				{
-					 HttpCookie cookie = new HttpCookie("djelatnik");
+					 if (d.TipDjelatnikaID == TipDjelatnikaEnum.DIREKTOR)
+					 {
+						  Session["djelatnik"] = d.IDDjelatnik.ToString();
+						  Session["tipDjelatnika"] = (int) d.TipDjelatnikaID;
 
-					 cookie["IdDjelatnik"] = d.IDDjelatnik.ToString();
-					 cookie["Ime"] = d.Ime;
-					 cookie["Prezime"] = d.Prezime;
-					 cookie["TipDjelatnika"] = ((int)d.TipDjelatnikaID).ToString();
-					 cookie["TimId"] = d.TimID.ToString();
+						  Response.Redirect("NewReport.aspx");
 
-					 cookie.Expires = DateTime.Now.AddHours(1);
+					 }
+					 else if (d.TipDjelatnikaID == TipDjelatnikaEnum.VODITELJ_TIMA)
+					 {
+						  Session["djelatnik"] = d.IDDjelatnik.ToString();
+						  Session["tipDjelatnika"] = (int)d.TipDjelatnikaID;
+						  Session["idTim"] = d.TimID;
 
-					 Response.Cookies.Add(cookie);
-					 Response.Redirect("NewReport.aspx");
+						  Response.Redirect("NewReport.aspx");
+					 }
 				}
 		  }
 

@@ -15,6 +15,15 @@ namespace Report
 	 {
 
 		  /// <summary>
+		  /// lblDjelatnici control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblDjelatnici;
+
+		  /// <summary>
 		  /// LbDjelatnici control.
 		  /// </summary>
 		  /// <remarks>
@@ -33,6 +42,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.HiddenField hiddenIdDjelatnik;
 
 		  /// <summary>
+		  /// lblIme control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblIme;
+
+		  /// <summary>
 		  /// txtIme control.
 		  /// </summary>
 		  /// <remarks>
@@ -42,6 +60,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.TextBox txtIme;
 
 		  /// <summary>
+		  /// lblPrezime control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblPrezime;
+
+		  /// <summary>
 		  /// txtPrezime control.
 		  /// </summary>
 		  /// <remarks>
@@ -49,6 +76,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.TextBox txtPrezime;
+
+		  /// <summary>
+		  /// lblEmail control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblEmail;
 
 		  /// <summary>
 		  /// RegularExpressionValidator control.
@@ -69,6 +105,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.TextBox txtEmail;
 
 		  /// <summary>
+		  /// lblDatumZap control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblDatumZap;
+
+		  /// <summary>
 		  /// txtDatum control.
 		  /// </summary>
 		  /// <remarks>
@@ -76,6 +121,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.TextBox txtDatum;
+
+		  /// <summary>
+		  /// lblZaporka control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblZaporka;
 
 		  /// <summary>
 		  /// txtZaporka control.
@@ -87,6 +141,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.TextBox txtZaporka;
 
 		  /// <summary>
+		  /// lblTim control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblTim;
+
+		  /// <summary>
 		  /// ddlTim control.
 		  /// </summary>
 		  /// <remarks>
@@ -94,6 +157,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.DropDownList ddlTim;
+
+		  /// <summary>
+		  /// lblTipDjelatnika control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblTipDjelatnika;
 
 		  /// <summary>
 		  /// ddlTipDjelatnika control.
@@ -148,6 +220,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.Button BtnSave;
+
+		  /// <summary>
+		  /// lblProjekti control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblProjekti;
 
 		  /// <summary>
 		  /// lbProjekti control.

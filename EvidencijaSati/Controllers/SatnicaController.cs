@@ -205,13 +205,14 @@ namespace EvidencijaSati.Controllers
 		  public ActionResult PrikaziInfoProjekta(int projId, int satId)
 		  {
 				Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[satId.ToString()].ToString());
-
+				
 				if (sat.Satnice[projId].Any())
 				{
 					 InfoSatniceProjektaVM model = new InfoSatniceProjektaVM
 					 {
+						  ProjectName = Repo.SelectProjekt(projId).Naziv,
 						  SatniceProjekta = sat.Satnice[projId],
-						  Total = "00:00"
+						  Total = sat.ProjektZabiljezeno.First(z => z.ProjectId == projId).RedovniPrekovremeni[0]
 					 };
 
 					 return PartialView("SatnicaProjektaInfo", model); 
@@ -247,6 +248,10 @@ namespace EvidencijaSati.Controllers
 				{
 					 sat.Satnice[s.ProjektID][sat.Satnice[s.ProjektID].Count - 1] = s;
 				}
+
+				string zabiljezeno = sat.ProjektZabiljezeno.First(z => z.ProjectId == s.ProjektID).RedovniPrekovremeni[0];
+
+				sat.ProjektZabiljezeno.First(z => z.ProjectId == s.ProjektID).RedovniPrekovremeni[0] = Utils.AddStringHoursMinutes(zabiljezeno, Utils.ParseMinutesToString(s.TotalMin));
 
 				HttpContext.Session.Add(s.SatnicaID.ToString(), JsonConvert.SerializeObject(sat));
 

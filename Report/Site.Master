@@ -2,11 +2,11 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - Reporting</title>
+    <title><%: Page.Title %></title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -68,12 +68,13 @@
                     </li>
                 </ul>
 					 <div class="form-inline">
-                    <asp:HyperLink 
-                            NavigateUrl="~/"
-                            ID="linkLogout"
-                            runat="server"
-                            CssClass="navbar-link btn btn-outline-danger"
-                            Text="Odjava"/>
+						  <asp:Button 
+                        Text="Odjava" 
+                        runat="server"
+                        ID="BtnOdjava"
+                        CssClass="btn btn-outline-danger navbar-link"
+                        CausesValidation="false"
+                        OnClick="BtnOdjava_Click"/>
                     
                     <div class="dropdown" style="margin: 0 5vw;">
 								<button
@@ -85,8 +86,22 @@
                             aria-expanded="false">
                             Jezik</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-	                         <a href="~/" class="dropdown-item">Hrv</a>
-	                         <a href="~/" class="dropdown-item">Eng</a>
+									 <asp:Button 
+                                Text="Hrv" 
+                                runat="server"
+                                ID="BtnHrv"
+                                OnClick="BtnHrv_Click"
+                                CssClass="dropdown-item"
+                                CausesValidation="false"/>
+                            <asp:Button 
+                                Text="Eng" 
+                                runat="server"
+                                ID="BtnEng"
+                                OnClick="BtnEng_Click"
+                                CssClass="dropdown-item"
+                                CausesValidation="false"/>
+<%--	                         <a href="~/" class="dropdown-item">Hrv</a>
+	                         <a href="~/" class="dropdown-item">Eng</a>--%>
                         </div>
                     </div>
 					 </div>

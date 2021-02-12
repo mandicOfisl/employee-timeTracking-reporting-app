@@ -13,3 +13,11 @@
 .btnRow > input {
 	margin-top: 5vh;
 }
+
+table {
+	 display: table!important;
+}
+
+span {
+	 margin: 2vh 0;
+}

@@ -8,6 +8,11 @@
       "files": [
         "jquery.dataTables.min.js"
       ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "sweetalert2@10.14.0",
+      "destination": "lib/sweetalert2/"
     }
   ]
 }

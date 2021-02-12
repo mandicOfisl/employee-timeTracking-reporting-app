@@ -15,6 +15,15 @@ namespace Report
 	 {
 
 		  /// <summary>
+		  /// lblDjelatnik control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblDjelatnik;
+
+		  /// <summary>
 		  /// BtnManageDjelatnik control.
 		  /// </summary>
 		  /// <remarks>
@@ -22,6 +31,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.HyperLink BtnManageDjelatnik;
+
+		  /// <summary>
+		  /// lblTim control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblTim;
 
 		  /// <summary>
 		  /// BtnEditTim control.
@@ -33,6 +51,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.HyperLink BtnEditTim;
 
 		  /// <summary>
+		  /// lblProjekt control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblProjekt;
+
+		  /// <summary>
 		  /// BtnEditProjekt control.
 		  /// </summary>
 		  /// <remarks>
@@ -40,6 +67,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.HyperLink BtnEditProjekt;
+
+		  /// <summary>
+		  /// lblKlijent control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblKlijent;
 
 		  /// <summary>
 		  /// BtnEditKlijent control.

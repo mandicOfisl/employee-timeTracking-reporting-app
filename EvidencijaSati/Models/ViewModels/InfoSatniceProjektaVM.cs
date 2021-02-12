@@ -10,5 +10,6 @@ namespace EvidencijaSati.Models.ViewModels
 	 {
 		  public List<SatnicaProjekta> SatniceProjekta { get; set; }
 		  public string Total { get; set; }
+		  public string ProjectName { get; set; }
 	 }
 }

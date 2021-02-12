@@ -50,6 +50,52 @@ namespace ModelsLibrary
 				}
 		  }
 
+		  public static IEnumerable<KlijentReportModel> GetKlijentReport(int klijentId, DateTime from, DateTime to)
+		  {
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure,
+					 "GetKlijentReport",
+						  new SqlParameter[]{
+								new SqlParameter("@IdKlijent", klijentId),
+								new SqlParameter("@From", from),
+								new SqlParameter("@To", to)
+						  }))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {
+						  yield return new KlijentReportModel
+						  {
+								NazivProjekta = row["Naziv"].ToString(),
+								Total = int.Parse(row["Total"].ToString())
+						  };
+					 }
+
+				}
+		  }
+
+		  public static IEnumerable<Satnica> GetTimReport(int timId, DateTime from, DateTime to)
+		  {
+				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure,
+					 "GetTimReport",
+						  new SqlParameter[]{
+								new SqlParameter("@IdTim", timId),
+								new SqlParameter("@From", from),
+								new SqlParameter("@To", to)
+						  }))
+				{
+					 foreach (DataRow row in Ds.Tables[0].Rows)
+					 {
+						  yield return new Satnica
+						  {
+								DjelatnikID = (int)row[nameof(Satnica.DjelatnikID)],
+								Total = double.Parse(row[nameof(Satnica.Total)].ToString()),
+								TotalPrekovremeni = double.Parse(row[nameof(Satnica.TotalPrekovremeni)].ToString()),
+								TotalRedovni = double.Parse(row[nameof(Satnica.TotalRedovni)].ToString())
+						  };
+					 }
+
+				}
+		  }
+
 		  public static IEnumerable<Projekt> GetProjektiKlijenta(int iDKlijent)
 		  {
 				using (Ds = SqlHelper.ExecuteDataset(cs, CommandType.StoredProcedure,

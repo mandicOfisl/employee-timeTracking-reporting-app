@@ -24,6 +24,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.HiddenField hiddenIdTim;
 
 		  /// <summary>
+		  /// lblTimovi control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblTimovi;
+
+		  /// <summary>
 		  /// LbTimovi control.
 		  /// </summary>
 		  /// <remarks>
@@ -33,6 +42,15 @@ namespace Report
 		  protected global::System.Web.UI.WebControls.ListBox LbTimovi;
 
 		  /// <summary>
+		  /// lblIme control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblIme;
+
+		  /// <summary>
 		  /// txtIme control.
 		  /// </summary>
 		  /// <remarks>
@@ -40,6 +58,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.TextBox txtIme;
+
+		  /// <summary>
+		  /// lblDatumKreiranja control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblDatumKreiranja;
 
 		  /// <summary>
 		  /// txtDatum control.
@@ -94,6 +121,15 @@ namespace Report
 		  /// To modify move field declaration from designer file to code-behind file.
 		  /// </remarks>
 		  protected global::System.Web.UI.WebControls.Button BtnSave;
+
+		  /// <summary>
+		  /// lblClanovi control.
+		  /// </summary>
+		  /// <remarks>
+		  /// Auto-generated field.
+		  /// To modify move field declaration from designer file to code-behind file.
+		  /// </remarks>
+		  protected global::System.Web.UI.WebControls.Label lblClanovi;
 
 		  /// <summary>
 		  /// lbClanoviTima control.
