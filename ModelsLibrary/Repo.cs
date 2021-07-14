@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -649,14 +650,17 @@ namespace ModelsLibrary
 								IDSatnicaProjekta = (int)row[nameof(SatnicaProjekta.IDSatnicaProjekta)],
 								ProjektID = (int)row[nameof(SatnicaProjekta.ProjektID)],
 								SatnicaID = (int)row[nameof(SatnicaProjekta.SatnicaID)],
-								Start = row[nameof(SatnicaProjekta.End)].GetType().Equals(typeof(DBNull)) ?
-										  new DateTime(0) : DateTime.Parse(row[nameof(SatnicaProjekta.Start)].ToString()),
+								Start = row[nameof(SatnicaProjekta.Start)].GetType().Equals(typeof(DBNull)) ?
+												new DateTime(0) : DateTime.Parse(row[nameof(SatnicaProjekta.Start)].ToString()),
 								End = row[nameof(SatnicaProjekta.End)].GetType().Equals(typeof(DBNull)) ?
-										  new DateTime(0) : DateTime.Parse(row[nameof(SatnicaProjekta.End)].ToString()),
+												new DateTime(0) : DateTime.Parse(row[nameof(SatnicaProjekta.End)].ToString()),
 								TotalMin = float.Parse(row[nameof(SatnicaProjekta.TotalMin)].ToString()),
 								Prekovremeni = float.Parse(row[nameof(SatnicaProjekta.Prekovremeni)].ToString())
 						  };
 					 }
+
+					 //End = row[nameof(SatnicaProjekta.End)].GetType().Equals(typeof(DBNull)) ?
+						//				  new DateTime(0) : DateTime.Parse(row[nameof(SatnicaProjekta.End)].ToString()),
 
 				}
 

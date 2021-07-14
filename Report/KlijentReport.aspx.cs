@@ -47,6 +47,8 @@ namespace Report
 		  {
 				if (ddlKlijenti.SelectedIndex > -1)
 				{
+					 gvTable.Visible = false;
+
 					 int klijentId = int.Parse(ddlKlijenti.SelectedValue);
 					 DateTime from = DateTime.Parse(DtpFrom.Text);
 					 DateTime to = DateTime.Parse(DtpTo.Text);
@@ -60,7 +62,6 @@ namespace Report
 						  BtnCsv.Enabled = true;
 					 }
 
-
 				}
 		  }
 
@@ -70,14 +71,14 @@ namespace Report
 				DataRow dr;
 
 				tb.Columns.Add("Naziv projekta", typeof(string));
-				tb.Columns.Add("Ukupno", typeof(int));
+				tb.Columns.Add("Ukupno", typeof(double));
 
 				foreach (KlijentReportModel s in satnice)
 				{
 					 dr = tb.NewRow();
 
 					 dr["Naziv projekta"] = s.NazivProjekta;
-					 dr["Ukupno"] = s.Total;
+					 dr["Ukupno"] = Math.Round((double)((s.Total)/ 60), 2);
 
 					 tb.Rows.Add(dr);
 				}
@@ -89,7 +90,7 @@ namespace Report
 				gvTable.FooterRow.Cells[0].Font.Bold = true;
 
 				gvTable.FooterRow.Cells[1].Text =
-					 tb.AsEnumerable().Sum(row => row.Field<int>(tb.Columns[1].ToString())).ToString();
+					 tb.AsEnumerable().Sum(row => row.Field<double>(tb.Columns[1].ToString())).ToString();
 				gvTable.FooterRow.Cells[1].Font.Bold = true;
 		  }
 

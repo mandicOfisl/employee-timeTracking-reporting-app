@@ -25,7 +25,7 @@ namespace EvidencijaSati.Controllers
 				try
 				{
 					 Djelatnik djelatnik = Repo.GetDjelatnikByEmail(d.Email);
-					 if (djelatnik.Zaporka == d.Zaporka)
+					 if (djelatnik.Zaporka == d.Zaporka && djelatnik.IsActive)
 					 {
 						  ViewBag.Id = djelatnik.IDDjelatnik;
 						  ViewBag.TipDjelatnika = djelatnik.TipDjelatnikaID;
@@ -66,7 +66,7 @@ namespace EvidencijaSati.Controllers
 
 		  public ActionResult Logout()
 		  {
-				if (HttpContext.Session["id"] != null) HttpContext.Session.Remove("id");
+				if (HttpContext.Session["id"] != null) HttpContext.Session["id"] = null;
 				ViewBag.Site = "Login";
 				return View("Login", new Djelatnik());
 		  }

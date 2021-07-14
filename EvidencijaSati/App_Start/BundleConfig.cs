@@ -50,6 +50,9 @@ namespace EvidencijaSati
 
 				bundles.Add(new StyleBundle("~/Content/userProfile").Include(
 							 "~/Content/userProfile.css"));
+
+				bundles.Add(new StyleBundle("~/Content/swalert").Include(
+							 "~/lib/sweetalert2/dist/sweetalert2.all.min.css"));
 		  }
 	 }
 }

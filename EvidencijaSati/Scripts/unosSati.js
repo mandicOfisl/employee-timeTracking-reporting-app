@@ -2,6 +2,7 @@
 
 $(document).ready(function () {
 	 var aktivanProjekt = $('#aktivanProjekt').val();
+	 var tipDjelatnika = $('#tipDjelatnika').val();
 
 	 $('#btnPredaj').prop('disabled', true);
 	 $('#btnOdustani').prop('disabled', true);
@@ -20,7 +21,7 @@ $(document).ready(function () {
 		  });
 	 }
 
-	 lockTextFields(true);
+	 lockTextFields(true, tipDjelatnika);
 	 calculateTotals();
 
 	 var projectId, start, end, activeSatnicaId, satnicaId;
@@ -129,14 +130,23 @@ $(document).ready(function () {
 
 	 $('#btnUredi').on('click', function (e) {
 		  e.preventDefault();
-		  lockTextFields(false);
+		  lockTextFields(false, tipDjelatnika);
+
+		  clearFields();
+
+		  //$('input').each(function (i) {
+				//$(this).val("");
+		  //});
+		  document.getElementById("txtTotalRedovni").innerHTML = '00:00';
+		  document.getElementById("txtTotalPrekovremeni").innerHTML = '00:00';
+
 		  $('#btnOdustani').prop('disabled', false);
 	 });
 
 	 $('#btnSpremi').on('click', function (e) {
 		  e.preventDefault();
 
-		  lockTextFields(true);
+		  lockTextFields(true, tipDjelatnika);
 
 		  var totR = document.getElementById("txtTotalRedovni").innerHTML.trim();
 		  var totP = document.getElementById("txtTotalPrekovremeni").innerHTML.trim();;
@@ -169,9 +179,8 @@ $(document).ready(function () {
 		  e.preventDefault();
 		  if (confirm("Obrisati sve podatke?")) {
 				$('button.btnTimer').prop('disabled', false);
-				$('input').each(function (i) {
-					 $(this).val("");
-				});
+				clearFields();
+				
 				$('.zabiljezeno').each(function (i) {
 					 $(this).html('00:00');
 				});
@@ -186,27 +195,36 @@ $(document).ready(function () {
 
 	 $('#btnPredaj').on('click', function (e) {
 		  e.preventDefault();
-		  if (confirm("Predati unešene podatke?")) {
-				$('#btnPredaj').prop('disabled', true);
-				$('#btnOdustani').prop('disabled', false);
-				$('button.btnTimer').prop('disabled', false);
-				$('input').each(function (i) {
-					 $(this).val("");
-				});
 
-				lockTextFields(true);
-
-				$.ajax({
-					 url: "/Satnica/PredajNaProvjeru/" + satnicaId,
-					 method: "POST",
-					 success: function (res) {
-						  $('<div id="modal-container" class="modal fade">' +
-								'<div class="modal-dialog" role="document">' +
-								res + '</div></div> ').modal();
-						  $('#btnPredaj').prop('disabled', false);
-					 }
-				});
-		  }
+		  Swal.fire({
+				title: "Jeste li sigurni?",
+				text: "Predana satnica se ne može uređivati",
+				icon: "warning",
+				buttons: true,
+		  }).then((b) => {
+				if (b) {
+					 $.ajax({
+						  url: "/Satnica/PredajNaProvjeru/" + satnicaId,
+						  method: "POST",
+						  success: function (res) {
+								if (res == 1) {									 									 
+									 Swal.fire({
+										  title: "Predano!",
+										  icon: "success",
+										  closeOnClickOutside: false
+									 }).then(() => {
+										  var url = "/User/UserProfile/" + $('#djelatnikId').val();
+										  window.location = url;
+									 });
+								} else {
+									 Swal.fire("Error", "Predaja nije uspjela!", "error");
+								}
+						  }
+					 });
+				} else {
+						  
+				}
+		  });
 	 });				
 
 });
@@ -263,11 +281,23 @@ function addHoursMinutes(first, second) {
 	 return newH.toString().padStart(2, '0') + ":" + newM.toString().padStart(2, '0');
 }
 
-function lockTextFields(trueFalse) {
+function lockTextFields(trueFalse, tipDjelatnika) {
 	 $('input').each(function (i) {
 		  if ($(this).attr('id') != "txtKomentar") {
 				$(this).prop('disabled', trueFalse);
 		  }
+		  if (tipDjelatnika > 3 && $(this).hasClass('prekovremeni')) {
+				$(this).prop('disabled', true);
+		  }
+	 });
+}
+
+function clearFields() {
+	 $('input').each(function (i) {
+		  if ($(this).is(":visible")) {
+				$(this).val("");
+		  }
+
 	 });
 }
 
@@ -452,38 +482,51 @@ $('body').delegate("input", "change", function (e) {
 		  document.getElementById(editId).disabled = false;
 
 	 } else if (regex.test(input.val())) {
+		  input.css('border', '1px solid #ced4da');
 		  if (input.attr('id').startsWith('txtRadni')) {
-				time =
-					 addHoursMinutes(document.getElementById("txtTotalRedovni").innerHTML.trim(),	input.val());
+				time = addHoursMinutes(document.getElementById("txtTotalRedovni").innerHTML.trim(),	input.val());
 				var h = parseInt(time.split(':')[0]);
 				var m = parseInt(time.split(':')[1]);
-				if ((h > 8) || (h == 8 && m != 0)) {
-					 input.css('border', '3px solid red');
+
+				if (tipDjelatnika.value < 4) {
+					 if ((h > 8) || (h == 8 && m != 0)) {
+						  input.css('border', '3px solid red');
+					 } else {
+						  document.getElementById("txtTotalRedovni").innerHTML = time;
+						  calculateProjectTotals();
+						  input.css('border', '1px solid #ced4da');
+						  if (h == 8 && m == 0) {
+								$('#btnSpremi').prop('disabled', false);
+						  }
+					 }
 				} else {
-					 document.getElementById("txtTotalRedovni").innerHTML = time;
-					 calculateProjectTotals();
-					 input.css('border', '1px solid #ced4da');
-					 if (h == 8 && m == 0) {
+					 if ((h > 12) || (h == 12 && m != 0)) {
+						  input.css('border', '3px solid red');
+					 } else {
+						  document.getElementById("txtTotalRedovni").innerHTML = time;
+						  calculateTotals();
+						  input.css('border', '1px solid #ced4da');
 						  $('#btnSpremi').prop('disabled', false);
 					 }
 				}
+
 		  } else if ($(this).attr('id').startsWith('txtPrekovremeni')) {
 
-		  time = addHoursMinutes(document.getElementById("txtTotalPrekovremeni").innerHTML.trim(), input.val());
-		  var totalTime = addHoursMinutes(time, document.getElementById("txtTotalRedovni").innerHTML.trim());
-		  var h = parseInt(totalTime.split(':')[0]);
-		  var m = parseInt(totalTime.split(':')[1]);
+				time = addHoursMinutes(document.getElementById("txtTotalPrekovremeni").innerHTML.trim(), input.val());
+				var totalTime = addHoursMinutes(time, document.getElementById("txtTotalRedovni").innerHTML.trim());
+				var h = parseInt(totalTime.split(':')[0]);
+				var m = parseInt(totalTime.split(':')[1]);
 
-				if ((h > 12) || (h == 12 && m != 0)) {
-					 input.css('border', '3px solid red');
-				} else {
-					 document.getElementById("txtTotalPrekovremeni").innerHTML = addHoursMinutes(
-						  document.getElementById("txtTotalPrekovremeni").innerHTML.trim(),
-						  input.val());
-					 calculateProjectTotals();
-					 input.css('border', '1px solid #ced4da');
+					 if ((h > 12) || (h == 12 && m != 0)) {
+						  input.css('border', '3px solid red');
+					 } else {
+						  document.getElementById("txtTotalPrekovremeni").innerHTML = addHoursMinutes(
+								document.getElementById("txtTotalPrekovremeni").innerHTML.trim(),
+								input.val());
+						  calculateTotals();
+						  input.css('border', '1px solid #ced4da');
+					 }
 				}
-		  }
 	 } else {
 		  input.css('border', '3px solid red');
 	 }

@@ -44,6 +44,8 @@ namespace Report
 		  {
 				if (ddlTimovi.SelectedIndex > -1)
 				{
+					 gvTable.Visible = false;
+
 					 int timId = int.Parse(ddlTimovi.SelectedValue);
 					 DateTime from = DateTime.Parse(DtpFrom.Text);
 					 DateTime to = DateTime.Parse(DtpTo.Text);
@@ -56,6 +58,7 @@ namespace Report
 					 {
 						  CreateTable(djelatnici, satnice);
 						  gvTable.Visible = true;
+						  BtnCsv.Enabled = true;
 					 }
 
 				}
@@ -69,9 +72,9 @@ namespace Report
 
 				tb.Columns.Add("Ime i prezime", typeof(string));
 				tb.Columns.Add("Tip djelatnika", typeof(string));
-				tb.Columns.Add("Redovni sati", typeof(int));
-				tb.Columns.Add("Prekovremeni sati", typeof(int));
-				tb.Columns.Add("Ukupno", typeof(int));
+				tb.Columns.Add("Redovni sati", typeof(double));
+				tb.Columns.Add("Prekovremeni sati", typeof(double));
+				tb.Columns.Add("Ukupno", typeof(double));
 
 				foreach (Satnica s in satnice)
 				{
@@ -103,9 +106,9 @@ namespace Report
 								break;
 					 }
 
-					 dr["Redovni sati"] = s.TotalRedovni;
-					 dr["Prekovremeni sati"] = s.TotalPrekovremeni;
-					 dr["Ukupno"] = s.Total;
+					 dr["Redovni sati"] = Math.Round((double)((s.TotalRedovni) / 60), 2);
+					 dr["Prekovremeni sati"] = Math.Round((double)((s.TotalPrekovremeni) / 60), 2);
+					 dr["Ukupno"] = Math.Round((double)((s.Total) / 60), 2);
 
 					 tb.Rows.Add(dr);
 
@@ -117,19 +120,15 @@ namespace Report
 				gvTable.FooterRow.Cells[0].Text = "Ukupno";
 				gvTable.FooterRow.Cells[0].Font.Bold = true;
 
-				int total = 0;
+				double total = 0;
 
 				for (int i = 2; i < tb.Columns.Count; i++)
 				{
-					 total = tb.AsEnumerable().Sum(row => row.Field<int>(tb.Columns[i].ToString()));
+					 total = tb.AsEnumerable().Sum(row => row.Field<double>(tb.Columns[i].ToString()));
 					 gvTable.FooterRow.Cells[i].Text = total.ToString();
 					 gvTable.FooterRow.Cells[i].Font.Bold = true;
 				}
 		  }
 
-		  protected void BtnCsv_Click(object sender, EventArgs e)
-		  {
-
-		  }
 	 }
 }

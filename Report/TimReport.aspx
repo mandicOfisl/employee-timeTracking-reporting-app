@@ -83,8 +83,8 @@
 				Text="Izvezi csv" 
 				runat="server"
 				ID="BtnCsv"
-				OnClick="BtnCsv_Click"
 				CssClass="btn btn-success"
+				OnClientClick="return export_table_to_csv();"
 				Enabled="False" meta:resourcekey="BtnCsvResource1"/>
 	 </div>
 

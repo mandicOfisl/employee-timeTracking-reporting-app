@@ -50,7 +50,7 @@ namespace EvidencijaSati.Controllers
 									 Status = SatnicaStatusEnum.WAITING_SUBMIT,
 									 Komentar = ""
 								},
-								Projekti = Repo.GetProjektiDjelatnika(id).ToList(),
+								Projekti = Repo.GetProjektiDjelatnika(id).Where(p => p.IsActive).ToList(),
 								AktivanProjektId = -1
 						  };
 
@@ -81,7 +81,7 @@ namespace EvidencijaSati.Controllers
 
 								foreach (var s in sps)
 								{
-									 if (s.End == new DateTime(0)) model.AktivanProjektId = s.ProjektID;								 
+									 if (s.Start != new DateTime(0) && s.End == new DateTime(0)) model.AktivanProjektId = s.ProjektID;								 
 								}
 
 								float total = 0;
@@ -182,13 +182,12 @@ namespace EvidencijaSati.Controllers
 		  [HttpPost]
 		  public ActionResult SpremiZaPredaju(Satnica sps)
 		  {
-				int satId = JsonConvert.DeserializeObject<int>(HttpContext.Session["satnicaId"].ToString());
+				int satId = sps.IDSatnica;
 
 				Repo.UpdateSatnicaProjektaZaPredaju(sps.IDSatnica, sps.ProjektZabiljezeno);
 
-				string key = satId.ToString();
-				Satnica sat = JsonConvert.DeserializeObject<Satnica>(HttpContext.Session[key].ToString());
-
+				Satnica sat = Repo.SelectSatnica(satId);
+				
 				sat.Komentar = sps.Komentar;
 				sat.Total = sps.Total;
 				sat.TotalRedovni = sps.TotalRedovni;
@@ -264,8 +263,8 @@ namespace EvidencijaSati.Controllers
 				int i = Repo.ChangeSatnicaStatus(id, SatnicaStatusEnum.WAITING_APPROVAL);
 				ViewBag.TipDjelatnika =
 						  JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
-				if (i > 0) return PartialView("SuccessPartial");
-				else return View("Error");
+				if (i > 0) return Json(1);
+				else return Json(0);
 		  }
 
 		  public ActionResult PregledajSatniceZaDoradu(int id)
@@ -299,61 +298,66 @@ namespace EvidencijaSati.Controllers
 
 		  public ActionResult PregledSatnica()
 		  {
-				try
+				if (HttpContext.Session["id"] != null)
 				{
-					 int id = JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString());
-					 int tipDjelatnika = JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
-					 ViewBag.TipDjelatnika = tipDjelatnika;
-
-					 PregledSatnicaVM model = new PregledSatnicaVM
+					 try
 					 {
-						  Djelatnik = Repo.SelectDjelatnik(id),
-						  Satnice =
-								Repo.GetSatniceProjektaZaVoditeljaDirektora(
-									 id,
-									 tipDjelatnika,
-									 (int)SatnicaStatusEnum.WAITING_APPROVAL).ToList(),
-						  TimoviClanovi = new List<TimClanovi>()
-					 };
+						  int id = JsonConvert.DeserializeObject<int>(HttpContext.Session["id"].ToString());
+						  int tipDjelatnika = JsonConvert.DeserializeObject<int>(HttpContext.Session["tipDjelatnika"].ToString());
+						  ViewBag.TipDjelatnika = tipDjelatnika;
 
-					 if (model.Satnice.Count() > 0)
-					 {
-						  if (tipDjelatnika == (int) TipDjelatnikaEnum.DIREKTOR)
+						  PregledSatnicaVM model = new PregledSatnicaVM
 						  {
-								var timovi = Repo.GetTimovi().ToList();
+								Djelatnik = Repo.SelectDjelatnik(id),
+								Satnice =
+									 Repo.GetSatniceProjektaZaVoditeljaDirektora(
+										  id,
+										  tipDjelatnika,
+										  (int)SatnicaStatusEnum.WAITING_APPROVAL).ToList(),
+								TimoviClanovi = new List<TimClanovi>()
+						  };
 
-								foreach (Tim tim in timovi)
+						  if (model.Satnice.Count() > 0)
+						  {
+								if (tipDjelatnika == (int)TipDjelatnikaEnum.DIREKTOR)
+								{
+									 var timovi = Repo.GetTimovi().ToList();
+
+									 foreach (Tim tim in timovi)
+									 {
+										  model.TimoviClanovi.Add(new TimClanovi
+										  {
+												Tim = tim,
+												Djelatnici = Repo.GetClanoviTima(tim.IDTim).ToList()
+										  });
+									 }
+								}
+								else
 								{
 									 model.TimoviClanovi.Add(new TimClanovi
 									 {
-										  Tim = tim,
-										  Djelatnici = Repo.GetClanoviTima(tim.IDTim).ToList()
+										  Tim = Repo.SelectTim(model.Djelatnik.TimID),
+										  Djelatnici = Repo.GetClanoviTima(model.Djelatnik.TimID).ToList()
 									 });
 								}
+								return View(model);
 						  }
 						  else
 						  {
-								model.TimoviClanovi.Add(new TimClanovi
+								return View("Error", new ErrorVM
 								{
-									 Tim = Repo.SelectTim(model.Djelatnik.TimID),
-									 Djelatnici = Repo.GetClanoviTima(model.Djelatnik.TimID).ToList()
-								}); 
+									 Msg = Common.Nema_satnica
+								});
 						  }
-						  return View(model);
-					 }
-					 else
-					 {
-						  return View("Error", new ErrorVM
-						  {
-								Msg = Common.Nema_satnica
-						  });
-					 }
 
+					 }
+					 catch (Exception)
+					 {
+						  return RedirectToAction("Login", "Home");
+					 }
 				}
-				catch (Exception)
-				{
-					 return RedirectToAction("Login", "Home");
-				}
+
+				return RedirectToAction("Login", "Home");				
 		  }
 
 		  [HttpGet]
@@ -397,13 +401,11 @@ namespace EvidencijaSati.Controllers
 
 		  public ActionResult PotvrdiSatnicu(int id)
 		  {
-
 				return Json(Repo.ChangeSatnicaStatus(id, SatnicaStatusEnum.APPROVED));
 		  }
 
 		  public ActionResult VratiSatnicu(int id)
 		  {
-
 				return Json(Repo.ChangeSatnicaStatus(id, SatnicaStatusEnum.REVISION_NEEDED));
 		  }
 	 }

@@ -3,7 +3,9 @@
 
 @Scripts.Render("~/bundles/unosSati")
 @Scripts.Render("~/bundles/dataTables")
+@Scripts.Render("~/bundles/swalert")
 @Styles.Render("~/Content/dataTables")
+@Styles.Render("~/Content/swalert")
 @Styles.Render("~/Content/unosSati")
 
 <h1>@UnosSati.Pozdrav @Model.Djelatnik.Ime !</h1>
@@ -12,6 +14,7 @@
 @Html.HiddenFor(a => a.Satnica.IDSatnica, new { @id = "satnicaId" })
 @Html.HiddenFor(a => a.Satnica.DjelatnikID, new { @id = "djelatnikId" })
 @Html.HiddenFor(a => a.Satnica.Datum, new { @id = "datum" })
+@Html.Hidden("tip", (int)Model.Djelatnik.TipDjelatnikaID, new { @id = "tipDjelatnika" })
 
 <div class="container">
 	 <div class="row justify-content-between">
