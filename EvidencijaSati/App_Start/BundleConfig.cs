@@ -31,11 +31,6 @@ namespace EvidencijaSati
 				bundles.Add(new ScriptBundle("~/bundles/swalert").Include(
 							 "~/lib/sweetalert2/dist/sweetalert2.all.min.js"));
 
-
-
-
-
-
 				bundles.Add(new StyleBundle("~/Content/css").Include(
 							 "~/Content/bootstrap.css", "~/Content/font-awesome.min.css"));
 

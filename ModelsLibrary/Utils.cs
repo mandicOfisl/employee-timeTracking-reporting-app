@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModelsLibrary
 {
-	 public class Utils
+    public class Utils
 	 {
 		  public static string ParseMinutesToString(float zabiljezeno)
 		  {
@@ -18,10 +15,7 @@ namespace ModelsLibrary
 
 		  public static float ParseStingToMinutes(string minutes)
 		  {
-				if (minutes == "")
-				{
-					 return 0;
-				}
+				if (minutes == "") return 0;
 
 				string[] s = minutes.Split(':');
 
